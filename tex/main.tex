@@ -1,0 +1,203 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{HomeWorkTemplate}
+\usepackage{circuitikz}
+\usepackage{multicol}
+\usepackage{placeins}
+\usepackage[shortlabels]{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{minted}
+\usetikzlibrary{automata,positioning}
+\usepackage{tikz-timing}
+\usepackage{bookmark}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{xepersian}
+\usepackage{circuitikz}
+% \usepackage[bidi=basic]{bidi} % Load bidi without RTLdocument option
+\settextfont{XB Niloofar} % Persian font
+\setlatintextfont{Times New Roman} % English font
+\usetikzlibrary{arrows,automata}
+\usetikzlibrary{circuits.logic.US}
+\usepackage{changepage}
+\usepackage{capt-of}
+\newcounter{problemcounter}
+\newcounter{subproblemcounter}
+\newcounter{subsubproblemcounter}
+\setcounter{problemcounter}{1}
+\setcounter{subproblemcounter}{2}
+\setcounter{subsubproblemcounter}{1}
+
+\newcommand{\abjadd}[1]{%
+  \ifcase#1
+   \or الف
+   \or ب
+    \or ج
+    \or د
+    \or ه
+    \or و
+    \or ز
+    \or ح
+    \or ط
+    \or ی
+    \or ک
+    \or ل
+    \or م
+    \or ن
+  \fi
+}
+
+\newcommand{\harfii}[1]{\abjadd{\numexpr#1-1\relax}}
+\newcommand{\problem}[1]
+{
+	\subsection*{
+		سوال
+		\arabic{problemcounter} 
+		\stepcounter{problemcounter}
+		\setcounter{subproblemcounter}{2}
+		#1
+	}
+}
+
+\newcommand{\subproblem}{
+  % if subproblem counter is not 0, add \\
+  \setcounter{subsubproblemcounter}{1}
+  \ifnum\value{subproblemcounter}>2
+    \\ \\
+  \fi
+  \textbf{\harfii{\value{subproblemcounter}})}\stepcounter{subproblemcounter}
+}
+
+\newcommand{\subsubproblem}{
+  % start from 1 to i
+    \\
+  \textbf{\arabic{subsubproblemcounter})}\stepcounter{subsubproblemcounter}
+}
+
+\begin{document}
+\handout
+{زبان‌های برنامه‌سازی}
+{دکتر ایزدی}
+{نیم‌سال دوم 1403\lr{-}1404}
+{اطلاعیه}
+{}
+{}
+{فاز ۱ پروژه}
+\section{توضیحات گرامر:}
+گرامر کامل زبان ترکیبی از گرامر سی، کمی از گرامر پایتون و ساده‌سازی های بسیار برای راحتی پیاده سازی و نوشتن لکسر و پارسر است، 
+برای مثال، در گرامر استفاده شده تنها از 
+\lr{while}
+برای دستورات حلقه استفاده شده و از ایف‌های تک خطی(بدون اسکوپ) پشتیبانی نشده.
+\\
+برای ساپورت کردن از آرایه، تصمیم به این شد که علاوه بر دیتا‌ تایپ‌های بیسیک مانند 
+\lr{int} و \lr{float} از دیتاتایپی به نام دیتاتایپ لیست استفاده شود، 
+که سینتکس تعریف لیست به صورت زیر است:
+\begin{minted}{c++}
+list<typename> name;
+
+example
+list<list<int>> a;
+\end{minted}
+در این زبان، تمام آرایه‌ها داینامیک سایز تعریف می‌شوند و آرایه با سایز ثابت در آن وجود ندارد، همچنین برای تورینگ کامپلیت بودن 
+سینتکس زبان، علاوه بر دو استیتمنت ابتدایی 
+\texttt{input}
+و 
+\texttt{output}
+چهار دستور کار با لیست وجود دارد که عبارتند از
+\texttt{push}, \texttt{pop}, \texttt{get}, \texttt{set}
+که عملکرد آن‌ها از اسم آنها مشخص است، دقت کنید چون آرایه‌ها داینامیک سایز هستند 
+و اجازه دستری به آنها توسط آپرند داده نشده، داشتن حداقل ۲ تا از این توابع یعنی 
+\texttt{get}
+و 
+\texttt{push}
+برای تورینگ‌کامپلیت بودن الزامیست، ۲ تابع دیگر هم برای راحتی به استیتمنت‌های از پیش تعریف شده زبان اضافه شدند.
+\\
+دقت کنید که تمامی ۶ دستور از پیش معین شده، با علامت 
+\$
+شروع می‌شوند.
+\\
+در این زبان، درست مثل پایتون می‌توان در هر اسکوپی تابع را تعریف کرد و تعریف توابع مانند سی پلاس پلاس به اسکوپ گلوبال محدود نیستند، همچنین توابع باید با سمیکالن 
+پایان یابند، برای مثال:
+\begin{minted}{c++}
+  int a;
+  $input(a);
+  int factorial(int n) {
+    if (n == 0) {
+      return 1;
+    } else {
+      return n * factorial(n - 1);
+    }
+  };
+
+  $output(factorial(a));
+\end{minted}
+\pagebreak
+\section{گرامر کامل زبان:}
+در ادامه گرامر کامل زبان را نوشته‌ایم:
+
+\begin{align*}
+\text{\lr{Spc}} &\rightarrow \text{\lr{Space}} \mid \text{\lr{Tab}} \mid \text{\lr{NewLine}} \\[0.5em]
+\text{\lr{Program}} &\rightarrow \text{\lr{StatementSeq}} \\[0.5em]
+\text{\lr{SimpleStatement}} &\rightarrow \text{\lr{VarDec}} \mid \text{\lr{FunDec}} \mid \text{\lr{Assignment}} \mid \text{\lr{Expression}} \mid \\
+&\quad \text{\lr{BreakStatement}} \mid \text{\lr{ContinueStatement}} \mid \text{\lr{ReturnStatemnt}} \mid \text{\lr{PreDefinedStatement}} \\[0.5em]
+\text{\lr{Statement}} &\rightarrow \text{\lr{SimpleStatement}}; \mid \text{\lr{IfStatement}} \mid \text{\lr{WhileStatement}} \\[0.5em]
+\text{\lr{StatementSeq}} &\rightarrow \text{\lr{Statement}} \; \text{\lr{StatementSeq}} \mid \text{\lr{Scope}} \; \text{\lr{StatementSeq}} \mid \text{\lr{empty}} \\[0.5em]
+\text{\lr{Scope}} &\rightarrow \{ \; \text{\lr{StatementSeq}} \; \} \\[0.5em]
+\text{\lr{Expression}} &\rightarrow \text{\lr{Exp7}} \\[0.5em]
+\text{\lr{IfStatement}} &\rightarrow \text{\lr{if}} \; ( \; \text{\lr{Expression}} \; ) \; \text{\lr{Scope}} \mid \\
+&\quad \text{\lr{if}} \; ( \; \text{\lr{Expression}} \; ) \; \text{\lr{Scope}} \; \text{\lr{else}} \; \text{\lr{Scope}} \mid \\
+&\quad \text{\lr{if}} \; ( \; \text{\lr{Expression}} \; ) \; \text{\lr{Scope}} \; \text{\lr{else}} \; \text{\lr{IfStatement}} \\[0.5em]
+\text{\lr{WhileStatement}} &\rightarrow \text{\lr{while}} \; ( \; \text{\lr{Expression}} \; ) \; \text{\lr{Scope}} \\[0.5em]
+\text{\lr{Word}} &\rightarrow \text{\lr{``}}(a\text{\lr{-}}z,A\text{\lr{-}}Z,\_)(a\text{\lr{-}}z,A\text{\lr{-}}Z,\_,0\text{\lr{-}}9)^*\text{\lr{''}} \\[0.5em]
+\text{\lr{VarName}} &\rightarrow \text{\lr{Word}} \\[0.5em]
+\text{\lr{FunName}} &\rightarrow \text{\lr{Word}} \\[0.5em]
+\text{\lr{VarType}} &\rightarrow \text{\lr{int}} \mid \text{\lr{float}} \mid \text{\lr{string}} \mid \text{\lr{char}} \mid \text{\lr{bool}} \mid \text{\lr{list<VarType>}} \\[0.5em]
+\text{\lr{VarTypeName}} &\rightarrow \text{\lr{VarType}} \; \text{\lr{Spc}} \; \text{\lr{VarName}} \\[0.5em]
+\text{\lr{VarDec}} &\rightarrow \text{\lr{VarTypeName}} \mid \text{\lr{VarTypeName}} = \text{\lr{Expression}} \\[0.5em]
+\text{\lr{VarSeq}} &\rightarrow \text{\lr{VarTypeName}} , \text{\lr{VarSeq}} \mid \text{\lr{VarTypeName}} \\[0.5em]
+\text{\lr{FunDec}} &\rightarrow \text{\lr{VarType}} \; \text{\lr{Spc}} \; \text{\lr{FunName}} \; ( \; ) \; \text{\lr{Scope}} \mid \\
+&\quad \text{\lr{VarType}} \; \text{\lr{Spc}} \; \text{\lr{FunName}} \; ( \; \text{\lr{VarSeq}} \; ) \; \text{\lr{Scope}} \\[0.5em]
+\end{align*}
+\begin{align*}
+\text{\lr{ExpSeq}} &\rightarrow \text{\lr{Expression}} \mid \text{\lr{Expression}} , \text{\lr{ExpSeq}} \\[0.5em]
+\text{\lr{FunCal}} &\rightarrow \text{\lr{FunName}} \; ( \; \text{\lr{ExpSeq}} \; ) \mid \text{\lr{FunName}} \; ( \; ) \\[0.5em]
+\text{\lr{BreakStatement}} &\rightarrow \text{\lr{break}} \\[0.5em]
+\text{\lr{ContinueStatement}} &\rightarrow \text{\lr{continue}} \\[0.5em]
+\text{\lr{ReturnStatemnt}} &\rightarrow \text{\lr{return}} \mid \text{\lr{return}} \; \text{\lr{Spc}} \; \text{\lr{Expression}} \\[0.5em]
+\text{\lr{Assignment}} &\rightarrow \text{\lr{VarName}} = \text{\lr{Expression}} \\[0.5em]
+\text{\lr{Op1}} &\rightarrow ! \mid \sim \\[0.5em]
+\text{\lr{Op2}} &\rightarrow * \mid / \mid \% \\[0.5em]
+\text{\lr{Op3}} &\rightarrow + \mid - \\[0.5em]
+\text{\lr{Op4}} &\rightarrow \textless= \mid \textgreater= \mid \textless \mid \textgreater \mid == \mid != \\[0.5em]
+\text{\lr{Op5}} &\rightarrow \& \mid \text{\lr{\^{}}} \mid \text{\lr{|}} \\[0.5em]
+\text{\lr{Op6}} &\rightarrow \&\& \\[0.5em]
+\text{\lr{Op7}} &\rightarrow \text{\lr{||}} \\[0.5em]
+\text{\lr{Exp0}} &\rightarrow \text{\lr{Atom}} \mid ( \; \text{\lr{Exp7}} \; ) \\[0.5em]
+\text{\lr{Exp1}} &\rightarrow \text{\lr{Op1}} \; \text{\lr{Exp0}} \mid \text{\lr{Exp0}} \\[0.5em]
+\text{\lr{Exp2}} &\rightarrow \text{\lr{Exp2}} \; \text{\lr{Op2}} \; \text{\lr{Exp1}} \mid \text{\lr{Exp1}} \\[0.5em]
+\text{\lr{Exp3}} &\rightarrow \text{\lr{Exp3}} \; \text{\lr{Op3}} \; \text{\lr{Exp2}} \mid \text{\lr{Exp2}} \\[0.5em]
+\text{\lr{Exp4}} &\rightarrow \text{\lr{Exp4}} \; \text{\lr{Op4}} \; \text{\lr{Exp3}} \mid \text{\lr{Exp3}} \\[0.5em]
+\text{\lr{Exp5}} &\rightarrow \text{\lr{Exp5}} \; \text{\lr{Op5}} \; \text{\lr{Exp4}} \mid \text{\lr{Exp4}} \\[0.5em]
+\text{\lr{Exp6}} &\rightarrow \text{\lr{Exp6}} \; \text{\lr{Op6}} \; \text{\lr{Exp5}} \mid \text{\lr{Exp5}} \\[0.5em]
+\text{\lr{Exp7}} &\rightarrow \text{\lr{Exp7}} \; \text{\lr{Op7}} \; \text{\lr{Exp6}} \mid \text{\lr{Exp6}} \\[0.5em]
+\text{\lr{Atom}} &\rightarrow \text{\lr{PreDefinedStatement}} \mid \text{\lr{FunCal}} \mid \text{\lr{VarName}} \mid \text{\lr{Value}} \\[0.5em]
+\text{\lr{Value}} &\rightarrow \text{\lr{BoolVal}} \mid \text{\lr{IntVal}} \mid \text{\lr{FloatVal}} \mid \text{\lr{CharVal}} \mid \text{\lr{StrVal}} \\[0.5em]
+\text{\lr{BoolVal}} &\rightarrow \text{\lr{false}} \mid \text{\lr{true}} \\[0.5em]
+\text{\lr{IntVal}} &\rightarrow (+-)?(0\text{\lr{-}}9)^+ \\[0.5em]
+\text{\lr{FloatVal}} &\rightarrow \text{\lr{IntVal}} \mid (+-)?(0\text{\lr{-}}9)^*\backslash.(0\text{\lr{-}}9)^+ \\[0.5em]
+\text{\lr{CharVal}} &\rightarrow \text{\lr{'}}.'\text{\lr{'}} \mid \text{\lr{'}}\backslash\backslash.\text{\lr{'}} \\[0.5em]
+\end{align*}
+\begin{align*}
+\text{\lr{StrVal}} &\rightarrow \text{\lr{""}} \mid \text{\lr{"}}.*(\text{\lr{non}}\ \backslash)\text{\lr{"}} \\[0.5em]
+\text{\lr{PreDefinedStatement}} &\rightarrow \text{\lr{PrintStatement}} \mid \text{\lr{InputStatement}} \mid \text{\lr{GetStatement}} \mid \\
+&\quad \text{\lr{SetStatement}} \mid \text{\lr{PushStatement}} \mid \text{\lr{PopStatement}} \\[0.5em]
+\text{\lr{PrintStatement}} &\rightarrow \text{\lr{\$print}} \; ( \; \text{\lr{Expression}} \; ) \\[0.5em]
+\text{\lr{InputStatement}} &\rightarrow \text{\lr{\$input}} \; ( \; \text{\lr{VarName}} \; ) \\[0.5em]
+\text{\lr{GetStatement}} &\rightarrow \text{\lr{\$get}} \; ( \; \text{\lr{VarName}} , \text{\lr{Expression}} \; ) \\[0.5em]
+\text{\lr{SetStatement}} &\rightarrow \text{\lr{\$set}} \; ( \; \text{\lr{VarName}} , \text{\lr{Expression}} , \text{\lr{Expression}} \; ) \\[0.5em]
+\text{\lr{PushStatement}} &\rightarrow \text{\lr{\$push}} \; ( \; \text{\lr{VarName}} , \text{\lr{Expression}} \; ) \\[0.5em]
+\text{\lr{PopStatement}} &\rightarrow \text{\lr{\$pop}} \; ( \; \text{\lr{VarName}} \; )
+\end{align*}
+\end{document}

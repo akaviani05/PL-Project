@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{list}\PYG{o}{\PYGZlt{}}\PYG{k}{typename}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{name}\PYG{p}{;}
+
+\PYG{n}{example}
+\PYG{n}{list}\PYG{o}{\PYGZlt{}}\PYG{n}{list}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{;}
+\end{Verbatim}
