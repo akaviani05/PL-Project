@@ -56,7 +56,7 @@
   (define current-token (full-lexer in))
   (set! tokens (cons current-token tokens))
   (unless (eq? (token-name current-token) 'EOF)
-    (loop)))
+	(loop)))
 
 (close-input-port in)
 (define final-token-list (reverse tokens)) 
