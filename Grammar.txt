@@ -8,7 +8,7 @@ StatementSeq -> Statement StatementSeq | Scope StatementSeq | empty
 Scope -> { StatementSeq }
 Expression
 
-IfStatement -> if ( Expression ) Scope | if ( Expression ) Scope else Scope | if (Expression) Scope else IfStatement
+IfStatement -> if ( Expression ) Scope | if ( Expression ) Scope else Scope | if ( Expression ) Scope else IfStatement
 WhileStatement -> while ( Expression ) Scope
 
 Word -> "(a-z,A-Z,_)(a-z,A-Z,_,0-9)*"
@@ -22,7 +22,7 @@ VarDec -> VarTypeName | VarTypeName = Expression
 
 VarSeq -> VarTypeName , VarSeq | VarTypeName
 
-FunDec -> VarType Spc FunName () Scope | VarType Spc FunName ( VarSeq ) Scope
+FunDec -> VarType Spc FunName ( ) Scope | VarType Spc FunName ( VarSeq ) Scope
 
 ExpSeq -> Expression | Expression , ExpSeq
 
@@ -69,5 +69,5 @@ PrintStatement -> $print ( Expression )
 InputStatement -> $input ( VarName )
 GetStatement -> $get ( VarName , Expression )
 SetStatement -> $set ( VarName , Expression , Expression)
-PushStatement -> $push (VarName , Expression)
-PopStatement -> $pop (VarName)
+PushStatement -> $push ( VarName , Expression)
+PopStatement -> $pop ( VarName )
