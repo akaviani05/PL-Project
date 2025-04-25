@@ -1,5 +1,7 @@
 #lang racket
 
+;; TODO: Define Bool
+
 (require parser-tools/lex
          (prefix-in : parser-tools/lex-sre))
 
@@ -21,7 +23,7 @@
 )
 
 (define-lex-abbrev FLOATVAL
-  (:or (:: INTVAL #\. NUMBER) (:: INTVAL)) ;;; TODO:
+  (:: (:? INTVAL) #\. NUMBER)
 )
 
 (define-lex-abbrev LETTER 

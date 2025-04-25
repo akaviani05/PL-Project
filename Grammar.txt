@@ -1,20 +1,20 @@
 Spc -> Space | Tab | NewLine
 
 
-Program
+Program -> StatementSeq
 SimpleStatement -> VarDec | FunDec | Assignment | Expression | BreakStatement | ContinueStatement | ReturnStatemnt | PreDefinedStatement
 Statement -> SimpleStatement; | IfStatement | WhileStatement
-StatementSeq -> Statement StatementSeq | Scope StatementSeq | empty
+StatementSeq -> StatementSeq Statement | StatementSeq Scope | empty
 Scope -> { StatementSeq }
 Expression
 
 IfStatement -> if ( Expression ) Scope | if ( Expression ) Scope else Scope | if ( Expression ) Scope else IfStatement
-WhileStatement -> while ( Expression ) Scope
+WhileStatement -> whExpSeqile ( Expression ) Scope
 
 Word -> "(a-z,A-Z,_)(a-z,A-Z,_,0-9)*"
 VarName -> Word
 FunName -> Word
-VarType -> int | float | string | char | bool | list<VarType> 
+VarType -> int | float | string | char | bool | list < VarType > 
 
 VarTypeName -> VarType Spc VarName
 
