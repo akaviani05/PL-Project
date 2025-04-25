@@ -86,7 +86,18 @@
    (end   EOF)
    (error (lambda (tok? name val)
             (error 'parser (format "syntax error near ~a (~a)" name val))))
+
    (tokens value-tokens empty-tokens)
+
+   (precs
+      (right ASSIGN) ; =
+      (left  OR)    ; ||
+      (left  AND)    ; &&
+      (left  AMP CARET PIPE)    ; & ^ |
+      (nonassoc LE GE LT GT EQ NE)
+      (left  PLUS MINUS)
+      (left  TIMES DIVIDE MOD)
+      (right NOT TILDE))
 
    (grammar
       (program          ((statement-seq) (node 'program $1)))
@@ -102,8 +113,7 @@
                         ((expression)                  (node 'expression $1))
                         ((break-statement)             (node 'break-statement $1))
                         ((continue-statement)          (node 'continue-statement $1))
-                        ((return-statement)            (node 'return-statement $1))
-                        ((predefined-statement)        (node 'predefined-statement $1)))
+                        ((return-statement)            (node 'return-statement $1)))
 
       (if-statement     ((IF LPAREN expression RPAREN scope)                     (node 'if $3 $5))
                         ((IF LPAREN expression RPAREN scope ELSE scope)          (node 'if-else $3 $5 $7))
@@ -122,7 +132,8 @@
       (var-seq ((var-type-name)                '(list $1))
                ((var-seq COMMA var-type-name)  '(append $1 (list $3))))
 
-      (assignment ((ID ASSIGN expression)        (node 'assignment $1 $3)))
+      (assignment ((ID ASSIGN expression) (prec ASSIGN)       (node 'assignment $1 $3)))
+      
       (break-statement ((BREAK)                  (node 'break-statement)))
       (continue-statement ((CONTINUE)            (node 'continue-statement)))
       (return-statement ((RETURN)                (node 'return-statement))
@@ -149,7 +160,7 @@
        ((POP LPAREN ID RPAREN)                                   (node 'pop-statement $3)))
 
       (exp0 ((atom) (node 'atom $1))
-            ((LPAREN exp7 RPAREN) (node 'paren $2)))
+            ((LPAREN expression RPAREN) (node 'paren $2)))
       
       (exp1 ((NOT exp0)    (node '! $2))
             ((TILDE exp0)  (node '~ $2))
@@ -162,7 +173,7 @@
 
       (exp3 ((exp3 PLUS exp2)   (node '+ $1 $3))
             ((exp3 MINUS exp2)  (node '- $1 $3))
-            ((exp2)             (node 'exp2 $1)))
+            ((exp2) (prec PLUS) (node 'exp2 $1)))
 
       (exp4 ((exp4 LE exp3)     (node '<= $1 $3))
             ((exp4 GE exp3)     (node '>= $1 $3))
@@ -170,20 +181,19 @@
             ((exp4 GT exp3)     (node '> $1 $3))
             ((exp4 EQ exp3)     (node '== $1 $3))
             ((exp4 NE exp3)     (node '!= $1 $3))
-            ((exp3)             (node 'exp3 $1)))
+            ((exp3) (prec LE)   (node 'exp3 $1)))
 
       (exp5 ((exp5 AMP exp4)    (node '& $1 $3))
             ((exp5 CARET exp4)  (node '^ $1 $3))
             ((exp5 PIPE exp4)   (node 'orop $1 $3))
-            ((exp4)             (node 'exp4 $1)))
+            ((exp4) (prec AMP)  (node 'exp4 $1)))
 
       (exp6 ((exp6 AND exp5)    (node '&& $1 $3))
-            ((exp5)             (node 'exp5 $1)))
+            ((exp5) (prec AND)  (node 'exp5 $1)))
       
-      (exp7 ((exp7 OR exp6)     (node '|| $1 $3))
-            ((exp6)             (node 'exp6 $1)))
+      (expression ((expression OR exp6)   (node '|| $1 $3))
+                  ((exp6) (prec OR)       (node 'exp6 $1)))
 
-      (expression ((exp7) (node 'expression $1)))    
 
       (var-type  ((INT)                   (node 'int-t))
                  ((FLOAT)                 (node 'float-t))

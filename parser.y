@@ -4,6 +4,14 @@
 %token STRVAL
 %token CHARVAL
 %token BOOLVAL
+%right  'ASSIGN'
+%left  'OR'
+%left  'AND'
+%left  'AMP' 'CARET' 'PIPE'
+%nonassoc  'LE' 'GE' 'LT' 'GT' 'EQ' 'NE'
+%left  'PLUS' 'MINUS'
+%left  'TIMES' 'DIVIDE' 'MOD'
+%right  'NOT' 'TILDE'
 %start (program)
 %%
 program: statement-seq 
@@ -24,7 +32,6 @@ simple-stament: var-declaration
 | break-statement 
 | continue-statement 
 | return-statement 
-| predefined-statement 
 ;
 if-statement: 'IF' 'LPAREN' expression 'RPAREN' scope 
 | 'IF' 'LPAREN' expression 'RPAREN' scope 'ELSE' scope 
@@ -43,7 +50,7 @@ function-declaration: var-type ID 'LPAREN' 'RPAREN' scope
 var-seq: var-type-name 
 | var-seq 'COMMA' var-type-name 
 ;
-assignment: ID 'ASSIGN' expression 
+assignment: ID 'ASSIGN' expression %prec ASSIGN
 ;
 break-statement: 'BREAK' 
 ;
@@ -72,7 +79,7 @@ predefined-statement: 'PRINT' 'LPAREN' expression 'RPAREN'
 | 'POP' 'LPAREN' ID 'RPAREN' 
 ;
 exp0: atom 
-| 'LPAREN' exp7 'RPAREN' 
+| 'LPAREN' expression 'RPAREN' 
 ;
 exp1: 'NOT' exp0 
 | 'TILDE' exp0 
@@ -85,7 +92,7 @@ exp2: exp2 'TIMES' exp1
 ;
 exp3: exp3 'PLUS' exp2 
 | exp3 'MINUS' exp2 
-| exp2 
+| exp2 %prec PLUS
 ;
 exp4: exp4 'LE' exp3 
 | exp4 'GE' exp3 
@@ -93,20 +100,18 @@ exp4: exp4 'LE' exp3
 | exp4 'GT' exp3 
 | exp4 'EQ' exp3 
 | exp4 'NE' exp3 
-| exp3 
+| exp3 %prec LE
 ;
 exp5: exp5 'AMP' exp4 
 | exp5 'CARET' exp4 
 | exp5 'PIPE' exp4 
-| exp4 
+| exp4 %prec AMP
 ;
 exp6: exp6 'AND' exp5 
-| exp5 
+| exp5 %prec AND
 ;
-exp7: exp7 'OR' exp6 
-| exp6 
-;
-expression: exp7 
+expression: expression 'OR' exp6 
+| exp6 %prec OR
 ;
 var-type: 'INT' 
 | 'FLOAT' 
