@@ -125,6 +125,5 @@ value: INTVAL
 | CHARVAL 
 | STRVAL 
 | BOOLVAL 
-| ID 
 ;
 %%

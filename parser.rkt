@@ -94,10 +94,10 @@
       (left  OR)    ; ||
       (left  AND)    ; &&
       (left  AMP CARET PIPE)    ; & ^ |
-      (nonassoc LE GE LT GT EQ NE)
-      (left  PLUS MINUS)
-      (left  TIMES DIVIDE MOD)
-      (right NOT TILDE))
+      (nonassoc LE GE LT GT EQ NE) ; <= >= < > == !=
+      (left  PLUS MINUS) ; + -
+      (left  TIMES DIVIDE MOD) ; * / %
+      (right NOT TILDE)) ; ! ~
 
    (grammar
       (program          ((statement-seq) (node 'program $1)))
@@ -133,7 +133,7 @@
                ((var-seq COMMA var-type-name)  '(append $1 (list $3))))
 
       (assignment ((ID ASSIGN expression) (prec ASSIGN)       (node 'assignment $1 $3)))
-      
+
       (break-statement ((BREAK)                  (node 'break-statement)))
       (continue-statement ((CONTINUE)            (node 'continue-statement)))
       (return-statement ((RETURN)                (node 'return-statement))
@@ -202,16 +202,14 @@
                  ((BOOL)                  (node 'bool-t))
                  ((LIST LT var-type GT)   (node 'list-t $3)))
 
-      (value ((INTVAL)     (node 'int-val $1))
+      (value   ((INTVAL)     (node 'int-val $1))
                ((FLOATVAL)   (node 'float-val $1))
                ((CHARVAL)    (node 'char-val $1))
                ((STRVAL)     (node 'str-val $1))
-               ((BOOLVAL)    (node 'bool-val $1))
-               ((ID)         (node 'id $1)))
+               ((BOOLVAL)    (node 'bool-val $1)))
     )
     
     (debug "parser-debug.txt")
-    ;; optional: emit a Yacc-like grammar file, too
     (yacc-output "parser.y")
 
 

@@ -83,7 +83,6 @@
 82	value	=	(CHARVAL)
 83	value	=	(STRVAL)
 84	value	=	(BOOLVAL)
-85	value	=	(ID)
 State 0
 	g1746 -> . g1747 
 
@@ -670,86 +669,28 @@ State 30
 	atom -> ID . 
 	function-call -> ID . LPAREN RPAREN 
 	function-call -> ID . LPAREN expression-seq RPAREN 
-	value -> ID . 
 
-begin conflict:
 	DIVIDE					reduce	35
-	DIVIDE					reduce	85
-end conflict
-begin conflict:
 	SEMICOLON					reduce	35
-	SEMICOLON					reduce	85
-end conflict
-begin conflict:
 	AMP					reduce	35
-	AMP					reduce	85
-end conflict
-begin conflict:
 	TIMES					reduce	35
-	TIMES					reduce	85
-end conflict
 	ASSIGN					shift	77
-begin conflict:
 	RPAREN					reduce	35
-	RPAREN					reduce	85
-end conflict
-begin conflict:
 	EQ					reduce	35
-	EQ					reduce	85
-end conflict
-begin conflict:
 	GT					reduce	35
-	GT					reduce	85
-end conflict
-begin conflict:
 	AND					reduce	35
-	AND					reduce	85
-end conflict
-begin conflict:
 	COMMA					reduce	35
-	COMMA					reduce	85
-end conflict
-begin conflict:
 	PLUS					reduce	35
-	PLUS					reduce	85
-end conflict
-begin conflict:
 	GE					reduce	35
-	GE					reduce	85
-end conflict
-begin conflict:
 	PIPE					reduce	35
-	PIPE					reduce	85
-end conflict
-begin conflict:
 	NE					reduce	35
-	NE					reduce	85
-end conflict
 	LPAREN					shift	76
-begin conflict:
 	OR					reduce	35
-	OR					reduce	85
-end conflict
-begin conflict:
 	LT					reduce	35
-	LT					reduce	85
-end conflict
-begin conflict:
 	MINUS					reduce	35
-	MINUS					reduce	85
-end conflict
-begin conflict:
 	LE					reduce	35
-	LE					reduce	85
-end conflict
-begin conflict:
 	CARET					reduce	35
-	CARET					reduce	85
-end conflict
-begin conflict:
 	MOD					reduce	35
-	MOD					reduce	85
-end conflict
 
 State 31
 	value -> INTVAL . 
@@ -3128,4 +3069,3 @@ State 159
 	CARET					reduce	44
 	MOD					reduce	44
 
-19 reduce/reduce conflicts
