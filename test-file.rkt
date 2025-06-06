@@ -252,10 +252,182 @@
     (test-parse-and-interpret "int y;")
     (displayln "")))
 
-; Run all tests
+; Run tests for $print statement
+(define run-print-tests
+  (lambda ()
+    (displayln "=== Testing $print Statement ===")
+    
+    ; Test printing simple values
+    (test-parse-and-interpret "$print(42);")
+    (displayln "")
+    
+    (test-parse-and-interpret "$print(3.14);")
+    (displayln "")
+    
+    (test-parse-and-interpret "$print(true);")
+    (displayln "")
+    
+    (test-parse-and-interpret "$print(false);")
+    (displayln "")
+    
+    (test-parse-and-interpret "$print(\"hello world\");")
+    (displayln "")
+    
+    (test-parse-and-interpret "$print('c');")
+    (displayln "")
+    
+    ; Test printing expressions
+    (test-parse-and-interpret "$print(5 + 3);")
+    (displayln "")
+    
+    (test-parse-and-interpret "$print(10 * 2 - 5);")
+    (displayln "")
+    
+    (test-parse-and-interpret "$print(20 / 4);")
+    (displayln "")
+    
+    (test-parse-and-interpret "$print(17 % 5);")
+    (displayln "")
+    
+    ; Test printing comparisons
+    (test-parse-and-interpret "$print(5 > 3);")
+    (displayln "")
+    
+    (test-parse-and-interpret "$print(2 == 2);")
+    (displayln "")
+    
+    (test-parse-and-interpret "$print(7 <= 5);")
+    (displayln "")
+    
+    ; Test printing variables
+    (test-parse-and-interpret "int x = 100; $print(x);")
+    (displayln "")
+    
+    (test-parse-and-interpret "bool flag = true; $print(flag);")
+    (displayln "")
+    
+    (test-parse-and-interpret "string msg = \"test\"; $print(msg);")
+    (displayln "")
+    
+    ; Test multiple prints
+    (test-parse-and-interpret "$print(1); $print(2); $print(3);")
+    (displayln "")
+    
+    (displayln "=== $print Tests Completed ===")
+    (displayln "")))
+
+; Test if statements
+(define run-if-tests
+  (lambda ()
+    (displayln "=== Testing If Statements ===")
+    
+    ; Simple if statement - true condition
+    (test-parse-and-interpret "if (5 > 3) { $print(\"condition is true\"); }")
+    (displayln "")
+    
+    ; Simple if statement - false condition
+    (test-parse-and-interpret "if (3 > 5) { $print(\"this should not print\"); }")
+    (displayln "")
+    
+    ; If-else statement - true condition
+    (test-parse-and-interpret "if (10 == 10) { $print(\"equal\"); } else { $print(\"not equal\"); }")
+    (displayln "")
+    
+    ; If-else statement - false condition
+    (test-parse-and-interpret "if (10 == 5) { $print(\"equal\"); } else { $print(\"not equal\"); }")
+    (displayln "")
+    
+    ; Nested if statements
+    (test-parse-and-interpret "if (true) { if (5 < 10) { $print(\"nested condition true\"); } }")
+    (displayln "")
+    
+    ; If with variable conditions
+    (test-parse-and-interpret "int x = 15; if (x > 10) { $print(\"x is greater than 10\"); }")
+    (displayln "")
+    
+    ; If-else with complex expressions
+    (test-parse-and-interpret "int a = 8; int b = 12; if (a + b > 15) { $print(\"sum is large\"); } else { $print(\"sum is small\"); }")
+    (displayln "")
+    
+    ; If-elseif chain
+    (test-parse-and-interpret "int score = 85; if (score >= 90) { $print(\"A grade\"); } else if (score >= 80) { $print(\"B grade\"); } else { $print(\"C grade\"); }")
+    (displayln "")
+    
+    ; Multiple if-elseif
+    (test-parse-and-interpret "int num = 0; if (num > 0) { $print(\"positive\"); } else if (num < 0) { $print(\"negative\"); } else { $print(\"zero\"); }")
+    (displayln "")
+    
+    ; If with boolean variables
+    (test-parse-and-interpret "bool flag = true; if (flag) { $print(\"flag is true\"); } else { $print(\"flag is false\"); }")
+    (displayln "")
+    
+    (displayln "=== If Statement Tests Completed ===")
+    (displayln "")))
+
+; Test while statements
+(define run-while-tests
+  (lambda ()
+    (displayln "=== Testing While Statements ===")
+    
+    ; Simple while loop
+    (test-parse-and-interpret "int i = 0; while (i < 3) { $print(i); i = i + 1; }")
+    (displayln "")
+    
+    ; While loop with different condition
+    (test-parse-and-interpret "int count = 5; while (count > 0) { $print(count); count = count - 1; }")
+    (displayln "")
+    
+    ; While loop that doesn't execute
+    (test-parse-and-interpret "int x = 10; while (x < 5) { $print(\"this should not print\"); }")
+    (displayln "")
+    
+    ; While loop with boolean condition
+    (test-parse-and-interpret "bool running = true; int counter = 0; while (running) { $print(counter); counter = counter + 1; if (counter >= 3) { running = false; } }")
+    (displayln "")
+    
+    ; Nested while loops
+    (test-parse-and-interpret "int outer = 0; while (outer < 2) { int inner = 0; while (inner < 2) { $print(outer * 10 + inner); inner = inner + 1; } outer = outer + 1; }")
+    (displayln "")
+    
+    ; While with complex condition
+    (test-parse-and-interpret "int a = 1; int b = 10; while (a < b && a < 5) { $print(a); a = a + 1; }")
+    (displayln "")
+    
+    ; Sum calculation with while
+    (test-parse-and-interpret "int sum = 0; int n = 1; while (n <= 4) { sum = sum + n; n = n + 1; } $print(sum);")
+    (displayln "")
+    
+    (displayln "=== While Statement Tests Completed ===")
+    (displayln "")))
+
+; Test control flow combinations
+(define run-control-flow-tests
+  (lambda ()
+    (displayln "=== Testing Control Flow Combinations ===")
+    
+    ; If inside while
+    (test-parse-and-interpret "int i = 0; while (i < 5) { if (i % 2 == 0) { $print(\"even: \"); $print(i); } i = i + 1; }")
+    (displayln "")
+    
+    ; While inside if
+    (test-parse-and-interpret "bool condition = true; if (condition) { int j = 0; while (j < 3) { $print(j); j = j + 1; } }")
+    (displayln "")
+    
+    ; Multiple control structures
+    (test-parse-and-interpret "int x = 8; if (x > 5) { int k = 0; while (k < x - 5) { $print(k); k = k + 1; } } else { $print(\"x is too small\"); }")
+    (displayln "")
+    
+    ; Complex nested structure
+    (test-parse-and-interpret "int limit = 3; int i = 0; while (i < limit) { if (i == 1) { $print(\"middle\"); } else if (i == 0) { $print(\"start\"); } else { $print(\"end\"); } i = i + 1; }")
+    (displayln "")
+    
+    (displayln "=== Control Flow Combination Tests Completed ===")
+    (displayln "")))
+
+; Updated run-all-tests function
 (define run-all-tests
   (lambda ()
-    (displayln "Starting interpreter tests with parser...")
+    (displayln "Starting comprehensive tests...")
     (run-basic-tests)
     (run-unary-tests)
     (run-comparison-tests)
@@ -264,9 +436,14 @@
     (run-complex-tests)
     (run-edge-case-tests)
     (run-variable-tests)
+    (run-print-tests)
+    (run-if-tests)         ; Add if statement tests
+    (run-while-tests)      ; Add while statement tests
+    (run-control-flow-tests) ; Add control flow combination tests
     (displayln "All tests completed!")))
 
 (run-all-tests)
 (provide run-all-tests run-basic-tests run-unary-tests run-comparison-tests 
          run-bitwise-tests run-logical-tests run-complex-tests 
-         run-edge-case-tests run-variable-tests test-parse-and-interpret)
+         run-edge-case-tests run-variable-tests run-print-tests 
+         run-if-tests run-while-tests run-control-flow-tests test-parse-and-interpret)

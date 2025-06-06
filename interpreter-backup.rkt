@@ -56,74 +56,129 @@
     (cond
       [(and (pair? ast) (eq? (car ast) 'program))
        (let ((statements (cadr ast)))
-         (let ((result-env-pair (exec-statement-list-unified statements (init-env))))
-           (car result-env-pair)))]
+         (exec-statement-list statements (init-env)))]
       [else (report-invalid-expression! ast)])))
 
-; === UNIFIED EXECUTION SYSTEM ===
-; All functions return (cons result environment)
-
-; Unified execution of statement list that returns both result and environment
-(define exec-statement-list-unified
+; Execute a list of statements and return the result of the last one
+(define exec-statement-list
   (lambda (stmt-list env)
     (cond
-      [(null? stmt-list) (cons (num-val 0) env)]
+      [(null? stmt-list) (num-val 0)]
       [(null? (cdr stmt-list)) 
-       ; Last statement - execute once and return both result and environment
-       (exec-statement-unified (car stmt-list) env)]
+       ; Last statement - return its value
+       (exec-statement (car stmt-list) env)]
       [else 
        ; Execute current statement and check for break/continue
-       (let* ((result-env-pair (exec-statement-unified (car stmt-list) env))
-              (current-result (car result-env-pair))
-              (new-env (cdr result-env-pair)))
+       (let* ((current-result (exec-statement (car stmt-list) env))
+              (new-env (exec-statement-for-env (car stmt-list) env)))
          ; Check if current statement returned break or continue
          (cases expval current-result
-           (break-val () result-env-pair)  ; Propagate break up
-           (continue-val () result-env-pair)  ; Propagate continue up
+           (break-val () current-result)  ; Propagate break up
+           (continue-val () current-result)  ; Propagate continue up
            (else 
              ; Continue with next statement
-             (exec-statement-list-unified (cdr stmt-list) new-env))))])))
+             (exec-statement-list (cdr stmt-list) new-env))))])))
 
-; Unified statement execution
-(define exec-statement-unified
+; Execute a list of statements and return the final environment
+(define exec-statement-list-for-env
+  (lambda (stmt-list env)
+    (cond
+      [(null? stmt-list) env]
+      [else 
+       ; Execute current statement and check for break/continue
+       (let* ((current-result (exec-statement (car stmt-list) env))
+              (new-env (exec-statement-for-env (car stmt-list) env)))
+         ; Check if current statement returned break or continue
+         (cases expval current-result
+           (break-val () new-env)  ; Stop processing and return environment
+           (continue-val () new-env)  ; Stop processing and return environment
+           (else 
+             ; Continue with next statement
+             (exec-statement-list-for-env (cdr stmt-list) new-env))))])))
+
+; Execute statement and return its value (for expression evaluation)
+(define exec-statement
   (lambda (stmt env)
     (cond
       [(and (pair? stmt) (eq? (car stmt) 'simple-stament))
-       (exec-simple-statement-unified (cadr stmt) env)]
+       (exec-simple-statement (cadr stmt) env)]
       [(and (pair? stmt) (eq? (car stmt) 'scope))
-       ; Execute statements in scope and return result and environment
+       ; Execute statements in scope and return last result
        (let ((statements (cadr stmt)))
-         (exec-statement-list-unified statements env))]
+         (exec-statement-list statements env))]
       [(and (pair? stmt) (eq? (car stmt) 'if-statement))
-       (exec-if-statement-unified (cadr stmt) env)]
+       (exec-if-statement (cadr stmt) env)]
       [(and (pair? stmt) (eq? (car stmt) 'while-statement))
-       (exec-while-statement-unified (cadr stmt) env)]
-      [else (cons (report-invalid-statement! stmt) env)])))
+       (exec-while-statement (cadr stmt) env)]
+      [else (report-invalid-statement! stmt)])))
 
-; Unified simple statement execution
-(define exec-simple-statement-unified
+; Execute statement and return updated environment (for environment updates)
+(define exec-statement-for-env
+  (lambda (stmt env)
+    (cond
+      [(and (pair? stmt) (eq? (car stmt) 'simple-stament))
+       (exec-simple-statement-for-env (cadr stmt) env)]
+      [(and (pair? stmt) (eq? (car stmt) 'scope))
+       ; Execute statements in scope and return updated environment
+       (let ((statements (cadr stmt)))
+         (exec-statement-list-for-env statements env))]
+      [(and (pair? stmt) (eq? (car stmt) 'if-statement))
+       (exec-if-statement-for-env (cadr stmt) env)]
+      [(and (pair? stmt) (eq? (car stmt) 'while-statement))
+       (exec-while-statement-for-env (cadr stmt) env)]
+      [else env])))
+
+; Execute simple statement and return its value
+(define exec-simple-statement
   (lambda (stmt env)
     (cond
       [(and (pair? stmt) (eq? (car stmt) 'var-declaration))
-       (exec-var-declaration-unified (cadr stmt) env)]
+       (exec-var-declaration (cadr stmt) env)]
       [(and (pair? stmt) (eq? (car stmt) 'expression))
+       (value-of-expression (cadr stmt) env)]
+      [(and (pair? stmt) (eq? (car stmt) 'break-statement))
+       (break-val)]  ; Special value to indicate break
+      [(and (pair? stmt) (eq? (car stmt) 'continue-statement))
+       (continue-val)]  ; Special value to indicate continue
+      [else (report-invalid-statement! stmt)])))
+
+; Execute simple statement and return updated environment
+(define exec-simple-statement-for-env
+  (lambda (stmt env)
+    (cond
+      [(and (pair? stmt) (eq? (car stmt) 'var-declaration))
+       (exec-var-declaration-for-env (cadr stmt) env)]
+      [(and (pair? stmt) (eq? (car stmt) 'expression))
+       ; Check if the expression is an assignment and update environment accordingly
        (let ((expr (cadr stmt)))
          (if (is-assignment-expression? expr)
-             ; Assignment - execute once and return both result and new env
-             (let ((result (value-of-expression expr env))
-                   (new-env (exec-assignment-for-env expr env)))
-               (cons result new-env))
-             ; Non-assignment - return result and same environment
-             (let ((result (value-of-expression expr env)))
-               (cons result env))))]
+             (exec-assignment-for-env expr env)
+             env))] ; Non-assignment expressions don't change environment
       [(and (pair? stmt) (eq? (car stmt) 'break-statement))
-       (cons (break-val) env)]
+       env]  ; break doesn't change environment
       [(and (pair? stmt) (eq? (car stmt) 'continue-statement))
-       (cons (continue-val) env)]
-      [else (cons (report-invalid-statement! stmt) env)])))
+       env]  ; continue doesn't change environment
+      [else env])))
 
-; Unified variable declaration execution
-(define exec-var-declaration-unified
+; Execute variable declaration and return the assigned value
+(define exec-var-declaration
+  (lambda (var-decl env)
+    (cond
+      [(and (pair? var-decl) (eq? (car var-decl) 'var-assign))
+       ; var-type-name = expression
+       (let* ((var-type-name (cadr var-decl))
+              (init-expr (caddr var-decl))
+              (val (value-of-expression init-expr env)))
+         val)]
+      [(and (pair? var-decl) (eq? (car var-decl) 'var-default))
+       ; var-type-name (default initialization)
+       (let* ((var-type-name (cadr var-decl))
+              (default-val (get-default-value var-type-name)))
+         default-val)]
+      [else (report-invalid-statement! var-decl)])))
+
+; Execute variable declaration and return updated environment
+(define exec-var-declaration-for-env
   (lambda (var-decl env)
     (cond
       [(and (pair? var-decl) (eq? (car var-decl) 'var-assign))
@@ -131,135 +186,15 @@
        (let* ((var-type-name (cadr var-decl))
               (init-expr (caddr var-decl))
               (var-name (extract-var-name var-type-name))
-              (val (value-of-expression init-expr env))
-              (new-env (extend-env var-name val env)))
-         (cons val new-env))]
+              (val (value-of-expression init-expr env)))
+         (extend-env var-name val env))]
       [(and (pair? var-decl) (eq? (car var-decl) 'var-default))
        ; var-type-name (default initialization)
        (let* ((var-type-name (cadr var-decl))
               (var-name (extract-var-name var-type-name))
-              (default-val (get-default-value var-type-name))
-              (new-env (extend-env var-name default-val env)))
-         (cons default-val new-env))]
-      [else (cons (report-invalid-statement! var-decl) env)])))
-
-; Unified if statement execution
-(define exec-if-statement-unified
-  (lambda (if-stmt env)
-    (cond
-      ; Simple if: (if condition scope)
-      [(and (pair? if-stmt) (eq? (car if-stmt) 'if))
-       (let* ((condition (cadr if-stmt))
-              (then-scope (caddr if-stmt))
-              (condition-val (expval->bool (value-of-expression condition env))))
-         (if condition-val
-             (exec-statement-unified then-scope env)
-             (cons (num-val 0) env)))] ; Return 0 and unchanged env if condition is false
-      
-      ; if-else: (if condition then-scope else-scope)
-      [(and (pair? if-stmt) (eq? (car if-stmt) 'if-else))
-       (let* ((condition (cadr if-stmt))
-              (then-scope (caddr if-stmt))
-              (else-scope (cadddr if-stmt))
-              (condition-val (expval->bool (value-of-expression condition env))))
-         (if condition-val
-             (exec-statement-unified then-scope env)
-             (exec-statement-unified else-scope env)))]
-      
-      ; if-elseif: (if condition then-scope elseif-statement)
-      [(and (pair? if-stmt) (eq? (car if-stmt) 'if-elseif))
-       (let* ((condition (cadr if-stmt))
-              (then-scope (caddr if-stmt))
-              (elseif-stmt (cadddr if-stmt))
-              (condition-val (expval->bool (value-of-expression condition env))))
-         (if condition-val
-             (exec-statement-unified then-scope env)
-             (exec-if-statement-unified elseif-stmt env)))]
-      
-      [else (cons (report-invalid-statement! if-stmt) env)])))
-
-; Unified while statement execution
-(define exec-while-statement-unified
-  (lambda (while-stmt env)
-    (cond
-      ; while: (while condition scope)
-      [(and (pair? while-stmt) (eq? (car while-stmt) 'while))
-       (let* ((condition (cadr while-stmt))
-              (body-scope (caddr while-stmt)))
-         (exec-while-loop-unified condition body-scope env))]
-      
-      [else (cons (report-invalid-statement! while-stmt) env)])))
-
-; Unified while loop execution
-(define exec-while-loop-unified
-  (lambda (condition body-scope env)
-    (let ((condition-val (expval->bool (value-of-expression condition env))))
-      (if condition-val
-          ; Execute body once and get both result and new environment
-          (let* ((result-env-pair (exec-statement-unified body-scope env))
-                 (body-result (car result-env-pair))
-                 (new-env (cdr result-env-pair)))
-            ; Check if body returned break or continue
-            (cases expval body-result
-              (break-val () (cons (num-val 0) new-env))  ; Break out of loop
-              (continue-val () (exec-while-loop-unified condition body-scope new-env))  ; Continue to next iteration
-              (else 
-                ; Continue looping with updated environment
-                (exec-while-loop-unified condition body-scope new-env))))
-          (cons (num-val 0) env))))) ; Return 0 when loop ends
-
-; === BACKWARD COMPATIBILITY FUNCTIONS ===
-; These call the unified functions but only return the requested part
-
-; Execute a list of statements and return the result of the last one
-(define exec-statement-list
-  (lambda (stmt-list env)
-    (let ((result-env-pair (exec-statement-list-unified stmt-list env)))
-      (car result-env-pair))))
-
-; Execute a list of statements and return the final environment
-(define exec-statement-list-for-env
-  (lambda (stmt-list env)
-    (let ((result-env-pair (exec-statement-list-unified stmt-list env)))
-      (cdr result-env-pair))))
-
-; Execute statement and return its value (for expression evaluation)
-(define exec-statement
-  (lambda (stmt env)
-    (let ((result-env-pair (exec-statement-unified stmt env)))
-      (car result-env-pair))))
-
-; Execute statement and return updated environment (for environment updates)
-(define exec-statement-for-env
-  (lambda (stmt env)
-    (let ((result-env-pair (exec-statement-unified stmt env)))
-      (cdr result-env-pair))))
-
-; Execute simple statement and return its value
-(define exec-simple-statement
-  (lambda (stmt env)
-    (let ((result-env-pair (exec-simple-statement-unified stmt env)))
-      (car result-env-pair))))
-
-; Execute simple statement and return updated environment
-(define exec-simple-statement-for-env
-  (lambda (stmt env)
-    (let ((result-env-pair (exec-simple-statement-unified stmt env)))
-      (cdr result-env-pair))))
-
-; Execute variable declaration and return the assigned value
-(define exec-var-declaration
-  (lambda (var-decl env)
-    (let ((result-env-pair (exec-var-declaration-unified var-decl env)))
-      (car result-env-pair))))
-
-; Execute variable declaration and return updated environment
-(define exec-var-declaration-for-env
-  (lambda (var-decl env)
-    (let ((result-env-pair (exec-var-declaration-unified var-decl env)))
-      (cdr result-env-pair))))
-
-; === HELPER FUNCTIONS ===
+              (default-val (get-default-value var-type-name)))
+         (extend-env var-name default-val env))]
+      [else env])))
 
 ; Extract variable name from var-type-name node
 (define extract-var-name
@@ -317,6 +252,136 @@
            [else env]))]
       
       [else env])))
+
+; Execute if statement and return its value
+(define exec-if-statement
+  (lambda (if-stmt env)
+    (cond
+      ; Simple if: (if condition scope)
+      [(and (pair? if-stmt) (eq? (car if-stmt) 'if))
+       (let* ((condition (cadr if-stmt))
+              (then-scope (caddr if-stmt))
+              (condition-val (expval->bool (value-of-expression condition env))))
+         (if condition-val
+             (exec-statement then-scope env)
+             (num-val 0)))] ; Return 0 if condition is false
+      
+      ; if-else: (if condition then-scope else-scope)
+      [(and (pair? if-stmt) (eq? (car if-stmt) 'if-else))
+       (let* ((condition (cadr if-stmt))
+              (then-scope (caddr if-stmt))
+              (else-scope (cadddr if-stmt))
+              (condition-val (expval->bool (value-of-expression condition env))))
+         (if condition-val
+             (exec-statement then-scope env)
+             (exec-statement else-scope env)))]
+      
+      ; if-elseif: (if condition then-scope elseif-statement)
+      [(and (pair? if-stmt) (eq? (car if-stmt) 'if-elseif))
+       (let* ((condition (cadr if-stmt))
+              (then-scope (caddr if-stmt))
+              (elseif-stmt (cadddr if-stmt))
+              (condition-val (expval->bool (value-of-expression condition env))))
+         (if condition-val
+             (exec-statement then-scope env)
+             (exec-if-statement elseif-stmt env)))]
+      
+      [else (report-invalid-statement! if-stmt)])))
+
+; Execute if statement and return updated environment
+(define exec-if-statement-for-env
+  (lambda (if-stmt env)
+    (cond
+      ; Simple if: (if condition scope)
+      [(and (pair? if-stmt) (eq? (car if-stmt) 'if))
+       (let* ((condition (cadr if-stmt))
+              (then-scope (caddr if-stmt))
+              (condition-val (expval->bool (value-of-expression condition env))))
+         (if condition-val
+             (exec-statement-for-env then-scope env)
+             env))] ; No change to environment if condition is false
+      
+      ; if-else: (if condition then-scope else-scope)
+      [(and (pair? if-stmt) (eq? (car if-stmt) 'if-else))
+       (let* ((condition (cadr if-stmt))
+              (then-scope (caddr if-stmt))
+              (else-scope (cadddr if-stmt))
+              (condition-val (expval->bool (value-of-expression condition env))))
+         (if condition-val
+             (exec-statement-for-env then-scope env)
+             (exec-statement-for-env else-scope env)))]
+      
+      ; if-elseif: (if condition then-scope elseif-statement)
+      [(and (pair? if-stmt) (eq? (car if-stmt) 'if-elseif))
+       (let* ((condition (cadr if-stmt))
+              (then-scope (caddr if-stmt))
+              (elseif-stmt (cadddr if-stmt))
+              (condition-val (expval->bool (value-of-expression condition env))))
+         (if condition-val
+             (exec-statement-for-env then-scope env)
+             (exec-if-statement-for-env elseif-stmt env)))]
+      
+      [else env])))
+
+; Execute while statement and return its value
+(define exec-while-statement
+  (lambda (while-stmt env)
+    (cond
+      ; while: (while condition scope)
+      [(and (pair? while-stmt) (eq? (car while-stmt) 'while))
+       (let* ((condition (cadr while-stmt))
+              (body-scope (caddr while-stmt)))
+         (exec-while-loop condition body-scope env))]
+      
+      [else (report-invalid-statement! while-stmt)])))
+
+; Execute while statement and return updated environment
+(define exec-while-statement-for-env
+  (lambda (while-stmt env)
+    (cond
+      ; while: (while condition scope)
+      [(and (pair? while-stmt) (eq? (car while-stmt) 'while))
+       (let* ((condition (cadr while-stmt))
+              (body-scope (caddr while-stmt)))
+         (exec-while-loop-for-env condition body-scope env))]
+      
+      [else env])))
+
+; Helper function to execute while loop and return last value
+(define exec-while-loop
+  (lambda (condition body-scope env)
+    (let ((condition-val (expval->bool (value-of-expression condition env))))
+      (if condition-val
+          ; Execute body once and get both result and new environment
+          (let* ((result-and-env (exec-statement-with-env body-scope env))
+                 (body-result (car result-and-env))
+                 (new-env (cdr result-and-env)))
+            ; Check if body returned break or continue
+            (cases expval body-result
+              (break-val () (num-val 0))  ; Break out of loop
+              (continue-val () (exec-while-loop condition body-scope new-env))  ; Continue to next iteration
+              (else 
+                ; Continue looping with updated environment
+                (exec-while-loop condition body-scope new-env))))
+          (num-val 0))))) ; Return 0 when loop ends
+
+; Helper function to execute while loop and return final environment
+(define exec-while-loop-for-env
+  (lambda (condition body-scope env)
+    (let ((condition-val (expval->bool (value-of-expression condition env))))
+      (if condition-val
+          ; Execute body once and get both result and new environment
+          (let* ((result-and-env (exec-statement-with-env body-scope env))
+                 (body-result (car result-and-env))
+                 (new-env (cdr result-and-env)))
+            ; Check if body returned break or continue
+            (cases expval body-result
+              (break-val () new-env)  ; Break out of loop with current environment
+              (continue-val () (exec-while-loop-for-env condition body-scope new-env))  ; Continue to next iteration
+              (else 
+                ; Continue looping with updated environment
+                (exec-while-loop-for-env condition body-scope new-env))))
+          env)))) ; Return environment when loop ends
 
 ; Expression evaluation - handles the nested exp structure from parser
 (define value-of-expression
@@ -515,5 +580,65 @@
               (val (value-of-expression expr env)))
          val)] ; For now, just return the value
       [else (report-invalid-expression! assignment)])))
+
+; Helper function to execute statement and return both result and environment
+(define exec-statement-with-env
+  (lambda (stmt env)
+    ; For statements that don't change environment, avoid double execution
+    (cond
+      [(and (pair? stmt) (eq? (car stmt) 'simple-stament))
+       (let ((simple-stmt (cadr stmt)))
+         (cond
+           ; Print statements and other non-environment-changing expressions
+           [(and (pair? simple-stmt) (eq? (car simple-stmt) 'expression))
+            (let ((expr (cadr simple-stmt)))
+              (if (is-assignment-expression? expr)
+                  ; Assignment - execute once and return both result and new env
+                  (let ((result (value-of-expression expr env))
+                        (new-env (exec-assignment-for-env expr env)))
+                    (cons result new-env))
+                  ; Non-assignment - return result and same environment
+                  (let ((result (value-of-expression expr env)))
+                    (cons result env))))]
+           ; Variable declarations
+           [(and (pair? simple-stmt) (eq? (car simple-stmt) 'var-declaration))
+            (let ((result (exec-var-declaration (cadr simple-stmt) env))
+                  (new-env (exec-var-declaration-for-env (cadr simple-stmt) env)))
+              (cons result new-env))]
+           ; Break and continue
+           [(and (pair? simple-stmt) (eq? (car simple-stmt) 'break-statement))
+            (cons (break-val) env)]
+           [(and (pair? simple-stmt) (eq? (car simple-stmt) 'continue-statement))
+            (cons (continue-val) env)]
+           [else 
+            (let ((result (exec-statement stmt env))
+                  (new-env (exec-statement-for-env stmt env)))
+              (cons result new-env))]))]
+      ; For other statement types, use the general approach
+      [else 
+       (let ((result (exec-statement stmt env))
+             (new-env (exec-statement-for-env stmt env)))
+         (cons result new-env))])))
+
+; Helper function to execute statement list and return both result and environment
+(define exec-statement-list-with-env
+  (lambda (stmt-list env)
+    (cond
+      [(null? stmt-list) (cons (num-val 0) env)]
+      [(null? (cdr stmt-list)) 
+       ; Last statement - execute once and return both result and environment
+       (exec-statement-with-env (car stmt-list) env)]
+      [else 
+       ; Execute current statement and check for break/continue
+       (let* ((result-and-env (exec-statement-with-env (car stmt-list) env))
+              (current-result (car result-and-env))
+              (new-env (cdr result-and-env)))
+         ; Check if current statement returned break or continue
+         (cases expval current-result
+           (break-val () result-and-env)  ; Propagate break up
+           (continue-val () result-and-env)  ; Propagate continue up
+           (else 
+             ; Continue with next statement
+             (exec-statement-list-with-env (cdr stmt-list) new-env))))])))
 
 (provide (all-defined-out))

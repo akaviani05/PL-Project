@@ -47,6 +47,8 @@
   (float-val (fl number?))
   (bool-val (bool boolean?))
   (string-val (str string?))
-  (char-val (ch string?)))
+  (char-val (ch string?))
+  (break-val)
+  (continue-val))
 
 (provide (all-defined-out))
