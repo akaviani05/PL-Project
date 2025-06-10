@@ -4,12 +4,36 @@
 (require "environment.rkt")
 (require (lib "eopl.ss" "eopl"))
 
+; Export main functions
+(provide value-of-program)
+
 ; Error reporting
 (define (report-invalid-expression! expr) 
   (eopl:error 'invalid-expression "this expression is invalid: ~s" expr))
 
 (define (report-invalid-statement! stmt) 
   (eopl:error 'invalid-statement "this statement is invalid: ~s" stmt))
+
+; Helper functions for mixed-type arithmetic
+(define (extract-numeric-value val)
+  "Extract numeric value from either int or float expval"
+  (cases expval val
+    (num-val (num) num)
+    (float-val (fl) fl)
+    (else (eopl:error 'type-error "Expected numeric value, got ~s" val))))
+
+(define (create-numeric-result result expval1 expval2)
+  "Create result expval based on operand types - if any operand is float, result is float"
+  (cond
+    [(or (is-float-expval? expval1) (is-float-expval? expval2))
+     (float-val (exact->inexact result))]
+    [else (num-val (inexact->exact result))]))
+
+(define (is-float-expval? val)
+  "Check if expval is a float type"
+  (cases expval val
+    (float-val (fl) #t)
+    (else #f)))
 
 ; Helper function to compare expression values for equality
 (define equal-values?
@@ -47,8 +71,40 @@
          (continue-val ()
           (cases expval val2
             (continue-val () #t)
+            (else #f)))
+         (return-val (v1)
+          (cases expval val2
+            (return-val (v2) (equal-values? v1 v2))
+            (else #f)))
+         (function-val (p1 b1 e1)
+          (cases expval val2
+            (function-val (p2 b2 e2) #t) ; Functions are equal if they exist (simplified)
             (else #f))))]
       [else #f])))
+
+; Helper function to extract parameter names from parser output
+(define extract-parameter-names
+  (lambda (param-list)
+    (cond
+      [(null? param-list) '()]
+      [(pair? param-list)
+       ; Process each parameter in the list
+       (map (lambda (param)
+              (cond
+                [(and (pair? param) (eq? (car param) 'var-type-name))
+                 ; Extract the ID from (var-type-name var-type ID)
+                 (caddr param)]
+                [else param]))
+            param-list)]
+      [else '()])))
+
+; Helper function to extract argument expressions, handling parser sequences
+(define extract-argument-expressions
+  (lambda (arg-list)
+    (cond
+      [(null? arg-list) '()]
+      [(pair? arg-list) arg-list]  ; The parser now gives us actual lists
+      [else (list arg-list)])))
 
 ; Main program evaluation - expects AST from parser
 (define value-of-program
@@ -106,6 +162,8 @@
     (cond
       [(and (pair? stmt) (eq? (car stmt) 'var-declaration))
        (exec-var-declaration-unified (cadr stmt) env)]
+      [(and (pair? stmt) (eq? (car stmt) 'func-declaration))
+       (exec-function-declaration-unified (cadr stmt) env)]
       [(and (pair? stmt) (eq? (car stmt) 'expression))
        (let ((expr (cadr stmt)))
          (if (is-assignment-expression? expr)
@@ -120,6 +178,8 @@
        (cons (break-val) env)]
       [(and (pair? stmt) (eq? (car stmt) 'continue-statement))
        (cons (continue-val) env)]
+      [(and (pair? stmt) (eq? (car stmt) 'return-statement))
+       (exec-return-statement-unified (cadr stmt) env)]
       [else (cons (report-invalid-statement! stmt) env)])))
 
 ; Unified variable declaration execution
@@ -142,6 +202,24 @@
               (new-env (extend-env var-name default-val env)))
          (cons default-val new-env))]
       [else (cons (report-invalid-statement! var-decl) env)])))
+
+; Unified function declaration execution  
+(define exec-function-declaration-unified
+  (lambda (func-decl env)
+    (cond
+      [(and (pair? func-decl) (eq? (car func-decl) 'function-declaration))
+       ; Function declaration structure: (function-declaration return-type func-name scope params)
+       (let* ((return-type (cadr func-decl))
+              (func-name (caddr func-decl))
+              (scope (cadddr func-decl))
+              (raw-params (if (null? (cddddr func-decl)) '() (car (cddddr func-decl))))
+              (params (extract-parameter-names raw-params)))
+         ; Simple approach: create function with current env, 
+         ; recursion will be handled in function call by looking up the function name
+         (let* ((func-val (function-val params scope env))
+                (new-env (extend-env func-name func-val env)))
+           (cons func-val new-env)))]
+      [else (cons (report-invalid-statement! func-decl) env)])))
 
 ; Unified if statement execution
 (define exec-if-statement-unified
@@ -331,35 +409,45 @@
       [(and (pair? expr) (eq? (car expr) 'exp1)) (value-of-expression (cadr expr) env)]
       [(and (pair? expr) (eq? (car expr) 'exp0)) (value-of-expression (cadr expr) env)]
       
-      ; Handle arithmetic operations (binary)
+      ; Handle arithmetic operations (binary) - supports mixed int/float arithmetic
       [(and (pair? expr) (eq? (car expr) '+))
-       (let ((val1 (expval->num (value-of-expression (cadr expr) env)))
-             (val2 (expval->num (value-of-expression (caddr expr) env))))
-         (num-val (+ val1 val2)))]
+       (let ((expval1 (value-of-expression (cadr expr) env))
+             (expval2 (value-of-expression (caddr expr) env)))
+         (let ((val1 (extract-numeric-value expval1))
+               (val2 (extract-numeric-value expval2)))
+           (create-numeric-result (+ val1 val2) expval1 expval2)))]
       
       [(and (pair? expr) (eq? (car expr) '-))
-       (let ((val1 (expval->num (value-of-expression (cadr expr) env)))
-             (val2 (expval->num (value-of-expression (caddr expr) env))))
-         (num-val (- val1 val2)))]
+       (let ((expval1 (value-of-expression (cadr expr) env))
+             (expval2 (value-of-expression (caddr expr) env)))
+         (let ((val1 (extract-numeric-value expval1))
+               (val2 (extract-numeric-value expval2)))
+           (create-numeric-result (- val1 val2) expval1 expval2)))]
       
       [(and (pair? expr) (eq? (car expr) '*))
-       (let ((val1 (expval->num (value-of-expression (cadr expr) env)))
-             (val2 (expval->num (value-of-expression (caddr expr) env))))
-         (num-val (* val1 val2)))]
+       (let ((expval1 (value-of-expression (cadr expr) env))
+             (expval2 (value-of-expression (caddr expr) env)))
+         (let ((val1 (extract-numeric-value expval1))
+               (val2 (extract-numeric-value expval2)))
+           (create-numeric-result (* val1 val2) expval1 expval2)))]
       
       [(and (pair? expr) (eq? (car expr) '/))
-       (let ((val1 (expval->num (value-of-expression (cadr expr) env)))
-             (val2 (expval->num (value-of-expression (caddr expr) env))))
-         (if (= val2 0)
-             (eopl:error 'division-by-zero "division by zero")
-             (num-val (quotient val1 val2))))]
+       (let ((expval1 (value-of-expression (cadr expr) env))
+             (expval2 (value-of-expression (caddr expr) env)))
+         (let ((val1 (extract-numeric-value expval1))
+               (val2 (extract-numeric-value expval2)))
+           (if (= val2 0)
+               (eopl:error 'division-by-zero "division by zero")
+               (create-numeric-result (/ val1 val2) expval1 expval2))))]
       
       [(and (pair? expr) (eq? (car expr) '%))
-       (let ((val1 (expval->num (value-of-expression (cadr expr) env)))
-             (val2 (expval->num (value-of-expression (caddr expr) env))))
-         (if (= val2 0)
-             (eopl:error 'division-by-zero "modulo by zero")
-             (num-val (remainder val1 val2))))]
+       (let ((expval1 (value-of-expression (cadr expr) env))
+             (expval2 (value-of-expression (caddr expr) env)))
+         (let ((val1 (extract-numeric-value expval1))
+               (val2 (extract-numeric-value expval2)))
+           (if (= val2 0)
+               (eopl:error 'division-by-zero "modulo by zero")
+               (num-val (remainder (inexact->exact (floor val1)) (inexact->exact (floor val2)))))))]
       
       ; Handle unary operations
       [(and (pair? expr) (eq? (car expr) '!))
@@ -454,6 +542,8 @@
        (value-of-assignment (cadr atom) env)]
       [(and (pair? atom) (eq? (car atom) 'predefined-atom))
        (value-of-predefined-statement (cadr atom) env)]
+      [(and (pair? atom) (eq? (car atom) 'function-atom))
+       (value-of-function-call (cadr atom) env)]
       [else (report-invalid-expression! atom)])))
 
 ; Predefined statement evaluation
@@ -516,4 +606,107 @@
          val)] ; For now, just return the value
       [else (report-invalid-expression! assignment)])))
 
-(provide (all-defined-out))
+; === FUNCTION EXECUTION FUNCTIONS ===
+
+; Unified return statement execution
+(define exec-return-statement-unified
+  (lambda (return-stmt env)
+    (cond
+      ; Return without value: (return-statement)
+      [(null? return-stmt)
+       (cons (return-val (num-val 0)) env)]
+      ; Return with nested return-statement: (return-statement expression)
+      [(and (pair? return-stmt) (eq? (car return-stmt) 'return-statement))
+       (exec-return-statement-unified (cdr return-stmt) env)]
+      ; Return with expression: (expression)
+      [(pair? return-stmt)
+       (let ((expr (car return-stmt)))
+         (let ((val (value-of-expression expr env)))
+           (cons (return-val val) env)))]
+      [else (cons (report-invalid-statement! return-stmt) env)])))
+
+; Execute function call and return result
+(define value-of-function-call
+  (lambda (func-call env)
+    (cond
+      [(and (pair? func-call) (eq? (car func-call) 'function-call))
+       ; Function call structure: (function-call func-name args)
+       (let* ((func-name (cadr func-call))
+              (raw-args (caddr func-call))
+              (args (extract-argument-expressions raw-args))
+              (func-val (apply-env func-name env)))
+         (cases expval func-val
+           (function-val (params body closure-env)
+             ; Evaluate arguments
+             (let ((arg-vals (map (lambda (arg) (value-of-expression arg env)) args)))
+               ; Create new environment with parameter bindings
+               (let ((param-env (bind-parameters params arg-vals closure-env)))
+                 ; Execute function body
+                 (let ((result-env-pair (exec-statement-unified body param-env)))
+                   (let ((result (car result-env-pair)))
+                     ; Check if result is a return value
+                     (cases expval result
+                       (return-val (val) val)  ; Extract return value
+                       (else result)))))))     ; Return result as-is
+           (else (report-invalid-expression! (list "not a function:" func-name)))))]
+      [else (report-invalid-expression! func-call)])))
+
+; Helper function to bind parameters to arguments
+(define bind-parameters
+  (lambda (params args env)
+    (cond
+      [(and (null? params) (null? args)) env]
+      [(or (null? params) (null? args)) 
+       (eopl:error 'bind-parameters "parameter/argument count mismatch")]
+      [else
+       ; Extract parameter name from var-type-name structure
+       (let* ((param (car params))
+              (param-name (if (and (pair? param) (eq? (car param) 'var-type-name))
+                             (caddr param)  ; Extract ID from (var-type-name var-type ID)
+                             param))        ; If not var-type-name, use as-is
+              (arg-val (car args))
+              (new-env (extend-env param-name arg-val env)))
+         (bind-parameters (cdr params) (cdr args) new-env))])))
+
+; Helper function to resolve parser-generated sequences like (append $1 (list $3))
+; This handles the case where parser generates symbolic append expressions
+(define resolve-parser-sequence
+  (lambda (seq-expr actual-values)
+    (cond
+      [(null? seq-expr) '()]
+      [(and (pair? seq-expr) (eq? (car seq-expr) 'list))
+       ; (list $1) -> resolve $1 to actual value
+       (if (eq? (cadr seq-expr) '$1)
+           (list (car actual-values))
+           (list (cadr seq-expr)))]
+      [(and (pair? seq-expr) (eq? (car seq-expr) 'append))
+       ; (append $1 (list $3)) -> resolve both parts
+       (let ((first-part (resolve-parser-sequence (cadr seq-expr) actual-values))
+             (second-part (resolve-parser-sequence (caddr seq-expr) actual-values)))
+         (append first-part second-part))]
+      [else (list seq-expr)])))
+
+; Improved parameter extraction that handles the actual parameter structures
+(define extract-parameter-names-improved
+  (lambda (param-expr)
+    (cond
+      [(null? param-expr) '()]
+      ; Handle direct var-type-name
+      [(and (pair? param-expr) (eq? (car param-expr) 'var-type-name))
+       (list (caddr param-expr))]  ; Extract the name part
+      ; Handle list of var-type-name
+      [(and (pair? param-expr) (eq? (car param-expr) 'list))
+       (let ((param (cadr param-expr)))
+         (extract-parameter-names-improved param))]
+      ; Handle quoted expressions - this is the key fix
+      [(and (pair? param-expr) (eq? (car param-expr) 'quote))
+       ; Skip the quote and process the inner expression
+       (extract-parameter-names-improved (cadr param-expr))]
+      ; Handle append expressions with symbols $1, $3 etc.
+      [(and (pair? param-expr) (eq? (car param-expr) 'append))
+       ; For now, return empty list and handle this at function call time
+       ; This is a parser artifact that needs special handling
+       '()]
+      [else '()])))
+
+; Existing extract-parameter-names function

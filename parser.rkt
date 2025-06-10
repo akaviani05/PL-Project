@@ -129,8 +129,8 @@
       (function-declaration ((var-type ID LPAREN RPAREN scope)          (node 'function-declaration $1 $2 $5 '()))
                             ((var-type ID LPAREN var-seq RPAREN scope)  (node 'function-declaration $1 $2 $6 $4)))
 
-      (var-seq ((var-type-name)                '(list $1))
-               ((var-seq COMMA var-type-name)  '(append $1 (list $3))))
+      (var-seq ((var-type-name)                (list $1))
+               ((var-seq COMMA var-type-name)  (append $1 (list $3))))
 
       (assignment ((ID ASSIGN expression) (prec ASSIGN)       (node 'assignment $1 $3)))
 
@@ -148,8 +148,8 @@
       (function-call ((ID LPAREN RPAREN)         (node 'function-call $1 '()))
                      ((ID LPAREN expression-seq RPAREN) (node 'function-call $1 $3)))
       
-      (expression-seq   ((expression)                       '(list $1))
-                        ((expression-seq COMMA expression)  '(append $1 (list $3))))
+      (expression-seq   ((expression)                       (list $1))
+                        ((expression-seq COMMA expression)  (append $1 (list $3))))
       
       (predefined-statement
        ((PRINT LPAREN expression RPAREN)                         (node 'print-statement $3))

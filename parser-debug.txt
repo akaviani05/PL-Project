@@ -1,5 +1,5 @@
-0	g2210	=	(g2211)
-1	g2211	=	(program EOF)
+0	g4246	=	(g4247)
+1	g4247	=	(program EOF)
 2	program	=	(statement-seq)
 3	statement-seq	=	()
 4	statement-seq	=	(statement-seq statement)
@@ -84,7 +84,7 @@
 83	value	=	(STRVAL)
 84	value	=	(BOOLVAL)
 State 0
-	g2210 -> . g2211 
+	g4246 -> . g4247 
 
 	POP					reduce	3
 	INT					reduce	3
@@ -96,6 +96,7 @@ State 0
 	EOF					reduce	3
 	PRINT					reduce	3
 	ID					reduce	3
+	g4247					goto	1
 	NOT					reduce	3
 	BREAK					reduce	3
 	CONTINUE					reduce	3
@@ -103,7 +104,6 @@ State 0
 	PUSH					reduce	3
 	STRING					reduce	3
 	program					goto	2
-	g2211					goto	1
 	CHARVAL					reduce	3
 	BOOL					reduce	3
 	LIST					reduce	3
@@ -119,11 +119,11 @@ State 0
 	CHAR					reduce	3
 
 State 1
-	g2210 -> g2211 . 
+	g4246 -> g4247 . 
 
 
 State 2
-	g2211 -> program . EOF 
+	g4247 -> program . EOF 
 
 	EOF					accept	
 
@@ -187,7 +187,7 @@ State 3
 	simple-stament					goto	7
 
 State 4
-	g2211 -> program EOF . 
+	g4247 -> program EOF . 
 
 
 State 5

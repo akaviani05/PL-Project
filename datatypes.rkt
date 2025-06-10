@@ -41,6 +41,18 @@
       (float-val (fl) fl)
       (else (report-expval-extractor-error! "float")))))
 
+(define expval->function
+  (lambda (val) 
+    (cases expval val
+      (function-val (params body closure-env) (list params body closure-env))
+      (else (report-expval-extractor-error! "function")))))
+
+(define expval->return
+  (lambda (val) 
+    (cases expval val
+      (return-val (ret-val) ret-val)
+      (else (report-expval-extractor-error! "return")))))
+
 ; Expression values - matching parser output
 (define-datatype expval expval?
   (num-val (num number?))
@@ -49,6 +61,8 @@
   (string-val (str string?))
   (char-val (ch string?))
   (break-val)
-  (continue-val))
+  (continue-val)
+  (return-val (val expval?))
+  (function-val (params list?) (body list?) (closure-env environment?)))
 
 (provide (all-defined-out))
