@@ -53,6 +53,49 @@
       (return-val (ret-val) ret-val)
       (else (report-expval-extractor-error! "return")))))
 
+(define expval->list
+  (lambda (val) 
+    (cases expval val
+      (list-val (lst) lst)
+      (else (report-expval-extractor-error! "list")))))
+
+; Helper function to convert expval to string for printing
+(define expval->string-for-print
+  (lambda (val)
+    (cases expval val
+      (num-val (num) (number->string num))
+      (float-val (fl) (number->string fl))
+      (bool-val (bool) (if bool "true" "false"))
+      (string-val (str) 
+        ; Remove surrounding quotes if they exist
+        (let ((clean-str (if (and (> (string-length str) 1)
+                                 (eq? (string-ref str 0) #\")
+                                 (eq? (string-ref str (- (string-length str) 1)) #\"))
+                            (substring str 1 (- (string-length str) 1))
+                            str)))
+          clean-str))
+      (char-val (ch) 
+        ; Remove surrounding quotes if they exist
+        (let ((clean-ch (if (and (> (string-length ch) 1)
+                                (eq? (string-ref ch 0) #\')
+                                (eq? (string-ref ch (- (string-length ch) 1)) #\'))
+                           (substring ch 1 (- (string-length ch) 1))
+                           ch)))
+          clean-ch))
+      (list-val (lst) 
+        (string-append "[" 
+          (string-join (map expval->string-for-print lst) ", ") 
+          "]"))
+      [else "unknown"])))
+
+; Helper function to join strings with separator
+(define string-join
+  (lambda (str-list separator)
+    (cond
+      [(null? str-list) ""]
+      [(null? (cdr str-list)) (car str-list)]
+      [else (string-append (car str-list) separator (string-join (cdr str-list) separator))])))
+
 ; Expression values - matching parser output
 (define-datatype expval expval?
   (num-val (num number?))
@@ -63,6 +106,7 @@
   (break-val)
   (continue-val)
   (return-val (val expval?))
-  (function-val (params list?) (body list?) (closure-env environment?)))
+  (function-val (params list?) (body list?) (closure-env environment?))
+  (list-val (lst list?)))
 
 (provide (all-defined-out))

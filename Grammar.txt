@@ -14,7 +14,7 @@ WhileStatement -> whExpSeqile ( Expression ) Scope
 Word -> "(a-z,A-Z,_)(a-z,A-Z,_,0-9)*"
 VarName -> Word
 FunName -> Word
-VarType -> int | float | string | char | bool | list < VarType > 
+VarType -> int | float | string | char | bool | list
 
 VarTypeName -> VarType Spc VarName
 
@@ -55,13 +55,15 @@ Expression -> Exp7
 
 Atom -> PreDefinedStatement | FunCal | VarName | Value
 
-Value -> BoolVal | IntVal | FloatVal | CharVal | StrVal
+Value -> BoolVal | IntVal | FloatVal | CharVal | StrVal | LstVal
 
 BoolVal -> false | true
 IntVal -> (+-)?(0-9)+
 FloatVal -> IntVal | (+-)?(0-9)*\.(0-9)+
 CharVal -> '.' | '\\.'
 StrVal -> "" | ".*(non \)"
+LstVal -> [ ValueSeq ]
+ValueSeq -> Value | Value , ValueSeq
 
 PreDefinedStatement = PrintStatement | InputStatement | GetStatement | SetStatement | PushStatement | PopStatement
 

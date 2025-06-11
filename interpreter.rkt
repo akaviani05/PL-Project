@@ -79,8 +79,22 @@
          (function-val (p1 b1 e1)
           (cases expval val2
             (function-val (p2 b2 e2) #t) ; Functions are equal if they exist (simplified)
+            (else #f)))
+         (list-val (lst1)
+          (cases expval val2
+            (list-val (lst2) (equal-lists? lst1 lst2))
             (else #f))))]
       [else #f])))
+
+; Helper function to compare lists for equality
+(define equal-lists?
+  (lambda (lst1 lst2)
+    (cond
+      [(and (null? lst1) (null? lst2)) #t]
+      [(or (null? lst1) (null? lst2)) #f]
+      [else 
+       (and (equal-values? (car lst1) (car lst2))
+            (equal-lists? (cdr lst1) (cdr lst2)))])))
 
 ; Helper function to extract parameter names from parser output
 (define extract-parameter-names
@@ -171,9 +185,13 @@
              (let ((result (value-of-expression expr env))
                    (new-env (exec-assignment-for-env expr env)))
                (cons result new-env))
-             ; Non-assignment - return result and same environment
-             (let ((result (value-of-expression expr env)))
-               (cons result env))))]
+             ; Check if it's a predefined statement that might update environment
+             (if (is-predefined-expression? expr)
+                 ; Predefined statement - might update environment
+                 (value-of-predefined-statement-unified-from-expr expr env)
+                 ; Non-assignment, non-predefined - return result and same environment
+                 (let ((result (value-of-expression expr env)))
+                   (cons result env)))))]
       [(and (pair? stmt) (eq? (car stmt) 'break-statement))
        (cons (break-val) env)]
       [(and (pair? stmt) (eq? (car stmt) 'continue-statement))
@@ -181,6 +199,30 @@
       [(and (pair? stmt) (eq? (car stmt) 'return-statement))
        (exec-return-statement-unified (cadr stmt) env)]
       [else (cons (report-invalid-statement! stmt) env)])))
+
+; Helper to check if expression contains predefined statement
+(define is-predefined-expression?
+  (lambda (expr)
+    (cond
+      [(and (pair? expr) (member (car expr) '(exp6 exp5 exp4 exp3 exp2 exp1 exp0)))
+       (is-predefined-expression? (cadr expr))]
+      [(and (pair? expr) (eq? (car expr) 'atom))
+       (let ((atom (cadr expr)))
+         (and (pair? atom) (eq? (car atom) 'predefined-atom)))]
+      [else #f])))
+
+; Helper to execute predefined statement from expression context
+(define value-of-predefined-statement-unified-from-expr
+  (lambda (expr env)
+    (cond
+      [(and (pair? expr) (member (car expr) '(exp6 exp5 exp4 exp3 exp2 exp1 exp0)))
+       (value-of-predefined-statement-unified-from-expr (cadr expr) env)]
+      [(and (pair? expr) (eq? (car expr) 'atom))
+       (let ((atom (cadr expr)))
+         (if (and (pair? atom) (eq? (car atom) 'predefined-atom))
+             (value-of-predefined-statement-unified (cadr atom) env)
+             (cons (value-of-expression expr env) env)))]
+      [else (cons (value-of-expression expr env) env)])))
 
 ; Unified variable declaration execution
 (define exec-var-declaration-unified
@@ -357,6 +399,7 @@
         [(and (pair? var-type) (eq? (car var-type) 'bool-t)) (bool-val #f)]
         [(and (pair? var-type) (eq? (car var-type) 'string-t)) (string-val "")]
         [(and (pair? var-type) (eq? (car var-type) 'char-t)) (char-val "")]
+        [(and (pair? var-type) (eq? (car var-type) 'list-t)) (list-val '())]
         [else (num-val 0)]))))
 
 ; Helper function to check if an expression contains an assignment
@@ -546,8 +589,8 @@
        (value-of-function-call (cadr atom) env)]
       [else (report-invalid-expression! atom)])))
 
-; Predefined statement evaluation
-(define value-of-predefined-statement
+; Predefined statement evaluation with environment updates
+(define value-of-predefined-statement-unified
   (lambda (predefined-stmt env)
     (cond
       [(and (pair? predefined-stmt) (eq? (car predefined-stmt) 'print-statement))
@@ -555,8 +598,119 @@
        (let ((val (value-of-expression (cadr predefined-stmt) env)))
          (display (expval->string-for-print val))
          (newline)
-         val)] ; Return the value that was printed
-      [else (report-invalid-expression! predefined-stmt)])))
+         (cons val env))] ; Return value and unchanged environment
+      [(and (pair? predefined-stmt) (eq? (car predefined-stmt) 'input-statement))
+       (let ((val (value-of-input-statement (cadr predefined-stmt) env)))
+         (cons val env))]
+      [(and (pair? predefined-stmt) (eq? (car predefined-stmt) 'get-statement))
+       (let ((val (value-of-get-statement (cadr predefined-stmt) (caddr predefined-stmt) env)))
+         (cons val env))]
+      [(and (pair? predefined-stmt) (eq? (car predefined-stmt) 'set-statement))
+       (value-of-set-statement-unified (cadr predefined-stmt) (caddr predefined-stmt) (cadddr predefined-stmt) env)]
+      [(and (pair? predefined-stmt) (eq? (car predefined-stmt) 'push-statement))
+       (value-of-push-statement-unified (cadr predefined-stmt) (caddr predefined-stmt) env)]
+      [(and (pair? predefined-stmt) (eq? (car predefined-stmt) 'pop-statement))
+       (value-of-pop-statement-unified (cadr predefined-stmt) env)]
+      [else (cons (report-invalid-expression! predefined-stmt) env)])))
+
+; Predefined statement evaluation (backward compatibility)
+(define value-of-predefined-statement
+  (lambda (predefined-stmt env)
+    (let ((result-env-pair (value-of-predefined-statement-unified predefined-stmt env)))
+      (car result-env-pair))))
+
+; Input statement - reads a value and assigns it to a variable
+(define value-of-input-statement
+  (lambda (var-name env)
+    (display "Input: ")
+    (let ((input-str (read-line)))
+      ; Try to parse as number first, then as string
+      (let ((val (cond
+                   [(string->number input-str) (num-val (string->number input-str))]
+                   [(string=? input-str "true") (bool-val #t)]
+                   [(string=? input-str "false") (bool-val #f)]
+                   [else (string-val input-str)])))
+        val))))
+
+; Get statement - retrieves element from list at index
+(define value-of-get-statement
+  (lambda (var-name index-expr env)
+    (let ((list-expval (apply-env var-name env))
+          (index-val (value-of-expression index-expr env)))
+      (cases expval list-expval
+        (list-val (lst)
+         (let ((index (expval->num index-val)))
+           (if (and (>= index 0) (< index (length lst)))
+               (list-ref lst index)
+               (eopl:error 'list-index-error "list index out of range: ~s" index))))
+        (else (eopl:error 'type-error "expected list, got ~s" list-expval))))))
+
+; Set statement - sets element in list at index (backward compatibility)
+(define value-of-set-statement
+  (lambda (var-name index-expr value-expr env)
+    (let ((result-env-pair (value-of-set-statement-unified var-name index-expr value-expr env)))
+      (car result-env-pair))))
+
+; Push statement - adds element to end of list (backward compatibility)
+(define value-of-push-statement
+  (lambda (var-name value-expr env)
+    (let ((result-env-pair (value-of-push-statement-unified var-name value-expr env)))
+      (car result-env-pair))))
+
+; Pop statement - removes and returns last element from list (backward compatibility)
+(define value-of-pop-statement
+  (lambda (var-name env)
+    (let ((result-env-pair (value-of-pop-statement-unified var-name env)))
+      (car result-env-pair))))
+
+; Set statement - sets element in list at index and updates environment
+(define value-of-set-statement-unified
+  (lambda (var-name index-expr value-expr env)
+    (let ((list-expval (apply-env var-name env))
+          (index-val (value-of-expression index-expr env))
+          (new-val (value-of-expression value-expr env)))
+      (cases expval list-expval
+        (list-val (lst)
+         (let ((index (expval->num index-val)))
+           (if (and (>= index 0) (< index (length lst)))
+               (let* ((new-lst (list-set lst index new-val))
+                      (new-list-val (list-val new-lst)))
+                 (cons new-list-val (extend-env var-name new-list-val env)))
+               (eopl:error 'list-index-error "list index out of range: ~s" index))))
+        (else (eopl:error 'type-error "expected list, got ~s" list-expval))))))
+
+; Push statement - adds element to end of list and updates environment
+(define value-of-push-statement-unified
+  (lambda (var-name value-expr env)
+    (let ((list-expval (apply-env var-name env))
+          (new-val (value-of-expression value-expr env)))
+      (cases expval list-expval
+        (list-val (lst)
+         (let* ((new-lst (append lst (list new-val)))
+                (new-list-val (list-val new-lst)))
+           (cons new-list-val (extend-env var-name new-list-val env))))
+        (else (eopl:error 'type-error "expected list, got ~s" list-expval))))))
+
+; Pop statement - removes and returns last element from list and updates environment
+(define value-of-pop-statement-unified
+  (lambda (var-name env)
+    (let ((list-expval (apply-env var-name env)))
+      (cases expval list-expval
+        (list-val (lst)
+         (if (null? lst)
+             (eopl:error 'list-empty-error "cannot pop from empty list")
+             (let* ((last-elem (car (reverse lst)))
+                    (new-lst (reverse (cdr (reverse lst))))
+                    (new-list-val (list-val new-lst)))
+               (cons new-list-val (extend-env var-name new-list-val env)))))
+        (else (eopl:error 'type-error "expected list, got ~s" list-expval))))))
+
+; Helper function to set element in list at index
+(define list-set
+  (lambda (lst index new-val)
+    (cond
+      [(= index 0) (cons new-val (cdr lst))]
+      [else (cons (car lst) (list-set (cdr lst) (- index 1) new-val))])))
 
 ; Helper function to convert expval to string for printing
 (define expval->string-for-print
@@ -581,6 +735,10 @@
                            (substring ch 1 (- (string-length ch) 1))
                            ch)))
           clean-ch))
+      (list-val (lst) 
+        (string-append "[" 
+          (string-join (map expval->string-for-print lst) ", ") 
+          "]"))
       [else "unknown"])))
 
 ; Value evaluation
@@ -593,6 +751,7 @@
        (bool-val (if (string=? (cadr val) "true") #t #f))]
       [(and (pair? val) (eq? (car val) 'str-val)) (string-val (cadr val))]
       [(and (pair? val) (eq? (car val) 'char-val)) (char-val (cadr val))]
+      [(and (pair? val) (eq? (car val) 'lst-val)) (value-of-list-literal (cadr val))]
       [else (report-invalid-expression! val)])))
 
 ; Assignment evaluation
@@ -710,3 +869,21 @@
       [else '()])))
 
 ; Existing extract-parameter-names function
+
+; List literal evaluation
+(define value-of-list-literal
+  (lambda (value-seq)
+    (cond
+      [(null? value-seq) (list-val '())]
+      [(pair? value-seq)
+       (let ((values (map value-of-value value-seq)))
+         (list-val values))]
+      [else (list-val (list (value-of-value value-seq)))])))
+
+; Helper function to join strings with separator
+(define string-join
+  (lambda (str-list separator)
+    (cond
+      [(null? str-list) ""]
+      [(null? (cdr str-list)) (car str-list)]
+      [else (string-append (car str-list) separator (string-join (cdr str-list) separator))])))
