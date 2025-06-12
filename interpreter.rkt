@@ -256,11 +256,13 @@
               (scope (cadddr func-decl))
               (raw-params (if (null? (cddddr func-decl)) '() (car (cddddr func-decl))))
               (params (extract-parameter-names raw-params)))
-         ; Simple approach: create function with current env, 
-         ; recursion will be handled in function call by looking up the function name
-         (let* ((func-val (function-val params scope env))
-                (new-env (extend-env func-name func-val env)))
-           (cons func-val new-env)))]
+         ; For recursion: create function with environment that includes itself
+         ; We'll use a letrec-style approach where the function is available in its own closure
+         (let* ((extended-env (extend-env func-name (num-val 0) env))  ; temporary placeholder
+                (func-val (function-val params scope extended-env)))
+           ; Now update the environment so the function can see itself
+           (let ((final-env (extend-env func-name func-val env)))
+             (cons func-val final-env))))]
       [else (cons (report-invalid-statement! func-decl) env)])))
 
 ; Unified if statement execution
@@ -799,7 +801,9 @@
              ; Evaluate arguments
              (let ((arg-vals (map (lambda (arg) (value-of-expression arg env)) args)))
                ; Create new environment with parameter bindings
-               (let ((param-env (bind-parameters params arg-vals closure-env)))
+               ; Important: make sure the function can call itself by including it in the parameter environment
+               (let* ((func-env (extend-env func-name func-val closure-env))
+                      (param-env (bind-parameters params arg-vals func-env)))
                  ; Execute function body
                  (let ((result-env-pair (exec-statement-unified body param-env)))
                    (let ((result (car result-env-pair)))
@@ -809,64 +813,6 @@
                        (else result)))))))     ; Return result as-is
            (else (report-invalid-expression! (list "not a function:" func-name)))))]
       [else (report-invalid-expression! func-call)])))
-
-; Helper function to bind parameters to arguments
-(define bind-parameters
-  (lambda (params args env)
-    (cond
-      [(and (null? params) (null? args)) env]
-      [(or (null? params) (null? args)) 
-       (eopl:error 'bind-parameters "parameter/argument count mismatch")]
-      [else
-       ; Extract parameter name from var-type-name structure
-       (let* ((param (car params))
-              (param-name (if (and (pair? param) (eq? (car param) 'var-type-name))
-                             (caddr param)  ; Extract ID from (var-type-name var-type ID)
-                             param))        ; If not var-type-name, use as-is
-              (arg-val (car args))
-              (new-env (extend-env param-name arg-val env)))
-         (bind-parameters (cdr params) (cdr args) new-env))])))
-
-; Helper function to resolve parser-generated sequences like (append $1 (list $3))
-; This handles the case where parser generates symbolic append expressions
-(define resolve-parser-sequence
-  (lambda (seq-expr actual-values)
-    (cond
-      [(null? seq-expr) '()]
-      [(and (pair? seq-expr) (eq? (car seq-expr) 'list))
-       ; (list $1) -> resolve $1 to actual value
-       (if (eq? (cadr seq-expr) '$1)
-           (list (car actual-values))
-           (list (cadr seq-expr)))]
-      [(and (pair? seq-expr) (eq? (car seq-expr) 'append))
-       ; (append $1 (list $3)) -> resolve both parts
-       (let ((first-part (resolve-parser-sequence (cadr seq-expr) actual-values))
-             (second-part (resolve-parser-sequence (caddr seq-expr) actual-values)))
-         (append first-part second-part))]
-      [else (list seq-expr)])))
-
-; Improved parameter extraction that handles the actual parameter structures
-(define extract-parameter-names-improved
-  (lambda (param-expr)
-    (cond
-      [(null? param-expr) '()]
-      ; Handle direct var-type-name
-      [(and (pair? param-expr) (eq? (car param-expr) 'var-type-name))
-       (list (caddr param-expr))]  ; Extract the name part
-      ; Handle list of var-type-name
-      [(and (pair? param-expr) (eq? (car param-expr) 'list))
-       (let ((param (cadr param-expr)))
-         (extract-parameter-names-improved param))]
-      ; Handle quoted expressions - this is the key fix
-      [(and (pair? param-expr) (eq? (car param-expr) 'quote))
-       ; Skip the quote and process the inner expression
-       (extract-parameter-names-improved (cadr param-expr))]
-      ; Handle append expressions with symbols $1, $3 etc.
-      [(and (pair? param-expr) (eq? (car param-expr) 'append))
-       ; For now, return empty list and handle this at function call time
-       ; This is a parser artifact that needs special handling
-       '()]
-      [else '()])))
 
 ; Existing extract-parameter-names function
 
@@ -887,3 +833,19 @@
       [(null? str-list) ""]
       [(null? (cdr str-list)) (car str-list)]
       [else (string-append (car str-list) separator (string-join (cdr str-list) separator))])))
+
+(define bind-parameters
+  (lambda (params args env)
+    (cond
+      [(and (null? params) (null? args)) env]
+      [(or (null? params) (null? args)) 
+       (eopl:error 'bind-parameters "parameter/argument count mismatch")]
+      [else
+       ; Extract parameter name from var-type-name structure
+       (let* ((param (car params))
+              (param-name (if (and (pair? param) (eq? (car param) 'var-type-name))
+                             (caddr param)  ; Extract ID from (var-type-name var-type ID)
+                             param))        ; If not var-type-name, use as-is
+              (arg-val (car args))
+              (new-env (extend-env param-name arg-val env)))
+         (bind-parameters (cdr params) (cdr args) new-env))])))

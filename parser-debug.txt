@@ -96,7 +96,6 @@ State 0
 	EOF					reduce	3
 	PRINT					reduce	3
 	ID					reduce	3
-	g4247					goto	1
 	NOT					reduce	3
 	BREAK					reduce	3
 	CONTINUE					reduce	3
@@ -109,6 +108,7 @@ State 0
 	LIST					reduce	3
 	WHILE					reduce	3
 	FLOAT					reduce	3
+	g4247					goto	1
 	LPAREN					reduce	3
 	INTVAL					reduce	3
 	BOOLVAL					reduce	3
