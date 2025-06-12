@@ -33,12 +33,12 @@
     } else {
       return n * factorial(n - 1);
     }
-  }
+  };
   
   // Function to check if number is even
   bool isEven(int num) {
     return (num % 2) == 0;
-  }
+  };
   
   // Function to find maximum of two numbers
   int max(int a, int b) {
@@ -47,7 +47,7 @@
     } else {
       return b;
     }
-  }
+  };
   
   // Function to calculate sum of numbers from 1 to n
   int sumToN(int n) {
@@ -58,7 +58,7 @@
       i = i + 1;
     }
     return sum;
-  }
+  };
   
   // Function to calculate power (base^exp)
   int power(int base, int exp) {
@@ -72,7 +72,7 @@
       counter = counter + 1;
     }
     return result;
-  }
+  };
   
   // Function to calculate fibonacci number
   int fibonacci(int n) {
@@ -81,7 +81,7 @@
     } else {
       return fibonacci(n - 1) + fibonacci(n - 2);
     }
-  }
+  };
   
   // Function with complex logic
   int complexCalculation(int a, int b, int c) {
@@ -96,21 +96,21 @@
     }
     
     return temp3;
-  }
+  };
   
   // Main computation
   int fact5 = factorial(5);
   int sum10 = sumToN(10);
   int pow23 = power(2, 3);
   int fib7 = fibonacci(7);
-  bool evenCheck = isEven(fact5);
+  // bool evenCheck = isEven(fact5);
   int maxResult = max(fact5, sum10);
   int complexResult = complexCalculation(10, 20, 3);
   
   // Final calculation combining everything
   int finalResult = (fact5 + sum10 + pow23 + fib7 + maxResult + complexResult) / 6;
   
-  finalResult;
+  finalResult;  // Ensure this is a valid standalone expression
 ")
 
 ; Run the comprehensive demo
@@ -195,12 +195,12 @@
       a = temp;
     }
     return a;
-  }
+  };
   
   // Function to calculate least common multiple (LCM)
   int lcm(int a, int b) {
     return (a * b) / gcd(a, b);
-  }
+  };
   
   // Function to check if a number is prime
   bool isPrime(int n) {
@@ -222,7 +222,7 @@
       i = i + 2;
     }
     return true;
-  }
+  };
   
   // Function to find nth prime number
   int nthPrime(int n) {
@@ -242,7 +242,7 @@
       }
     }
     return num;
-  }
+  };
   
   // Calculate some mathematical results
   int gcd_result = gcd(48, 18);
@@ -278,7 +278,7 @@
       }
     }
     return false;
-  }
+  };
   
   // Calculate sum of digits
   int sumOfDigits(int n) {
@@ -288,7 +288,7 @@
       n = n / 10;
     }
     return sum;
-  }
+  };
   
   // Reverse a number
   int reverseNumber(int n) {
@@ -298,12 +298,12 @@
       n = n / 10;
     }
     return reversed;
-  }
+  };
   
   // Check if number is palindrome
   bool isPalindrome(int n) {
     return n == reverseNumber(n);
-  }
+  };
   
   // Test the algorithms
   bool search_result = binarySearch(7, 10);

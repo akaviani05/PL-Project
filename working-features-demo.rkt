@@ -230,8 +230,8 @@
     (run-demo "Bubble Sort Step (Simulation)" 
               "int bubbleStep(int a, int b, int c) { int temp1 = a; int temp2 = b; int temp3 = c; if (temp1 > temp2) { int swap = temp1; temp1 = temp2; temp2 = swap; } if (temp2 > temp3) { int swap = temp2; temp2 = temp3; temp3 = swap; } return temp1 + temp2 * 10 + temp3 * 100; }; bubbleStep(30, 10, 20);")
 
-;;;     (run-demo "Count Digits" 
-;;;               "int countDigits(int n) { if (n == 0) { return 1; } int count = 0; if (n < 0) { n = -n; } while (n > 0) { count = count + 1; n = n / 10; } return count; }; countDigits(12345);")
+    (run-demo "Count Digits" 
+              "int countDigits(int n) { if (n == 0) { return 1; } int count = 0; if (n < 0) { n = 0 - n; } while (n > 0) { count = count + 1; n = n / 10; } return count; }; countDigits(12345);")
 
     (run-demo "Reverse Number" 
               "int reverseNumber(int n) { int reversed = 0; bool isNegative = n < 0;  while (n > 0) { reversed = (reversed * 10) + (n % 10); n = n / 10; } return reversed; }; reverseNumber(123);")

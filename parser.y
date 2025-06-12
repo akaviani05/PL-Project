@@ -83,6 +83,7 @@ exp0: atom
 ;
 exp1: 'NOT' exp0 
 | 'TILDE' exp0 
+| 'MINUS' exp0 
 | exp0 
 ;
 exp2: exp2 'TIMES' exp1 

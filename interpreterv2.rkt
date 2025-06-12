@@ -485,13 +485,8 @@
                (val2 (extract-numeric-value expval2)))
            (if (= val2 0)
                (eopl:error 'division-by-zero "division by zero")
-               ; Check if both operands are integers (no floats involved)
-               (if (and (not (is-float-expval? expval1)) (not (is-float-expval? expval2)))
-                   ; Integer division - use quotient for integer result
-                   (num-val (quotient (inexact->exact val1) (inexact->exact val2)))
-                   ; Float division - use regular division
-                   (create-numeric-result (/ val1 val2) expval1 expval2)))))]
-
+               (create-numeric-result (/ val1 val2) expval1 expval2))))]
+      
       [(and (pair? expr) (eq? (car expr) '%))
        (let ((expval1 (value-of-expression (cadr expr) env))
              (expval2 (value-of-expression (caddr expr) env)))
@@ -502,12 +497,6 @@
                (num-val (remainder (inexact->exact (floor val1)) (inexact->exact (floor val2)))))))]
       
       ; Handle unary operations
-      [(and (pair? expr) (eq? (car expr) 'unary-minus))
-       (let ((val (extract-numeric-value (value-of-expression (cadr expr) env))))
-         (if (integer? val)
-             (num-val (- val))
-             (float-val (- val))))]
-      
       [(and (pair? expr) (eq? (car expr) '!))
        (let ((val (expval->bool (value-of-expression (cadr expr) env))))
          (bool-val (not val)))]

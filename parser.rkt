@@ -164,6 +164,7 @@
       
       (exp1 ((NOT exp0)    (node '! $2))
             ((TILDE exp0)  (node '~ $2))
+            ((MINUS exp0)  (node '- $2))
             ((exp0)        (node 'exp0 $1)))
       
       (exp2 ((exp2 TIMES exp1)  (node '* $1 $3))
