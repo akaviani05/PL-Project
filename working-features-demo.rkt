@@ -236,6 +236,8 @@
     (run-demo "Reverse Number" 
               "int reverseNumber(int n) { int reversed = 0; bool isNegative = n < 0;  while (n > 0) { reversed = (reversed * 10) + (n % 10); n = n / 10; } return reversed; }; reverseNumber(123);")
 
+    (run-demo "Sample input:"
+              "int x; $input(x); x;")
 ;;;     (run-demo "Sum of Digits" 
 ;;;               "int sumOfDigits(int n) { if (n < 0) { n = -n; } int sum = 0; while (n > 0) { sum = sum + (n % 10); n = n / 10; } return sum; }; sumOfDigits(12345);")
 

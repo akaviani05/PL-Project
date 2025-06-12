@@ -615,7 +615,8 @@
          (newline)
          (cons val env))] ; Return value and unchanged environment
       [(and (pair? predefined-stmt) (eq? (car predefined-stmt) 'input-statement))
-       (value-of-input-statement-unified (cadr predefined-stmt) env)]
+       (let ((val (value-of-input-statement (cadr predefined-stmt) env)))
+         (cons val env))]
       [(and (pair? predefined-stmt) (eq? (car predefined-stmt) 'get-statement))
        (let ((val (value-of-get-statement (cadr predefined-stmt) (caddr predefined-stmt) env)))
          (cons val env))]
@@ -645,21 +646,6 @@
                    [(string=? input-str "false") (bool-val #f)]
                    [else (string-val input-str)])))
         val))))
-
-; Input statement - reads a value and assigns it to a variable (unified version)
-(define value-of-input-statement-unified
-  (lambda (var-name env)
-    (display "Input: ")
-    (let ((input-str (read-line)))
-      ; Try to parse as number first, then as string
-      (let ((val (cond
-                   [(string->number input-str) (num-val (string->number input-str))]
-                   [(string=? input-str "true") (bool-val #t)]
-                   [(string=? input-str "false") (bool-val #f)]
-                   [else (string-val input-str)])))
-        ; Update the environment with the new value and return both value and updated environment
-        (let ((new-env (extend-env var-name val env)))
-          (cons val new-env))))))
 
 ; Get statement - retrieves element from list at index
 (define value-of-get-statement

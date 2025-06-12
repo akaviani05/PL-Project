@@ -97,6 +97,7 @@ State 0
 	EOF					reduce	3
 	PRINT					reduce	3
 	ID					reduce	3
+	g4247					goto	1
 	NOT					reduce	3
 	BREAK					reduce	3
 	CONTINUE					reduce	3
@@ -118,7 +119,6 @@ State 0
 	GET					reduce	3
 	INPUT					reduce	3
 	CHAR					reduce	3
-	g4247					goto	1
 
 State 1
 	g4246 -> g4247 . 
