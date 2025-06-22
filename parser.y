@@ -77,6 +77,7 @@ predefined-statement: 'PRINT' 'LPAREN' expression 'RPAREN'
 | 'SET' 'LPAREN' ID 'COMMA' expression 'COMMA' expression 'RPAREN' 
 | 'PUSH' 'LPAREN' ID 'COMMA' expression 'RPAREN' 
 | 'POP' 'LPAREN' ID 'RPAREN' 
+| 'TOCHARLIST' 'LPAREN' expression 'RPAREN' 
 ;
 exp0: atom 
 | 'LPAREN' expression 'RPAREN' 
@@ -119,7 +120,7 @@ var-type: 'INT'
 | 'STRING' 
 | 'CHAR' 
 | 'BOOL' 
-| 'LIST' 'LT' var-type 'GT' 
+| 'LIST' 
 ;
 value: INTVAL 
 | FLOATVAL 

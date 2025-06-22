@@ -79,6 +79,7 @@
    ["$set" (token-SET)]
    ["$push" (token-PUSH)]
    ["$pop" (token-POP)]
+   ["$tocharlist" (token-TOCHARLIST)]
 
    ["{" (token-LBRACE)]
    ["}" (token-RBRACE)]
@@ -124,7 +125,7 @@
 (define-empty-tokens empty-tokens
   (IF ELSE WHILE BREAK CONTINUE RETURN
    LIST INT FLOAT STRING CHAR BOOL
-   PRINT INPUT GET SET PUSH POP
+   PRINT INPUT GET SET PUSH POP TOCHARLIST
    LBRACE RBRACE LPAREN RPAREN LT GT SEMICOLON COMMA
    ASSIGN PLUS MINUS TIMES DIVIDE MOD LE GE EQ NE NOT TILDE AMP CARET PIPE AND OR
    EOF))

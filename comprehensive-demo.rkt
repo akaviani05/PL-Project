@@ -32,7 +32,7 @@
       return 1;
     } else {
       return n * factorial(n - 1);
-    }
+    };
   };
   
   // Function to check if number is even
@@ -46,7 +46,7 @@
       return a;
     } else {
       return b;
-    }
+    };
   };
   
   // Function to calculate sum of numbers from 1 to n
@@ -80,7 +80,7 @@
       return n;
     } else {
       return fibonacci(n - 1) + fibonacci(n - 2);
-    }
+    };
   };
   
   // Function with complex logic
@@ -103,14 +103,14 @@
   int sum10 = sumToN(10);
   int pow23 = power(2, 3);
   int fib7 = fibonacci(7);
-  // bool evenCheck = isEven(fact5);
+  bool evenCheck = isEven(fact5);
   int maxResult = max(fact5, sum10);
   int complexResult = complexCalculation(10, 20, 3);
   
   // Final calculation combining everything
   int finalResult = (fact5 + sum10 + pow23 + fib7 + maxResult + complexResult) / 6;
   
-  finalResult;  // Ensure this is a valid standalone expression
+  finalResult;
 ")
 
 ; Run the comprehensive demo

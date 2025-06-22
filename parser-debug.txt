@@ -1,5 +1,5 @@
-0	g4246	=	(g4247)
-1	g4247	=	(program EOF)
+0	g4251	=	(g4252)
+1	g4252	=	(program EOF)
 2	program	=	(statement-seq)
 3	statement-seq	=	()
 4	statement-seq	=	(statement-seq statement)
@@ -45,87 +45,89 @@
 44	predefined-statement	=	(SET LPAREN ID COMMA expression COMMA expression RPAREN)
 45	predefined-statement	=	(PUSH LPAREN ID COMMA expression RPAREN)
 46	predefined-statement	=	(POP LPAREN ID RPAREN)
-47	exp0	=	(atom)
-48	exp0	=	(LPAREN expression RPAREN)
-49	exp1	=	(NOT exp0)
-50	exp1	=	(TILDE exp0)
-51	exp1	=	(MINUS exp0)
-52	exp1	=	(exp0)
-53	exp2	=	(exp2 TIMES exp1)
-54	exp2	=	(exp2 DIVIDE exp1)
-55	exp2	=	(exp2 MOD exp1)
-56	exp2	=	(exp1)
-57	exp3	=	(exp3 PLUS exp2)
-58	exp3	=	(exp3 MINUS exp2)
-59	exp3	=	(exp2)
-60	exp4	=	(exp4 LE exp3)
-61	exp4	=	(exp4 GE exp3)
-62	exp4	=	(exp4 LT exp3)
-63	exp4	=	(exp4 GT exp3)
-64	exp4	=	(exp4 EQ exp3)
-65	exp4	=	(exp4 NE exp3)
-66	exp4	=	(exp3)
-67	exp5	=	(exp5 AMP exp4)
-68	exp5	=	(exp5 CARET exp4)
-69	exp5	=	(exp5 PIPE exp4)
-70	exp5	=	(exp4)
-71	exp6	=	(exp6 AND exp5)
-72	exp6	=	(exp5)
-73	expression	=	(expression OR exp6)
-74	expression	=	(exp6)
-75	var-type	=	(INT)
-76	var-type	=	(FLOAT)
-77	var-type	=	(STRING)
-78	var-type	=	(CHAR)
-79	var-type	=	(BOOL)
-80	var-type	=	(LIST LT var-type GT)
-81	value	=	(INTVAL)
-82	value	=	(FLOATVAL)
-83	value	=	(CHARVAL)
-84	value	=	(STRVAL)
-85	value	=	(BOOLVAL)
+47	predefined-statement	=	(TOCHARLIST LPAREN expression RPAREN)
+48	exp0	=	(atom)
+49	exp0	=	(LPAREN expression RPAREN)
+50	exp1	=	(NOT exp0)
+51	exp1	=	(TILDE exp0)
+52	exp1	=	(MINUS exp0)
+53	exp1	=	(exp0)
+54	exp2	=	(exp2 TIMES exp1)
+55	exp2	=	(exp2 DIVIDE exp1)
+56	exp2	=	(exp2 MOD exp1)
+57	exp2	=	(exp1)
+58	exp3	=	(exp3 PLUS exp2)
+59	exp3	=	(exp3 MINUS exp2)
+60	exp3	=	(exp2)
+61	exp4	=	(exp4 LE exp3)
+62	exp4	=	(exp4 GE exp3)
+63	exp4	=	(exp4 LT exp3)
+64	exp4	=	(exp4 GT exp3)
+65	exp4	=	(exp4 EQ exp3)
+66	exp4	=	(exp4 NE exp3)
+67	exp4	=	(exp3)
+68	exp5	=	(exp5 AMP exp4)
+69	exp5	=	(exp5 CARET exp4)
+70	exp5	=	(exp5 PIPE exp4)
+71	exp5	=	(exp4)
+72	exp6	=	(exp6 AND exp5)
+73	exp6	=	(exp5)
+74	expression	=	(expression OR exp6)
+75	expression	=	(exp6)
+76	var-type	=	(INT)
+77	var-type	=	(FLOAT)
+78	var-type	=	(STRING)
+79	var-type	=	(CHAR)
+80	var-type	=	(BOOL)
+81	var-type	=	(LIST)
+82	value	=	(INTVAL)
+83	value	=	(FLOATVAL)
+84	value	=	(CHARVAL)
+85	value	=	(STRVAL)
+86	value	=	(BOOLVAL)
 State 0
-	g4246 -> . g4247 
+	g4251 -> . g4252 
 
 	POP					reduce	3
 	INT					reduce	3
-	statement-seq					goto	3
-	IF					reduce	3
-	SET					reduce	3
-	STRVAL					reduce	3
+	TILDE					reduce	3
 	FLOATVAL					reduce	3
 	EOF					reduce	3
 	PRINT					reduce	3
 	ID					reduce	3
-	g4247					goto	1
-	NOT					reduce	3
 	BREAK					reduce	3
-	CONTINUE					reduce	3
-	RETURN					reduce	3
-	PUSH					reduce	3
-	STRING					reduce	3
-	program					goto	2
-	CHARVAL					reduce	3
-	BOOL					reduce	3
-	LIST					reduce	3
-	WHILE					reduce	3
-	FLOAT					reduce	3
-	LPAREN					reduce	3
-	INTVAL					reduce	3
-	BOOLVAL					reduce	3
-	MINUS					reduce	3
 	LBRACE					reduce	3
-	TILDE					reduce	3
+	STRING					reduce	3
+	PUSH					reduce	3
+	CONTINUE					reduce	3
+	program					goto	2
+	TOCHARLIST					reduce	3
+	WHILE					reduce	3
+	BOOLVAL					reduce	3
 	GET					reduce	3
+	SET					reduce	3
+	NOT					reduce	3
+	IF					reduce	3
+	statement-seq					goto	3
+	STRVAL					reduce	3
+	MINUS					reduce	3
+	LPAREN					reduce	3
+	RETURN					reduce	3
+	BOOL					reduce	3
+	CHARVAL					reduce	3
+	g4252					goto	1
+	LIST					reduce	3
+	FLOAT					reduce	3
+	INTVAL					reduce	3
 	INPUT					reduce	3
 	CHAR					reduce	3
 
 State 1
-	g4246 -> g4247 . 
+	g4251 -> g4252 . 
 
 
 State 2
-	g4247 -> program . EOF 
+	g4252 -> program . EOF 
 
 	EOF					accept	
 
@@ -137,36 +139,39 @@ State 3
 	POP					shift	52
 	INT					shift	42
 	statement					goto	5
+	TILDE					shift	58
 	FLOATVAL					shift	32
 	var-type					goto	28
+	EOF					reduce	2
 	PRINT					shift	47
 	exp4					goto	24
 	ID					shift	30
-	NOT					shift	56
 	BREAK					shift	38
+	LBRACE					shift	54
 	var-type-name					goto	11
 	PUSH					shift	51
 	STRING					shift	44
 	CONTINUE					shift	39
 	continue-statement					goto	15
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	WHILE					shift	37
-	LPAREN					shift	54
 	exp0					goto	20
 	exp1					goto	21
 	BOOLVAL					shift	35
-	LBRACE					shift	53
 	GET					shift	49
 	predefined-statement					goto	19
+	NOT					shift	57
 	SET					shift	50
 	IF					shift	36
 	STRVAL					shift	33
 	assignment					goto	13
-	EOF					reduce	2
 	var-declaration					goto	10
 	atom					goto	17
 	value					goto	29
 	scope					goto	6
+	MINUS					shift	56
+	LPAREN					shift	55
 	RETURN					shift	40
 	break-statement					goto	14
 	expression					goto	27
@@ -181,16 +186,14 @@ State 3
 	return-statement					goto	16
 	if-statement					goto	8
 	exp6					goto	26
-	MINUS					shift	55
 	INTVAL					shift	31
-	TILDE					shift	57
 	INPUT					shift	48
 	exp2					goto	22
 	CHAR					shift	45
 	simple-stament					goto	7
 
 State 4
-	g4247 -> program EOF . 
+	g4252 -> program EOF . 
 
 
 State 5
@@ -199,30 +202,31 @@ State 5
 	INT					reduce	4
 	POP					reduce	4
 	IF					reduce	4
+	NOT					reduce	4
+	TILDE					reduce	4
 	SET					reduce	4
 	STRVAL					reduce	4
-	RBRACE					reduce	4
 	FLOATVAL					reduce	4
 	EOF					reduce	4
 	PRINT					reduce	4
 	ID					reduce	4
-	NOT					reduce	4
 	BREAK					reduce	4
+	LBRACE					reduce	4
+	MINUS					reduce	4
 	CONTINUE					reduce	4
 	RETURN					reduce	4
+	LPAREN					reduce	4
 	PUSH					reduce	4
 	STRING					reduce	4
+	TOCHARLIST					reduce	4
 	CHARVAL					reduce	4
 	BOOL					reduce	4
 	LIST					reduce	4
+	RBRACE					reduce	4
 	WHILE					reduce	4
 	FLOAT					reduce	4
-	LPAREN					reduce	4
 	INTVAL					reduce	4
 	BOOLVAL					reduce	4
-	MINUS					reduce	4
-	LBRACE					reduce	4
-	TILDE					reduce	4
 	GET					reduce	4
 	INPUT					reduce	4
 	CHAR					reduce	4
@@ -233,30 +237,31 @@ State 6
 	INT					reduce	5
 	POP					reduce	5
 	IF					reduce	5
+	NOT					reduce	5
+	TILDE					reduce	5
 	SET					reduce	5
 	STRVAL					reduce	5
-	RBRACE					reduce	5
 	FLOATVAL					reduce	5
 	EOF					reduce	5
 	PRINT					reduce	5
 	ID					reduce	5
-	NOT					reduce	5
 	BREAK					reduce	5
+	LBRACE					reduce	5
+	MINUS					reduce	5
 	CONTINUE					reduce	5
 	RETURN					reduce	5
+	LPAREN					reduce	5
 	PUSH					reduce	5
 	STRING					reduce	5
+	TOCHARLIST					reduce	5
 	CHARVAL					reduce	5
 	BOOL					reduce	5
 	LIST					reduce	5
+	RBRACE					reduce	5
 	WHILE					reduce	5
 	FLOAT					reduce	5
-	LPAREN					reduce	5
 	INTVAL					reduce	5
 	BOOLVAL					reduce	5
-	MINUS					reduce	5
-	LBRACE					reduce	5
-	TILDE					reduce	5
 	GET					reduce	5
 	INPUT					reduce	5
 	CHAR					reduce	5
@@ -264,7 +269,7 @@ State 6
 State 7
 	statement -> simple-stament . SEMICOLON 
 
-	SEMICOLON					shift	58
+	SEMICOLON					shift	59
 
 State 8
 	statement -> if-statement . 
@@ -272,30 +277,31 @@ State 8
 	INT					reduce	7
 	POP					reduce	7
 	IF					reduce	7
+	NOT					reduce	7
+	TILDE					reduce	7
 	SET					reduce	7
 	STRVAL					reduce	7
-	RBRACE					reduce	7
 	FLOATVAL					reduce	7
 	EOF					reduce	7
 	PRINT					reduce	7
 	ID					reduce	7
-	NOT					reduce	7
 	BREAK					reduce	7
+	LBRACE					reduce	7
+	MINUS					reduce	7
 	CONTINUE					reduce	7
 	RETURN					reduce	7
+	LPAREN					reduce	7
 	PUSH					reduce	7
 	STRING					reduce	7
+	TOCHARLIST					reduce	7
 	CHARVAL					reduce	7
 	BOOL					reduce	7
 	LIST					reduce	7
+	RBRACE					reduce	7
 	WHILE					reduce	7
 	FLOAT					reduce	7
-	LPAREN					reduce	7
 	INTVAL					reduce	7
 	BOOLVAL					reduce	7
-	MINUS					reduce	7
-	LBRACE					reduce	7
-	TILDE					reduce	7
 	GET					reduce	7
 	INPUT					reduce	7
 	CHAR					reduce	7
@@ -306,30 +312,31 @@ State 9
 	INT					reduce	8
 	POP					reduce	8
 	IF					reduce	8
+	NOT					reduce	8
+	TILDE					reduce	8
 	SET					reduce	8
 	STRVAL					reduce	8
-	RBRACE					reduce	8
 	FLOATVAL					reduce	8
 	EOF					reduce	8
 	PRINT					reduce	8
 	ID					reduce	8
-	NOT					reduce	8
 	BREAK					reduce	8
+	LBRACE					reduce	8
+	MINUS					reduce	8
 	CONTINUE					reduce	8
 	RETURN					reduce	8
+	LPAREN					reduce	8
 	PUSH					reduce	8
 	STRING					reduce	8
+	TOCHARLIST					reduce	8
 	CHARVAL					reduce	8
 	BOOL					reduce	8
 	LIST					reduce	8
+	RBRACE					reduce	8
 	WHILE					reduce	8
 	FLOAT					reduce	8
-	LPAREN					reduce	8
 	INTVAL					reduce	8
 	BOOLVAL					reduce	8
-	MINUS					reduce	8
-	LBRACE					reduce	8
-	TILDE					reduce	8
 	GET					reduce	8
 	INPUT					reduce	8
 	CHAR					reduce	8
@@ -344,7 +351,7 @@ State 11
 	var-declaration -> var-type-name . ASSIGN expression 
 
 	SEMICOLON					reduce	20
-	ASSIGN					shift	59
+	ASSIGN					shift	60
 
 State 12
 	simple-stament -> function-declaration . 
@@ -354,24 +361,24 @@ State 12
 State 13
 	atom -> assignment . 
 
-	DIVIDE					reduce	34
-	SEMICOLON					reduce	34
-	AMP					reduce	34
-	TIMES					reduce	34
-	RPAREN					reduce	34
 	EQ					reduce	34
-	GT					reduce	34
-	AND					reduce	34
+	OR					reduce	34
 	COMMA					reduce	34
 	PLUS					reduce	34
+	LE					reduce	34
+	SEMICOLON					reduce	34
 	GE					reduce	34
 	PIPE					reduce	34
-	NE					reduce	34
-	OR					reduce	34
-	LT					reduce	34
+	GT					reduce	34
 	MINUS					reduce	34
-	LE					reduce	34
+	TIMES					reduce	34
+	LT					reduce	34
+	NE					reduce	34
+	AND					reduce	34
+	RPAREN					reduce	34
 	CARET					reduce	34
+	AMP					reduce	34
+	DIVIDE					reduce	34
 	MOD					reduce	34
 
 State 14
@@ -392,117 +399,117 @@ State 16
 State 17
 	exp0 -> atom . 
 
-	DIVIDE					reduce	47
-	SEMICOLON					reduce	47
-	AMP					reduce	47
-	TIMES					reduce	47
-	RPAREN					reduce	47
-	EQ					reduce	47
-	GT					reduce	47
-	AND					reduce	47
-	COMMA					reduce	47
-	PLUS					reduce	47
-	GE					reduce	47
-	PIPE					reduce	47
-	NE					reduce	47
-	OR					reduce	47
-	LT					reduce	47
-	MINUS					reduce	47
-	LE					reduce	47
-	CARET					reduce	47
-	MOD					reduce	47
+	EQ					reduce	48
+	OR					reduce	48
+	COMMA					reduce	48
+	PLUS					reduce	48
+	LE					reduce	48
+	SEMICOLON					reduce	48
+	GE					reduce	48
+	PIPE					reduce	48
+	GT					reduce	48
+	MINUS					reduce	48
+	TIMES					reduce	48
+	LT					reduce	48
+	NE					reduce	48
+	AND					reduce	48
+	RPAREN					reduce	48
+	CARET					reduce	48
+	AMP					reduce	48
+	DIVIDE					reduce	48
+	MOD					reduce	48
 
 State 18
 	atom -> function-call . 
 
-	DIVIDE					reduce	33
-	SEMICOLON					reduce	33
-	AMP					reduce	33
-	TIMES					reduce	33
-	RPAREN					reduce	33
 	EQ					reduce	33
-	GT					reduce	33
-	AND					reduce	33
+	OR					reduce	33
 	COMMA					reduce	33
 	PLUS					reduce	33
+	LE					reduce	33
+	SEMICOLON					reduce	33
 	GE					reduce	33
 	PIPE					reduce	33
-	NE					reduce	33
-	OR					reduce	33
-	LT					reduce	33
+	GT					reduce	33
 	MINUS					reduce	33
-	LE					reduce	33
+	TIMES					reduce	33
+	LT					reduce	33
+	NE					reduce	33
+	AND					reduce	33
+	RPAREN					reduce	33
 	CARET					reduce	33
+	AMP					reduce	33
+	DIVIDE					reduce	33
 	MOD					reduce	33
 
 State 19
 	atom -> predefined-statement . 
 
-	DIVIDE					reduce	32
-	SEMICOLON					reduce	32
-	AMP					reduce	32
-	TIMES					reduce	32
-	RPAREN					reduce	32
 	EQ					reduce	32
-	GT					reduce	32
-	AND					reduce	32
+	OR					reduce	32
 	COMMA					reduce	32
 	PLUS					reduce	32
+	LE					reduce	32
+	SEMICOLON					reduce	32
 	GE					reduce	32
 	PIPE					reduce	32
-	NE					reduce	32
-	OR					reduce	32
-	LT					reduce	32
+	GT					reduce	32
 	MINUS					reduce	32
-	LE					reduce	32
+	TIMES					reduce	32
+	LT					reduce	32
+	NE					reduce	32
+	AND					reduce	32
+	RPAREN					reduce	32
 	CARET					reduce	32
+	AMP					reduce	32
+	DIVIDE					reduce	32
 	MOD					reduce	32
 
 State 20
 	exp1 -> exp0 . 
 
-	DIVIDE					reduce	52
-	SEMICOLON					reduce	52
-	AMP					reduce	52
-	TIMES					reduce	52
-	RPAREN					reduce	52
-	EQ					reduce	52
-	GT					reduce	52
-	AND					reduce	52
-	COMMA					reduce	52
-	PLUS					reduce	52
-	GE					reduce	52
-	PIPE					reduce	52
-	NE					reduce	52
-	OR					reduce	52
-	LT					reduce	52
-	MINUS					reduce	52
-	LE					reduce	52
-	CARET					reduce	52
-	MOD					reduce	52
+	EQ					reduce	53
+	OR					reduce	53
+	COMMA					reduce	53
+	PLUS					reduce	53
+	LE					reduce	53
+	SEMICOLON					reduce	53
+	GE					reduce	53
+	PIPE					reduce	53
+	GT					reduce	53
+	MINUS					reduce	53
+	TIMES					reduce	53
+	LT					reduce	53
+	NE					reduce	53
+	AND					reduce	53
+	RPAREN					reduce	53
+	CARET					reduce	53
+	AMP					reduce	53
+	DIVIDE					reduce	53
+	MOD					reduce	53
 
 State 21
 	exp2 -> exp1 . 
 
-	DIVIDE					reduce	56
-	SEMICOLON					reduce	56
-	AMP					reduce	56
-	TIMES					reduce	56
-	RPAREN					reduce	56
-	EQ					reduce	56
-	GT					reduce	56
-	AND					reduce	56
-	COMMA					reduce	56
-	PLUS					reduce	56
-	GE					reduce	56
-	PIPE					reduce	56
-	NE					reduce	56
-	OR					reduce	56
-	LT					reduce	56
-	MINUS					reduce	56
-	LE					reduce	56
-	CARET					reduce	56
-	MOD					reduce	56
+	EQ					reduce	57
+	OR					reduce	57
+	COMMA					reduce	57
+	PLUS					reduce	57
+	LE					reduce	57
+	SEMICOLON					reduce	57
+	GE					reduce	57
+	PIPE					reduce	57
+	GT					reduce	57
+	MINUS					reduce	57
+	TIMES					reduce	57
+	LT					reduce	57
+	NE					reduce	57
+	AND					reduce	57
+	RPAREN					reduce	57
+	CARET					reduce	57
+	AMP					reduce	57
+	DIVIDE					reduce	57
+	MOD					reduce	57
 
 State 22
 	exp2 -> exp2 . TIMES exp1 
@@ -510,50 +517,50 @@ State 22
 	exp2 -> exp2 . MOD exp1 
 	exp3 -> exp2 . 
 
-	DIVIDE					shift	61
-	SEMICOLON					reduce	59
-	AMP					reduce	59
-	TIMES					shift	60
-	RPAREN					reduce	59
-	EQ					reduce	59
-	GT					reduce	59
-	AND					reduce	59
-	COMMA					reduce	59
-	PLUS					reduce	59
-	GE					reduce	59
-	PIPE					reduce	59
-	NE					reduce	59
-	OR					reduce	59
-	LT					reduce	59
-	MINUS					reduce	59
-	LE					reduce	59
-	CARET					reduce	59
-	MOD					shift	62
+	EQ					reduce	60
+	OR					reduce	60
+	COMMA					reduce	60
+	PLUS					reduce	60
+	LE					reduce	60
+	SEMICOLON					reduce	60
+	GE					reduce	60
+	PIPE					reduce	60
+	GT					reduce	60
+	MINUS					reduce	60
+	TIMES					shift	61
+	LT					reduce	60
+	NE					reduce	60
+	AND					reduce	60
+	RPAREN					reduce	60
+	CARET					reduce	60
+	AMP					reduce	60
+	DIVIDE					shift	62
+	MOD					shift	63
 
 State 23
 	exp3 -> exp3 . PLUS exp2 
 	exp3 -> exp3 . MINUS exp2 
 	exp4 -> exp3 . 
 
-	DIVIDE					reduce	66
-	SEMICOLON					reduce	66
-	AMP					reduce	66
-	TIMES					reduce	66
-	RPAREN					reduce	66
-	EQ					reduce	66
-	GT					reduce	66
-	AND					reduce	66
-	COMMA					reduce	66
-	PLUS					shift	63
-	GE					reduce	66
-	PIPE					reduce	66
-	NE					reduce	66
-	OR					reduce	66
-	LT					reduce	66
-	MINUS					shift	64
-	LE					reduce	66
-	CARET					reduce	66
-	MOD					reduce	66
+	EQ					reduce	67
+	OR					reduce	67
+	COMMA					reduce	67
+	PLUS					shift	64
+	LE					reduce	67
+	SEMICOLON					reduce	67
+	GE					reduce	67
+	PIPE					reduce	67
+	GT					reduce	67
+	MINUS					shift	65
+	TIMES					reduce	67
+	LT					reduce	67
+	NE					reduce	67
+	AND					reduce	67
+	RPAREN					reduce	67
+	CARET					reduce	67
+	AMP					reduce	67
+	DIVIDE					reduce	67
+	MOD					reduce	67
 
 State 24
 	exp4 -> exp4 . LE exp3 
@@ -564,25 +571,25 @@ State 24
 	exp4 -> exp4 . NE exp3 
 	exp5 -> exp4 . 
 
-	DIVIDE					reduce	70
-	SEMICOLON					reduce	70
-	AMP					reduce	70
-	TIMES					reduce	70
-	RPAREN					reduce	70
-	EQ					shift	69
-	GT					shift	66
-	AND					reduce	70
-	COMMA					reduce	70
-	PLUS					reduce	70
-	GE					shift	68
-	PIPE					reduce	70
-	NE					shift	70
-	OR					reduce	70
-	LT					shift	65
-	MINUS					reduce	70
-	LE					shift	67
-	CARET					reduce	70
-	MOD					reduce	70
+	EQ					shift	70
+	OR					reduce	71
+	COMMA					reduce	71
+	PLUS					reduce	71
+	LE					shift	68
+	SEMICOLON					reduce	71
+	GE					shift	69
+	PIPE					reduce	71
+	GT					shift	67
+	MINUS					reduce	71
+	TIMES					reduce	71
+	LT					shift	66
+	NE					shift	71
+	AND					reduce	71
+	RPAREN					reduce	71
+	CARET					reduce	71
+	AMP					reduce	71
+	DIVIDE					reduce	71
+	MOD					reduce	71
 
 State 25
 	exp5 -> exp5 . AMP exp4 
@@ -590,85 +597,85 @@ State 25
 	exp5 -> exp5 . PIPE exp4 
 	exp6 -> exp5 . 
 
-	DIVIDE					reduce	72
-	SEMICOLON					reduce	72
-	AMP					shift	71
-	TIMES					reduce	72
-	RPAREN					reduce	72
-	EQ					reduce	72
-	GT					reduce	72
-	AND					reduce	72
-	COMMA					reduce	72
-	PLUS					reduce	72
-	GE					reduce	72
-	PIPE					shift	73
-	NE					reduce	72
-	OR					reduce	72
-	LT					reduce	72
-	MINUS					reduce	72
-	LE					reduce	72
-	CARET					shift	72
-	MOD					reduce	72
+	EQ					reduce	73
+	OR					reduce	73
+	COMMA					reduce	73
+	PLUS					reduce	73
+	LE					reduce	73
+	SEMICOLON					reduce	73
+	GE					reduce	73
+	PIPE					shift	74
+	GT					reduce	73
+	MINUS					reduce	73
+	TIMES					reduce	73
+	LT					reduce	73
+	NE					reduce	73
+	AND					reduce	73
+	RPAREN					reduce	73
+	CARET					shift	73
+	AMP					shift	72
+	DIVIDE					reduce	73
+	MOD					reduce	73
 
 State 26
 	exp6 -> exp6 . AND exp5 
 	expression -> exp6 . 
 
-	DIVIDE					reduce	74
-	SEMICOLON					reduce	74
-	AMP					reduce	74
-	TIMES					reduce	74
-	RPAREN					reduce	74
-	EQ					reduce	74
-	GT					reduce	74
-	AND					shift	74
-	COMMA					reduce	74
-	PLUS					reduce	74
-	GE					reduce	74
-	PIPE					reduce	74
-	NE					reduce	74
-	OR					reduce	74
-	LT					reduce	74
-	MINUS					reduce	74
-	LE					reduce	74
-	CARET					reduce	74
-	MOD					reduce	74
+	EQ					reduce	75
+	OR					reduce	75
+	COMMA					reduce	75
+	PLUS					reduce	75
+	LE					reduce	75
+	SEMICOLON					reduce	75
+	GE					reduce	75
+	PIPE					reduce	75
+	GT					reduce	75
+	MINUS					reduce	75
+	TIMES					reduce	75
+	LT					reduce	75
+	NE					reduce	75
+	AND					shift	75
+	RPAREN					reduce	75
+	CARET					reduce	75
+	AMP					reduce	75
+	DIVIDE					reduce	75
+	MOD					reduce	75
 
 State 27
 	simple-stament -> expression . 
 	expression -> expression . OR exp6 
 
 	SEMICOLON					reduce	12
-	OR					shift	75
+	OR					shift	76
 
 State 28
 	var-type-name -> var-type . ID 
 	function-declaration -> var-type . ID LPAREN RPAREN scope 
 	function-declaration -> var-type . ID LPAREN var-seq RPAREN scope 
 
-	ID					shift	76
+	ID					shift	77
 
 State 29
 	atom -> value . 
 
-	DIVIDE					reduce	36
-	SEMICOLON					reduce	36
-	AMP					reduce	36
-	TIMES					reduce	36
-	RPAREN					reduce	36
 	EQ					reduce	36
-	GT					reduce	36
-	AND					reduce	36
+	OR					reduce	36
 	COMMA					reduce	36
 	PLUS					reduce	36
+	LE					reduce	36
+	SEMICOLON					reduce	36
 	GE					reduce	36
 	PIPE					reduce	36
-	NE					reduce	36
-	OR					reduce	36
-	LT					reduce	36
+	GT					reduce	36
 	MINUS					reduce	36
-	LE					reduce	36
+	TIMES					reduce	36
+	LT					reduce	36
+	NE					reduce	36
+	AND					reduce	36
+	RPAREN					reduce	36
 	CARET					reduce	36
+	AMP					reduce	36
+	DIVIDE					reduce	36
 	MOD					reduce	36
 
 State 30
@@ -677,154 +684,154 @@ State 30
 	function-call -> ID . LPAREN RPAREN 
 	function-call -> ID . LPAREN expression-seq RPAREN 
 
-	DIVIDE					reduce	35
-	SEMICOLON					reduce	35
-	AMP					reduce	35
-	TIMES					reduce	35
-	ASSIGN					shift	78
-	RPAREN					reduce	35
 	EQ					reduce	35
-	GT					reduce	35
-	AND					reduce	35
+	OR					reduce	35
 	COMMA					reduce	35
 	PLUS					reduce	35
+	LE					reduce	35
+	SEMICOLON					reduce	35
 	GE					reduce	35
 	PIPE					reduce	35
-	NE					reduce	35
-	LPAREN					shift	77
-	OR					reduce	35
-	LT					reduce	35
+	GT					reduce	35
 	MINUS					reduce	35
-	LE					reduce	35
+	LPAREN					shift	78
+	TIMES					reduce	35
+	LT					reduce	35
+	ASSIGN					shift	79
+	NE					reduce	35
+	AND					reduce	35
+	RPAREN					reduce	35
 	CARET					reduce	35
+	AMP					reduce	35
+	DIVIDE					reduce	35
 	MOD					reduce	35
 
 State 31
 	value -> INTVAL . 
 
-	DIVIDE					reduce	81
-	SEMICOLON					reduce	81
-	AMP					reduce	81
-	TIMES					reduce	81
-	RPAREN					reduce	81
-	EQ					reduce	81
-	GT					reduce	81
-	AND					reduce	81
-	COMMA					reduce	81
-	PLUS					reduce	81
-	GE					reduce	81
-	PIPE					reduce	81
-	NE					reduce	81
-	OR					reduce	81
-	LT					reduce	81
-	MINUS					reduce	81
-	LE					reduce	81
-	CARET					reduce	81
-	MOD					reduce	81
+	EQ					reduce	82
+	OR					reduce	82
+	COMMA					reduce	82
+	PLUS					reduce	82
+	LE					reduce	82
+	SEMICOLON					reduce	82
+	GE					reduce	82
+	PIPE					reduce	82
+	GT					reduce	82
+	MINUS					reduce	82
+	TIMES					reduce	82
+	LT					reduce	82
+	NE					reduce	82
+	AND					reduce	82
+	RPAREN					reduce	82
+	CARET					reduce	82
+	AMP					reduce	82
+	DIVIDE					reduce	82
+	MOD					reduce	82
 
 State 32
 	value -> FLOATVAL . 
 
-	DIVIDE					reduce	82
-	SEMICOLON					reduce	82
-	AMP					reduce	82
-	TIMES					reduce	82
-	RPAREN					reduce	82
-	EQ					reduce	82
-	GT					reduce	82
-	AND					reduce	82
-	COMMA					reduce	82
-	PLUS					reduce	82
-	GE					reduce	82
-	PIPE					reduce	82
-	NE					reduce	82
-	OR					reduce	82
-	LT					reduce	82
-	MINUS					reduce	82
-	LE					reduce	82
-	CARET					reduce	82
-	MOD					reduce	82
+	EQ					reduce	83
+	OR					reduce	83
+	COMMA					reduce	83
+	PLUS					reduce	83
+	LE					reduce	83
+	SEMICOLON					reduce	83
+	GE					reduce	83
+	PIPE					reduce	83
+	GT					reduce	83
+	MINUS					reduce	83
+	TIMES					reduce	83
+	LT					reduce	83
+	NE					reduce	83
+	AND					reduce	83
+	RPAREN					reduce	83
+	CARET					reduce	83
+	AMP					reduce	83
+	DIVIDE					reduce	83
+	MOD					reduce	83
 
 State 33
 	value -> STRVAL . 
 
-	DIVIDE					reduce	84
-	SEMICOLON					reduce	84
-	AMP					reduce	84
-	TIMES					reduce	84
-	RPAREN					reduce	84
-	EQ					reduce	84
-	GT					reduce	84
-	AND					reduce	84
-	COMMA					reduce	84
-	PLUS					reduce	84
-	GE					reduce	84
-	PIPE					reduce	84
-	NE					reduce	84
-	OR					reduce	84
-	LT					reduce	84
-	MINUS					reduce	84
-	LE					reduce	84
-	CARET					reduce	84
-	MOD					reduce	84
+	EQ					reduce	85
+	OR					reduce	85
+	COMMA					reduce	85
+	PLUS					reduce	85
+	LE					reduce	85
+	SEMICOLON					reduce	85
+	GE					reduce	85
+	PIPE					reduce	85
+	GT					reduce	85
+	MINUS					reduce	85
+	TIMES					reduce	85
+	LT					reduce	85
+	NE					reduce	85
+	AND					reduce	85
+	RPAREN					reduce	85
+	CARET					reduce	85
+	AMP					reduce	85
+	DIVIDE					reduce	85
+	MOD					reduce	85
 
 State 34
 	value -> CHARVAL . 
 
-	DIVIDE					reduce	83
-	SEMICOLON					reduce	83
-	AMP					reduce	83
-	TIMES					reduce	83
-	RPAREN					reduce	83
-	EQ					reduce	83
-	GT					reduce	83
-	AND					reduce	83
-	COMMA					reduce	83
-	PLUS					reduce	83
-	GE					reduce	83
-	PIPE					reduce	83
-	NE					reduce	83
-	OR					reduce	83
-	LT					reduce	83
-	MINUS					reduce	83
-	LE					reduce	83
-	CARET					reduce	83
-	MOD					reduce	83
+	EQ					reduce	84
+	OR					reduce	84
+	COMMA					reduce	84
+	PLUS					reduce	84
+	LE					reduce	84
+	SEMICOLON					reduce	84
+	GE					reduce	84
+	PIPE					reduce	84
+	GT					reduce	84
+	MINUS					reduce	84
+	TIMES					reduce	84
+	LT					reduce	84
+	NE					reduce	84
+	AND					reduce	84
+	RPAREN					reduce	84
+	CARET					reduce	84
+	AMP					reduce	84
+	DIVIDE					reduce	84
+	MOD					reduce	84
 
 State 35
 	value -> BOOLVAL . 
 
-	DIVIDE					reduce	85
-	SEMICOLON					reduce	85
-	AMP					reduce	85
-	TIMES					reduce	85
-	RPAREN					reduce	85
-	EQ					reduce	85
-	GT					reduce	85
-	AND					reduce	85
-	COMMA					reduce	85
-	PLUS					reduce	85
-	GE					reduce	85
-	PIPE					reduce	85
-	NE					reduce	85
-	OR					reduce	85
-	LT					reduce	85
-	MINUS					reduce	85
-	LE					reduce	85
-	CARET					reduce	85
-	MOD					reduce	85
+	EQ					reduce	86
+	OR					reduce	86
+	COMMA					reduce	86
+	PLUS					reduce	86
+	LE					reduce	86
+	SEMICOLON					reduce	86
+	GE					reduce	86
+	PIPE					reduce	86
+	GT					reduce	86
+	MINUS					reduce	86
+	TIMES					reduce	86
+	LT					reduce	86
+	NE					reduce	86
+	AND					reduce	86
+	RPAREN					reduce	86
+	CARET					reduce	86
+	AMP					reduce	86
+	DIVIDE					reduce	86
+	MOD					reduce	86
 
 State 36
 	if-statement -> IF . LPAREN expression RPAREN scope 
 	if-statement -> IF . LPAREN expression RPAREN scope ELSE scope 
 	if-statement -> IF . LPAREN expression RPAREN scope ELSE if-statement 
 
-	LPAREN					shift	79
+	LPAREN					shift	80
 
 State 37
 	while-statement -> WHILE . LPAREN expression RPAREN scope 
 
-	LPAREN					shift	80
+	LPAREN					shift	81
 
 State 38
 	break-statement -> BREAK . 
@@ -841,7 +848,8 @@ State 40
 	return-statement -> RETURN . expression 
 
 	POP					shift	52
-	SEMICOLON					reduce	30
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -851,60 +859,55 @@ State 40
 	exp4					goto	24
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	SEMICOLON					reduce	30
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
-	expression					goto	81
+	expression					goto	82
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
 	exp5					goto	25
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
 	exp6					goto	26
-	MINUS					shift	55
 	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 41
-	var-type -> LIST . LT var-type GT 
+	var-type -> LIST . 
 
-	LT					shift	82
+	ID					reduce	81
 
 State 42
 	var-type -> INT . 
 
-	ID					reduce	75
-	GT					reduce	75
+	ID					reduce	76
 
 State 43
 	var-type -> FLOAT . 
 
-	ID					reduce	76
-	GT					reduce	76
+	ID					reduce	77
 
 State 44
 	var-type -> STRING . 
 
-	ID					reduce	77
-	GT					reduce	77
+	ID					reduce	78
 
 State 45
 	var-type -> CHAR . 
 
-	ID					reduce	78
-	GT					reduce	78
+	ID					reduce	79
 
 State 46
 	var-type -> BOOL . 
 
-	ID					reduce	79
-	GT					reduce	79
+	ID					reduce	80
 
 State 47
 	predefined-statement -> PRINT . LPAREN expression RPAREN 
@@ -937,43 +940,51 @@ State 52
 	LPAREN					shift	88
 
 State 53
+	predefined-statement -> TOCHARLIST . LPAREN expression RPAREN 
+
+	LPAREN					shift	89
+
+State 54
 	scope -> LBRACE . statement-seq RBRACE 
 
-	POP					reduce	3
 	INT					reduce	3
-	statement-seq					goto	89
+	POP					reduce	3
+	statement-seq					goto	90
 	IF					reduce	3
+	NOT					reduce	3
+	TILDE					reduce	3
 	SET					reduce	3
 	STRVAL					reduce	3
-	RBRACE					reduce	3
 	FLOATVAL					reduce	3
 	PRINT					reduce	3
 	ID					reduce	3
-	NOT					reduce	3
 	BREAK					reduce	3
+	LBRACE					reduce	3
+	MINUS					reduce	3
 	CONTINUE					reduce	3
 	RETURN					reduce	3
 	PUSH					reduce	3
+	LPAREN					reduce	3
 	STRING					reduce	3
+	TOCHARLIST					reduce	3
 	CHARVAL					reduce	3
 	BOOL					reduce	3
 	LIST					reduce	3
+	RBRACE					reduce	3
 	WHILE					reduce	3
 	FLOAT					reduce	3
-	LPAREN					reduce	3
 	INTVAL					reduce	3
 	BOOLVAL					reduce	3
-	MINUS					reduce	3
-	LBRACE					reduce	3
-	TILDE					reduce	3
 	GET					reduce	3
 	INPUT					reduce	3
 	CHAR					reduce	3
 
-State 54
+State 55
 	exp0 -> LPAREN . expression RPAREN 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -983,27 +994,26 @@ State 54
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
-	expression					goto	90
+	expression					goto	91
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
 	exp5					goto	25
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
 	exp6					goto	26
-	MINUS					shift	55
 	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
-State 55
+State 56
 	exp1 -> MINUS . exp0 
 
 	POP					shift	52
@@ -1015,18 +1025,19 @@ State 55
 	ID					shift	30
 	value					goto	29
 	atom					goto	17
+	LPAREN					shift	55
 	PUSH					shift	51
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
-	exp0					goto	91
+	exp0					goto	92
 	INTVAL					shift	31
 	BOOLVAL					shift	35
 	INPUT					shift	48
 	GET					shift	49
 	predefined-statement					goto	19
 
-State 56
+State 57
 	exp1 -> NOT . exp0 
 
 	POP					shift	52
@@ -1038,18 +1049,19 @@ State 56
 	ID					shift	30
 	value					goto	29
 	atom					goto	17
+	LPAREN					shift	55
 	PUSH					shift	51
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
-	exp0					goto	92
+	exp0					goto	93
 	INTVAL					shift	31
 	BOOLVAL					shift	35
 	INPUT					shift	48
 	GET					shift	49
 	predefined-statement					goto	19
 
-State 57
+State 58
 	exp1 -> TILDE . exp0 
 
 	POP					shift	52
@@ -1061,55 +1073,59 @@ State 57
 	ID					shift	30
 	value					goto	29
 	atom					goto	17
+	LPAREN					shift	55
 	PUSH					shift	51
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
-	exp0					goto	93
+	exp0					goto	94
 	INTVAL					shift	31
 	BOOLVAL					shift	35
 	INPUT					shift	48
 	GET					shift	49
 	predefined-statement					goto	19
 
-State 58
+State 59
 	statement -> simple-stament SEMICOLON . 
 
 	INT					reduce	6
 	POP					reduce	6
 	IF					reduce	6
+	NOT					reduce	6
+	TILDE					reduce	6
 	SET					reduce	6
 	STRVAL					reduce	6
-	RBRACE					reduce	6
 	FLOATVAL					reduce	6
 	EOF					reduce	6
 	PRINT					reduce	6
 	ID					reduce	6
-	NOT					reduce	6
 	BREAK					reduce	6
+	LBRACE					reduce	6
+	MINUS					reduce	6
 	CONTINUE					reduce	6
 	RETURN					reduce	6
+	LPAREN					reduce	6
 	PUSH					reduce	6
 	STRING					reduce	6
+	TOCHARLIST					reduce	6
 	CHARVAL					reduce	6
 	BOOL					reduce	6
 	LIST					reduce	6
+	RBRACE					reduce	6
 	WHILE					reduce	6
 	FLOAT					reduce	6
-	LPAREN					reduce	6
 	INTVAL					reduce	6
 	BOOLVAL					reduce	6
-	MINUS					reduce	6
-	LBRACE					reduce	6
-	TILDE					reduce	6
 	GET					reduce	6
 	INPUT					reduce	6
 	CHAR					reduce	6
 
-State 59
+State 60
 	var-declaration -> var-type-name ASSIGN . expression 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1119,30 +1135,31 @@ State 59
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
-	expression					goto	94
+	expression					goto	95
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
 	exp5					goto	25
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
 	exp6					goto	26
-	MINUS					shift	55
 	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
-State 60
+State 61
 	exp2 -> exp2 TIMES . exp1 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1151,52 +1168,26 @@ State 60
 	ID					shift	30
 	value					goto	29
 	atom					goto	17
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
-	exp1					goto	95
-	exp0					goto	20
-	MINUS					shift	55
-	INTVAL					shift	31
-	BOOLVAL					shift	35
-	TILDE					shift	57
-	INPUT					shift	48
-	GET					shift	49
-	predefined-statement					goto	19
-
-State 61
-	exp2 -> exp2 DIVIDE . exp1 
-
-	POP					shift	52
-	SET					shift	50
-	STRVAL					shift	33
-	FLOATVAL					shift	32
-	assignment					goto	13
-	PRINT					shift	47
-	ID					shift	30
-	value					goto	29
-	atom					goto	17
-	NOT					shift	56
-	PUSH					shift	51
-	CHARVAL					shift	34
-	function-call					goto	18
-	LPAREN					shift	54
 	exp1					goto	96
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
 	INPUT					shift	48
 	GET					shift	49
 	predefined-statement					goto	19
 
 State 62
-	exp2 -> exp2 MOD . exp1 
+	exp2 -> exp2 DIVIDE . exp1 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1205,25 +1196,26 @@ State 62
 	ID					shift	30
 	value					goto	29
 	atom					goto	17
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
 	exp1					goto	97
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
 	INPUT					shift	48
 	GET					shift	49
 	predefined-statement					goto	19
 
 State 63
-	exp3 -> exp3 PLUS . exp2 
+	exp2 -> exp2 MOD . exp1 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1232,26 +1224,26 @@ State 63
 	ID					shift	30
 	value					goto	29
 	atom					goto	17
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
-	exp1					goto	21
+	exp1					goto	98
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
 	INPUT					shift	48
 	GET					shift	49
-	exp2					goto	98
 	predefined-statement					goto	19
 
 State 64
-	exp3 -> exp3 MINUS . exp2 
+	exp3 -> exp3 PLUS . exp2 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1260,55 +1252,56 @@ State 64
 	ID					shift	30
 	value					goto	29
 	atom					goto	17
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
 	INPUT					shift	48
 	GET					shift	49
 	exp2					goto	99
 	predefined-statement					goto	19
 
 State 65
-	exp4 -> exp4 LT . exp3 
+	exp3 -> exp3 MINUS . exp2 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
 	assignment					goto	13
 	PRINT					shift	47
+	ID					shift	30
 	value					goto	29
 	atom					goto	17
-	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
-	exp3					goto	100
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
-	GET					shift	49
 	INPUT					shift	48
-	exp2					goto	22
+	GET					shift	49
+	exp2					goto	100
 	predefined-statement					goto	19
 
 State 66
-	exp4 -> exp4 GT . exp3 
+	exp4 -> exp4 LT . exp3 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1317,27 +1310,28 @@ State 66
 	value					goto	29
 	atom					goto	17
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
 	exp3					goto	101
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 67
-	exp4 -> exp4 LE . exp3 
+	exp4 -> exp4 GT . exp3 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1346,27 +1340,28 @@ State 67
 	value					goto	29
 	atom					goto	17
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
 	exp3					goto	102
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 68
-	exp4 -> exp4 GE . exp3 
+	exp4 -> exp4 LE . exp3 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1375,27 +1370,28 @@ State 68
 	value					goto	29
 	atom					goto	17
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
 	exp3					goto	103
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 69
-	exp4 -> exp4 EQ . exp3 
+	exp4 -> exp4 GE . exp3 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1404,27 +1400,28 @@ State 69
 	value					goto	29
 	atom					goto	17
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
 	exp3					goto	104
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 70
-	exp4 -> exp4 NE . exp3 
+	exp4 -> exp4 EQ . exp3 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1433,57 +1430,58 @@ State 70
 	value					goto	29
 	atom					goto	17
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
 	exp3					goto	105
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 71
-	exp5 -> exp5 AMP . exp4 
+	exp4 -> exp4 NE . exp3 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
 	assignment					goto	13
 	PRINT					shift	47
-	exp4					goto	106
-	atom					goto	17
 	value					goto	29
+	atom					goto	17
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
-	exp3					goto	23
+	exp3					goto	106
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 72
-	exp5 -> exp5 CARET . exp4 
+	exp5 -> exp5 AMP . exp4 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1493,27 +1491,28 @@ State 72
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 73
-	exp5 -> exp5 PIPE . exp4 
+	exp5 -> exp5 CARET . exp4 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1523,58 +1522,59 @@ State 73
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 74
-	exp6 -> exp6 AND . exp5 
+	exp5 -> exp5 PIPE . exp4 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
 	assignment					goto	13
 	PRINT					shift	47
-	exp4					goto	24
+	exp4					goto	109
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	exp5					goto	109
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
-	MINUS					shift	55
 	INTVAL					shift	31
 	BOOLVAL					shift	35
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 75
-	expression -> expression OR . exp6 
+	exp6 -> exp6 AND . exp5 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1584,109 +1584,108 @@ State 75
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
-	exp5					goto	25
-	LPAREN					shift	54
+	exp5					goto	110
 	exp1					goto	21
 	exp0					goto	20
-	exp6					goto	110
-	MINUS					shift	55
-	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
+	BOOLVAL					shift	35
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 76
-	var-type-name -> var-type ID . 
-	function-declaration -> var-type ID . LPAREN RPAREN scope 
-	function-declaration -> var-type ID . LPAREN var-seq RPAREN scope 
-
-	LPAREN					shift	111
-	SEMICOLON					reduce	22
-	ASSIGN					reduce	22
-
-State 77
-	function-call -> ID LPAREN . RPAREN 
-	function-call -> ID LPAREN . expression-seq RPAREN 
+	expression -> expression OR . exp6 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
 	assignment					goto	13
-	RPAREN					shift	114
-	expression-seq					goto	112
 	PRINT					shift	47
-	atom					goto	17
 	exp4					goto	24
+	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
-	expression					goto	113
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
 	exp5					goto	25
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
-	exp6					goto	26
-	MINUS					shift	55
+	exp6					goto	111
 	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
+State 77
+	var-type-name -> var-type ID . 
+	function-declaration -> var-type ID . LPAREN RPAREN scope 
+	function-declaration -> var-type ID . LPAREN var-seq RPAREN scope 
+
+	LPAREN					shift	112
+	SEMICOLON					reduce	22
+	ASSIGN					reduce	22
+
 State 78
-	assignment -> ID ASSIGN . expression 
+	function-call -> ID LPAREN . RPAREN 
+	function-call -> ID LPAREN . expression-seq RPAREN 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
 	assignment					goto	13
+	expression-seq					goto	113
 	PRINT					shift	47
-	exp4					goto	24
 	atom					goto	17
+	exp4					goto	24
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
-	expression					goto	115
+	expression					goto	114
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
 	exp5					goto	25
-	LPAREN					shift	54
+	RPAREN					shift	115
 	exp1					goto	21
 	exp0					goto	20
 	exp6					goto	26
-	MINUS					shift	55
 	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 79
-	if-statement -> IF LPAREN . expression RPAREN scope 
-	if-statement -> IF LPAREN . expression RPAREN scope ELSE scope 
-	if-statement -> IF LPAREN . expression RPAREN scope ELSE if-statement 
+	assignment -> ID ASSIGN . expression 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1696,30 +1695,33 @@ State 79
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
 	expression					goto	116
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
 	exp5					goto	25
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
 	exp6					goto	26
-	MINUS					shift	55
 	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 80
-	while-statement -> WHILE LPAREN . expression RPAREN scope 
+	if-statement -> IF LPAREN . expression RPAREN scope 
+	if-statement -> IF LPAREN . expression RPAREN scope ELSE scope 
+	if-statement -> IF LPAREN . expression RPAREN scope ELSE if-statement 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1729,48 +1731,31 @@ State 80
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
 	expression					goto	117
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
 	exp5					goto	25
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
 	exp6					goto	26
-	MINUS					shift	55
 	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
 State 81
-	return-statement -> RETURN expression . 
-	expression -> expression . OR exp6 
-
-	SEMICOLON					reduce	31
-	OR					shift	75
-
-State 82
-	var-type -> LIST LT . var-type GT 
-
-	INT					shift	42
-	STRING					shift	44
-	BOOL					shift	46
-	CHAR					shift	45
-	LIST					shift	41
-	var-type					goto	118
-	FLOAT					shift	43
-
-State 83
-	predefined-statement -> PRINT LPAREN . expression RPAREN 
+	while-statement -> WHILE LPAREN . expression RPAREN scope 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -1780,21 +1765,61 @@ State 83
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
-	expression					goto	119
+	expression					goto	118
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
 	exp5					goto	25
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
 	exp6					goto	26
-	MINUS					shift	55
 	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
+	GET					shift	49
+	INPUT					shift	48
+	exp2					goto	22
+	predefined-statement					goto	19
+
+State 82
+	return-statement -> RETURN expression . 
+	expression -> expression . OR exp6 
+
+	SEMICOLON					reduce	31
+	OR					shift	76
+
+State 83
+	predefined-statement -> PRINT LPAREN . expression RPAREN 
+
+	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
+	SET					shift	50
+	STRVAL					shift	33
+	FLOATVAL					shift	32
+	assignment					goto	13
+	PRINT					shift	47
+	exp4					goto	24
+	atom					goto	17
+	value					goto	29
+	ID					shift	30
+	MINUS					shift	56
+	LPAREN					shift	55
+	PUSH					shift	51
+	expression					goto	119
+	exp3					goto	23
+	TOCHARLIST					shift	53
+	CHARVAL					shift	34
+	function-call					goto	18
+	exp5					goto	25
+	exp1					goto	21
+	exp0					goto	20
+	exp6					goto	26
+	BOOLVAL					shift	35
+	INTVAL					shift	31
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
@@ -1826,6 +1851,40 @@ State 88
 	ID					shift	124
 
 State 89
+	predefined-statement -> TOCHARLIST LPAREN . expression RPAREN 
+
+	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
+	SET					shift	50
+	STRVAL					shift	33
+	FLOATVAL					shift	32
+	assignment					goto	13
+	PRINT					shift	47
+	exp4					goto	24
+	atom					goto	17
+	value					goto	29
+	ID					shift	30
+	MINUS					shift	56
+	LPAREN					shift	55
+	PUSH					shift	51
+	expression					goto	125
+	exp3					goto	23
+	TOCHARLIST					shift	53
+	CHARVAL					shift	34
+	function-call					goto	18
+	exp5					goto	25
+	exp1					goto	21
+	exp0					goto	20
+	exp6					goto	26
+	BOOLVAL					shift	35
+	INTVAL					shift	31
+	GET					shift	49
+	INPUT					shift	48
+	exp2					goto	22
+	predefined-statement					goto	19
+
+State 90
 	statement-seq -> statement-seq . statement 
 	statement-seq -> statement-seq . scope 
 	scope -> LBRACE statement-seq . RBRACE 
@@ -1833,28 +1892,29 @@ State 89
 	POP					shift	52
 	INT					shift	42
 	statement					goto	5
-	RBRACE					shift	125
+	TILDE					shift	58
 	FLOATVAL					shift	32
 	var-type					goto	28
 	PRINT					shift	47
 	exp4					goto	24
 	ID					shift	30
-	NOT					shift	56
 	BREAK					shift	38
+	LBRACE					shift	54
 	var-type-name					goto	11
 	PUSH					shift	51
 	STRING					shift	44
 	CONTINUE					shift	39
 	continue-statement					goto	15
 	exp3					goto	23
+	TOCHARLIST					shift	53
+	RBRACE					shift	126
 	WHILE					shift	37
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
 	BOOLVAL					shift	35
-	LBRACE					shift	53
 	GET					shift	49
 	predefined-statement					goto	19
+	NOT					shift	57
 	SET					shift	50
 	IF					shift	36
 	STRVAL					shift	33
@@ -1863,6 +1923,8 @@ State 89
 	atom					goto	17
 	value					goto	29
 	scope					goto	6
+	MINUS					shift	56
+	LPAREN					shift	55
 	RETURN					shift	40
 	break-statement					goto	14
 	expression					goto	27
@@ -1877,396 +1939,365 @@ State 89
 	return-statement					goto	16
 	if-statement					goto	8
 	exp6					goto	26
-	MINUS					shift	55
 	INTVAL					shift	31
-	TILDE					shift	57
 	INPUT					shift	48
 	exp2					goto	22
 	CHAR					shift	45
 	simple-stament					goto	7
 
-State 90
+State 91
 	exp0 -> LPAREN expression . RPAREN 
 	expression -> expression . OR exp6 
 
-	OR					shift	75
-	RPAREN					shift	126
-
-State 91
-	exp1 -> MINUS exp0 . 
-
-	DIVIDE					reduce	51
-	SEMICOLON					reduce	51
-	AMP					reduce	51
-	TIMES					reduce	51
-	RPAREN					reduce	51
-	EQ					reduce	51
-	GT					reduce	51
-	AND					reduce	51
-	COMMA					reduce	51
-	PLUS					reduce	51
-	GE					reduce	51
-	PIPE					reduce	51
-	NE					reduce	51
-	OR					reduce	51
-	LT					reduce	51
-	MINUS					reduce	51
-	LE					reduce	51
-	CARET					reduce	51
-	MOD					reduce	51
+	RPAREN					shift	127
+	OR					shift	76
 
 State 92
-	exp1 -> NOT exp0 . 
+	exp1 -> MINUS exp0 . 
 
-	DIVIDE					reduce	49
-	SEMICOLON					reduce	49
-	AMP					reduce	49
-	TIMES					reduce	49
-	RPAREN					reduce	49
-	EQ					reduce	49
-	GT					reduce	49
-	AND					reduce	49
-	COMMA					reduce	49
-	PLUS					reduce	49
-	GE					reduce	49
-	PIPE					reduce	49
-	NE					reduce	49
-	OR					reduce	49
-	LT					reduce	49
-	MINUS					reduce	49
-	LE					reduce	49
-	CARET					reduce	49
-	MOD					reduce	49
+	EQ					reduce	52
+	OR					reduce	52
+	COMMA					reduce	52
+	PLUS					reduce	52
+	LE					reduce	52
+	SEMICOLON					reduce	52
+	GE					reduce	52
+	PIPE					reduce	52
+	GT					reduce	52
+	MINUS					reduce	52
+	TIMES					reduce	52
+	LT					reduce	52
+	NE					reduce	52
+	AND					reduce	52
+	RPAREN					reduce	52
+	CARET					reduce	52
+	AMP					reduce	52
+	DIVIDE					reduce	52
+	MOD					reduce	52
 
 State 93
-	exp1 -> TILDE exp0 . 
+	exp1 -> NOT exp0 . 
 
-	DIVIDE					reduce	50
-	SEMICOLON					reduce	50
-	AMP					reduce	50
-	TIMES					reduce	50
-	RPAREN					reduce	50
 	EQ					reduce	50
-	GT					reduce	50
-	AND					reduce	50
+	OR					reduce	50
 	COMMA					reduce	50
 	PLUS					reduce	50
+	LE					reduce	50
+	SEMICOLON					reduce	50
 	GE					reduce	50
 	PIPE					reduce	50
-	NE					reduce	50
-	OR					reduce	50
-	LT					reduce	50
+	GT					reduce	50
 	MINUS					reduce	50
-	LE					reduce	50
+	TIMES					reduce	50
+	LT					reduce	50
+	NE					reduce	50
+	AND					reduce	50
+	RPAREN					reduce	50
 	CARET					reduce	50
+	AMP					reduce	50
+	DIVIDE					reduce	50
 	MOD					reduce	50
 
 State 94
+	exp1 -> TILDE exp0 . 
+
+	EQ					reduce	51
+	OR					reduce	51
+	COMMA					reduce	51
+	PLUS					reduce	51
+	LE					reduce	51
+	SEMICOLON					reduce	51
+	GE					reduce	51
+	PIPE					reduce	51
+	GT					reduce	51
+	MINUS					reduce	51
+	TIMES					reduce	51
+	LT					reduce	51
+	NE					reduce	51
+	AND					reduce	51
+	RPAREN					reduce	51
+	CARET					reduce	51
+	AMP					reduce	51
+	DIVIDE					reduce	51
+	MOD					reduce	51
+
+State 95
 	var-declaration -> var-type-name ASSIGN expression . 
 	expression -> expression . OR exp6 
 
 	SEMICOLON					reduce	21
-	OR					shift	75
-
-State 95
-	exp2 -> exp2 TIMES exp1 . 
-
-	DIVIDE					reduce	53
-	SEMICOLON					reduce	53
-	AMP					reduce	53
-	TIMES					reduce	53
-	RPAREN					reduce	53
-	EQ					reduce	53
-	GT					reduce	53
-	AND					reduce	53
-	COMMA					reduce	53
-	PLUS					reduce	53
-	GE					reduce	53
-	PIPE					reduce	53
-	NE					reduce	53
-	OR					reduce	53
-	LT					reduce	53
-	MINUS					reduce	53
-	LE					reduce	53
-	CARET					reduce	53
-	MOD					reduce	53
+	OR					shift	76
 
 State 96
-	exp2 -> exp2 DIVIDE exp1 . 
+	exp2 -> exp2 TIMES exp1 . 
 
-	DIVIDE					reduce	54
-	SEMICOLON					reduce	54
-	AMP					reduce	54
-	TIMES					reduce	54
-	RPAREN					reduce	54
 	EQ					reduce	54
-	GT					reduce	54
-	AND					reduce	54
+	OR					reduce	54
 	COMMA					reduce	54
 	PLUS					reduce	54
+	LE					reduce	54
+	SEMICOLON					reduce	54
 	GE					reduce	54
 	PIPE					reduce	54
-	NE					reduce	54
-	OR					reduce	54
-	LT					reduce	54
+	GT					reduce	54
 	MINUS					reduce	54
-	LE					reduce	54
+	TIMES					reduce	54
+	LT					reduce	54
+	NE					reduce	54
+	AND					reduce	54
+	RPAREN					reduce	54
 	CARET					reduce	54
+	AMP					reduce	54
+	DIVIDE					reduce	54
 	MOD					reduce	54
 
 State 97
-	exp2 -> exp2 MOD exp1 . 
+	exp2 -> exp2 DIVIDE exp1 . 
 
-	DIVIDE					reduce	55
-	SEMICOLON					reduce	55
-	AMP					reduce	55
-	TIMES					reduce	55
-	RPAREN					reduce	55
 	EQ					reduce	55
-	GT					reduce	55
-	AND					reduce	55
+	OR					reduce	55
 	COMMA					reduce	55
 	PLUS					reduce	55
+	LE					reduce	55
+	SEMICOLON					reduce	55
 	GE					reduce	55
 	PIPE					reduce	55
-	NE					reduce	55
-	OR					reduce	55
-	LT					reduce	55
+	GT					reduce	55
 	MINUS					reduce	55
-	LE					reduce	55
+	TIMES					reduce	55
+	LT					reduce	55
+	NE					reduce	55
+	AND					reduce	55
+	RPAREN					reduce	55
 	CARET					reduce	55
+	AMP					reduce	55
+	DIVIDE					reduce	55
 	MOD					reduce	55
 
 State 98
-	exp2 -> exp2 . TIMES exp1 
-	exp2 -> exp2 . DIVIDE exp1 
-	exp2 -> exp2 . MOD exp1 
-	exp3 -> exp3 PLUS exp2 . 
+	exp2 -> exp2 MOD exp1 . 
 
-	DIVIDE					shift	61
-	SEMICOLON					reduce	57
-	AMP					reduce	57
-	TIMES					shift	60
-	RPAREN					reduce	57
-	EQ					reduce	57
-	GT					reduce	57
-	AND					reduce	57
-	COMMA					reduce	57
-	PLUS					reduce	57
-	GE					reduce	57
-	PIPE					reduce	57
-	NE					reduce	57
-	OR					reduce	57
-	LT					reduce	57
-	MINUS					reduce	57
-	LE					reduce	57
-	CARET					reduce	57
-	MOD					shift	62
+	EQ					reduce	56
+	OR					reduce	56
+	COMMA					reduce	56
+	PLUS					reduce	56
+	LE					reduce	56
+	SEMICOLON					reduce	56
+	GE					reduce	56
+	PIPE					reduce	56
+	GT					reduce	56
+	MINUS					reduce	56
+	TIMES					reduce	56
+	LT					reduce	56
+	NE					reduce	56
+	AND					reduce	56
+	RPAREN					reduce	56
+	CARET					reduce	56
+	AMP					reduce	56
+	DIVIDE					reduce	56
+	MOD					reduce	56
 
 State 99
 	exp2 -> exp2 . TIMES exp1 
 	exp2 -> exp2 . DIVIDE exp1 
 	exp2 -> exp2 . MOD exp1 
-	exp3 -> exp3 MINUS exp2 . 
+	exp3 -> exp3 PLUS exp2 . 
 
-	DIVIDE					shift	61
-	SEMICOLON					reduce	58
-	AMP					reduce	58
-	TIMES					shift	60
-	RPAREN					reduce	58
 	EQ					reduce	58
-	GT					reduce	58
-	AND					reduce	58
+	OR					reduce	58
 	COMMA					reduce	58
 	PLUS					reduce	58
+	LE					reduce	58
+	SEMICOLON					reduce	58
 	GE					reduce	58
 	PIPE					reduce	58
-	NE					reduce	58
-	OR					reduce	58
-	LT					reduce	58
+	GT					reduce	58
 	MINUS					reduce	58
-	LE					reduce	58
+	TIMES					shift	61
+	LT					reduce	58
+	NE					reduce	58
+	AND					reduce	58
+	RPAREN					reduce	58
 	CARET					reduce	58
-	MOD					shift	62
+	AMP					reduce	58
+	DIVIDE					shift	62
+	MOD					shift	63
 
 State 100
-	exp3 -> exp3 . PLUS exp2 
-	exp3 -> exp3 . MINUS exp2 
-	exp4 -> exp4 LT exp3 . 
+	exp2 -> exp2 . TIMES exp1 
+	exp2 -> exp2 . DIVIDE exp1 
+	exp2 -> exp2 . MOD exp1 
+	exp3 -> exp3 MINUS exp2 . 
 
-	DIVIDE					reduce	62
-	SEMICOLON					reduce	62
-	AMP					reduce	62
-	TIMES					reduce	62
-	RPAREN					reduce	62
-	EQ					reduce	62
-	GT					reduce	62
-	AND					reduce	62
-	COMMA					reduce	62
-	PLUS					shift	63
-	GE					reduce	62
-	PIPE					reduce	62
-	NE					reduce	62
-	OR					reduce	62
-	LT					reduce	62
-	MINUS					shift	64
-	LE					reduce	62
-	CARET					reduce	62
-	MOD					reduce	62
+	EQ					reduce	59
+	OR					reduce	59
+	COMMA					reduce	59
+	PLUS					reduce	59
+	LE					reduce	59
+	SEMICOLON					reduce	59
+	GE					reduce	59
+	PIPE					reduce	59
+	GT					reduce	59
+	MINUS					reduce	59
+	TIMES					shift	61
+	LT					reduce	59
+	NE					reduce	59
+	AND					reduce	59
+	RPAREN					reduce	59
+	CARET					reduce	59
+	AMP					reduce	59
+	DIVIDE					shift	62
+	MOD					shift	63
 
 State 101
 	exp3 -> exp3 . PLUS exp2 
 	exp3 -> exp3 . MINUS exp2 
-	exp4 -> exp4 GT exp3 . 
+	exp4 -> exp4 LT exp3 . 
 
-	DIVIDE					reduce	63
-	SEMICOLON					reduce	63
-	AMP					reduce	63
-	TIMES					reduce	63
-	RPAREN					reduce	63
 	EQ					reduce	63
-	GT					reduce	63
-	AND					reduce	63
+	OR					reduce	63
 	COMMA					reduce	63
-	PLUS					shift	63
+	PLUS					shift	64
+	LE					reduce	63
+	SEMICOLON					reduce	63
 	GE					reduce	63
 	PIPE					reduce	63
-	NE					reduce	63
-	OR					reduce	63
+	GT					reduce	63
+	MINUS					shift	65
+	TIMES					reduce	63
 	LT					reduce	63
-	MINUS					shift	64
-	LE					reduce	63
+	NE					reduce	63
+	AND					reduce	63
+	RPAREN					reduce	63
 	CARET					reduce	63
+	AMP					reduce	63
+	DIVIDE					reduce	63
 	MOD					reduce	63
 
 State 102
 	exp3 -> exp3 . PLUS exp2 
 	exp3 -> exp3 . MINUS exp2 
-	exp4 -> exp4 LE exp3 . 
+	exp4 -> exp4 GT exp3 . 
 
-	DIVIDE					reduce	60
-	SEMICOLON					reduce	60
-	AMP					reduce	60
-	TIMES					reduce	60
-	RPAREN					reduce	60
-	EQ					reduce	60
-	GT					reduce	60
-	AND					reduce	60
-	COMMA					reduce	60
-	PLUS					shift	63
-	GE					reduce	60
-	PIPE					reduce	60
-	NE					reduce	60
-	OR					reduce	60
-	LT					reduce	60
-	MINUS					shift	64
-	LE					reduce	60
-	CARET					reduce	60
-	MOD					reduce	60
+	EQ					reduce	64
+	OR					reduce	64
+	COMMA					reduce	64
+	PLUS					shift	64
+	LE					reduce	64
+	SEMICOLON					reduce	64
+	GE					reduce	64
+	PIPE					reduce	64
+	GT					reduce	64
+	MINUS					shift	65
+	TIMES					reduce	64
+	LT					reduce	64
+	NE					reduce	64
+	AND					reduce	64
+	RPAREN					reduce	64
+	CARET					reduce	64
+	AMP					reduce	64
+	DIVIDE					reduce	64
+	MOD					reduce	64
 
 State 103
 	exp3 -> exp3 . PLUS exp2 
 	exp3 -> exp3 . MINUS exp2 
-	exp4 -> exp4 GE exp3 . 
+	exp4 -> exp4 LE exp3 . 
 
-	DIVIDE					reduce	61
-	SEMICOLON					reduce	61
-	AMP					reduce	61
-	TIMES					reduce	61
-	RPAREN					reduce	61
 	EQ					reduce	61
-	GT					reduce	61
-	AND					reduce	61
+	OR					reduce	61
 	COMMA					reduce	61
-	PLUS					shift	63
+	PLUS					shift	64
+	LE					reduce	61
+	SEMICOLON					reduce	61
 	GE					reduce	61
 	PIPE					reduce	61
-	NE					reduce	61
-	OR					reduce	61
+	GT					reduce	61
+	MINUS					shift	65
+	TIMES					reduce	61
 	LT					reduce	61
-	MINUS					shift	64
-	LE					reduce	61
+	NE					reduce	61
+	AND					reduce	61
+	RPAREN					reduce	61
 	CARET					reduce	61
+	AMP					reduce	61
+	DIVIDE					reduce	61
 	MOD					reduce	61
 
 State 104
 	exp3 -> exp3 . PLUS exp2 
 	exp3 -> exp3 . MINUS exp2 
-	exp4 -> exp4 EQ exp3 . 
+	exp4 -> exp4 GE exp3 . 
 
-	DIVIDE					reduce	64
-	SEMICOLON					reduce	64
-	AMP					reduce	64
-	TIMES					reduce	64
-	RPAREN					reduce	64
-	EQ					reduce	64
-	GT					reduce	64
-	AND					reduce	64
-	COMMA					reduce	64
-	PLUS					shift	63
-	GE					reduce	64
-	PIPE					reduce	64
-	NE					reduce	64
-	OR					reduce	64
-	LT					reduce	64
-	MINUS					shift	64
-	LE					reduce	64
-	CARET					reduce	64
-	MOD					reduce	64
+	EQ					reduce	62
+	OR					reduce	62
+	COMMA					reduce	62
+	PLUS					shift	64
+	LE					reduce	62
+	SEMICOLON					reduce	62
+	GE					reduce	62
+	PIPE					reduce	62
+	GT					reduce	62
+	MINUS					shift	65
+	TIMES					reduce	62
+	LT					reduce	62
+	NE					reduce	62
+	AND					reduce	62
+	RPAREN					reduce	62
+	CARET					reduce	62
+	AMP					reduce	62
+	DIVIDE					reduce	62
+	MOD					reduce	62
 
 State 105
 	exp3 -> exp3 . PLUS exp2 
 	exp3 -> exp3 . MINUS exp2 
-	exp4 -> exp4 NE exp3 . 
+	exp4 -> exp4 EQ exp3 . 
 
-	DIVIDE					reduce	65
-	SEMICOLON					reduce	65
-	AMP					reduce	65
-	TIMES					reduce	65
-	RPAREN					reduce	65
 	EQ					reduce	65
-	GT					reduce	65
-	AND					reduce	65
+	OR					reduce	65
 	COMMA					reduce	65
-	PLUS					shift	63
+	PLUS					shift	64
+	LE					reduce	65
+	SEMICOLON					reduce	65
 	GE					reduce	65
 	PIPE					reduce	65
-	NE					reduce	65
-	OR					reduce	65
+	GT					reduce	65
+	MINUS					shift	65
+	TIMES					reduce	65
 	LT					reduce	65
-	MINUS					shift	64
-	LE					reduce	65
+	NE					reduce	65
+	AND					reduce	65
+	RPAREN					reduce	65
 	CARET					reduce	65
+	AMP					reduce	65
+	DIVIDE					reduce	65
 	MOD					reduce	65
 
 State 106
-	exp4 -> exp4 . LE exp3 
-	exp4 -> exp4 . GE exp3 
-	exp4 -> exp4 . LT exp3 
-	exp4 -> exp4 . GT exp3 
-	exp4 -> exp4 . EQ exp3 
-	exp4 -> exp4 . NE exp3 
-	exp5 -> exp5 AMP exp4 . 
+	exp3 -> exp3 . PLUS exp2 
+	exp3 -> exp3 . MINUS exp2 
+	exp4 -> exp4 NE exp3 . 
 
-	DIVIDE					reduce	67
-	SEMICOLON					reduce	67
-	AMP					reduce	67
-	TIMES					reduce	67
-	RPAREN					reduce	67
-	EQ					shift	69
-	GT					shift	66
-	AND					reduce	67
-	COMMA					reduce	67
-	PLUS					reduce	67
-	GE					shift	68
-	PIPE					reduce	67
-	NE					shift	70
-	OR					reduce	67
-	LT					shift	65
-	MINUS					reduce	67
-	LE					shift	67
-	CARET					reduce	67
-	MOD					reduce	67
+	EQ					reduce	66
+	OR					reduce	66
+	COMMA					reduce	66
+	PLUS					shift	64
+	LE					reduce	66
+	SEMICOLON					reduce	66
+	GE					reduce	66
+	PIPE					reduce	66
+	GT					reduce	66
+	MINUS					shift	65
+	TIMES					reduce	66
+	LT					reduce	66
+	NE					reduce	66
+	AND					reduce	66
+	RPAREN					reduce	66
+	CARET					reduce	66
+	AMP					reduce	66
+	DIVIDE					reduce	66
+	MOD					reduce	66
 
 State 107
 	exp4 -> exp4 . LE exp3 
@@ -2275,26 +2306,26 @@ State 107
 	exp4 -> exp4 . GT exp3 
 	exp4 -> exp4 . EQ exp3 
 	exp4 -> exp4 . NE exp3 
-	exp5 -> exp5 CARET exp4 . 
+	exp5 -> exp5 AMP exp4 . 
 
-	DIVIDE					reduce	68
-	SEMICOLON					reduce	68
-	AMP					reduce	68
-	TIMES					reduce	68
-	RPAREN					reduce	68
-	EQ					shift	69
-	GT					shift	66
-	AND					reduce	68
+	EQ					shift	70
+	OR					reduce	68
 	COMMA					reduce	68
 	PLUS					reduce	68
-	GE					shift	68
+	LE					shift	68
+	SEMICOLON					reduce	68
+	GE					shift	69
 	PIPE					reduce	68
-	NE					shift	70
-	OR					reduce	68
-	LT					shift	65
+	GT					shift	67
 	MINUS					reduce	68
-	LE					shift	67
+	TIMES					reduce	68
+	LT					shift	66
+	NE					shift	71
+	AND					reduce	68
+	RPAREN					reduce	68
 	CARET					reduce	68
+	AMP					reduce	68
+	DIVIDE					reduce	68
 	MOD					reduce	68
 
 State 108
@@ -2304,182 +2335,206 @@ State 108
 	exp4 -> exp4 . GT exp3 
 	exp4 -> exp4 . EQ exp3 
 	exp4 -> exp4 . NE exp3 
-	exp5 -> exp5 PIPE exp4 . 
+	exp5 -> exp5 CARET exp4 . 
 
-	DIVIDE					reduce	69
-	SEMICOLON					reduce	69
-	AMP					reduce	69
-	TIMES					reduce	69
-	RPAREN					reduce	69
-	EQ					shift	69
-	GT					shift	66
-	AND					reduce	69
+	EQ					shift	70
+	OR					reduce	69
 	COMMA					reduce	69
 	PLUS					reduce	69
-	GE					shift	68
+	LE					shift	68
+	SEMICOLON					reduce	69
+	GE					shift	69
 	PIPE					reduce	69
-	NE					shift	70
-	OR					reduce	69
-	LT					shift	65
+	GT					shift	67
 	MINUS					reduce	69
-	LE					shift	67
+	TIMES					reduce	69
+	LT					shift	66
+	NE					shift	71
+	AND					reduce	69
+	RPAREN					reduce	69
 	CARET					reduce	69
+	AMP					reduce	69
+	DIVIDE					reduce	69
 	MOD					reduce	69
 
 State 109
+	exp4 -> exp4 . LE exp3 
+	exp4 -> exp4 . GE exp3 
+	exp4 -> exp4 . LT exp3 
+	exp4 -> exp4 . GT exp3 
+	exp4 -> exp4 . EQ exp3 
+	exp4 -> exp4 . NE exp3 
+	exp5 -> exp5 PIPE exp4 . 
+
+	EQ					shift	70
+	OR					reduce	70
+	COMMA					reduce	70
+	PLUS					reduce	70
+	LE					shift	68
+	SEMICOLON					reduce	70
+	GE					shift	69
+	PIPE					reduce	70
+	GT					shift	67
+	MINUS					reduce	70
+	TIMES					reduce	70
+	LT					shift	66
+	NE					shift	71
+	AND					reduce	70
+	RPAREN					reduce	70
+	CARET					reduce	70
+	AMP					reduce	70
+	DIVIDE					reduce	70
+	MOD					reduce	70
+
+State 110
 	exp5 -> exp5 . AMP exp4 
 	exp5 -> exp5 . CARET exp4 
 	exp5 -> exp5 . PIPE exp4 
 	exp6 -> exp6 AND exp5 . 
 
-	DIVIDE					reduce	71
-	SEMICOLON					reduce	71
-	AMP					shift	71
-	TIMES					reduce	71
-	RPAREN					reduce	71
-	EQ					reduce	71
-	GT					reduce	71
-	AND					reduce	71
-	COMMA					reduce	71
-	PLUS					reduce	71
-	GE					reduce	71
-	PIPE					shift	73
-	NE					reduce	71
-	OR					reduce	71
-	LT					reduce	71
-	MINUS					reduce	71
-	LE					reduce	71
-	CARET					shift	72
-	MOD					reduce	71
+	EQ					reduce	72
+	OR					reduce	72
+	COMMA					reduce	72
+	PLUS					reduce	72
+	LE					reduce	72
+	SEMICOLON					reduce	72
+	GE					reduce	72
+	PIPE					shift	74
+	GT					reduce	72
+	MINUS					reduce	72
+	TIMES					reduce	72
+	LT					reduce	72
+	NE					reduce	72
+	AND					reduce	72
+	RPAREN					reduce	72
+	CARET					shift	73
+	AMP					shift	72
+	DIVIDE					reduce	72
+	MOD					reduce	72
 
-State 110
+State 111
 	exp6 -> exp6 . AND exp5 
 	expression -> expression OR exp6 . 
 
-	DIVIDE					reduce	73
-	SEMICOLON					reduce	73
-	AMP					reduce	73
-	TIMES					reduce	73
-	RPAREN					reduce	73
-	EQ					reduce	73
-	GT					reduce	73
-	AND					shift	74
-	COMMA					reduce	73
-	PLUS					reduce	73
-	GE					reduce	73
-	PIPE					reduce	73
-	NE					reduce	73
-	OR					reduce	73
-	LT					reduce	73
-	MINUS					reduce	73
-	LE					reduce	73
-	CARET					reduce	73
-	MOD					reduce	73
+	EQ					reduce	74
+	OR					reduce	74
+	COMMA					reduce	74
+	PLUS					reduce	74
+	LE					reduce	74
+	SEMICOLON					reduce	74
+	GE					reduce	74
+	PIPE					reduce	74
+	GT					reduce	74
+	MINUS					reduce	74
+	TIMES					reduce	74
+	LT					reduce	74
+	NE					reduce	74
+	AND					shift	75
+	RPAREN					reduce	74
+	CARET					reduce	74
+	AMP					reduce	74
+	DIVIDE					reduce	74
+	MOD					reduce	74
 
-State 111
+State 112
 	function-declaration -> var-type ID LPAREN . RPAREN scope 
 	function-declaration -> var-type ID LPAREN . var-seq RPAREN scope 
 
-	var-type-name					goto	127
+	var-type-name					goto	128
 	INT					shift	42
 	STRING					shift	44
 	BOOL					shift	46
-	RPAREN					shift	130
-	var-type					goto	129
+	var-type					goto	130
 	LIST					shift	41
 	FLOAT					shift	43
-	var-seq					goto	128
+	RPAREN					shift	131
+	var-seq					goto	129
 	CHAR					shift	45
 
-State 112
+State 113
 	function-call -> ID LPAREN expression-seq . RPAREN 
 	expression-seq -> expression-seq . COMMA expression 
 
-	RPAREN					shift	131
-	COMMA					shift	132
+	RPAREN					shift	132
+	COMMA					shift	133
 
-State 113
+State 114
 	expression-seq -> expression . 
 	expression -> expression . OR exp6 
 
-	OR					shift	75
 	RPAREN					reduce	39
+	OR					shift	76
 	COMMA					reduce	39
 
-State 114
+State 115
 	function-call -> ID LPAREN RPAREN . 
 
-	DIVIDE					reduce	37
-	SEMICOLON					reduce	37
-	AMP					reduce	37
-	TIMES					reduce	37
-	RPAREN					reduce	37
 	EQ					reduce	37
-	GT					reduce	37
-	AND					reduce	37
+	OR					reduce	37
 	COMMA					reduce	37
 	PLUS					reduce	37
+	LE					reduce	37
+	SEMICOLON					reduce	37
 	GE					reduce	37
 	PIPE					reduce	37
-	NE					reduce	37
-	OR					reduce	37
-	LT					reduce	37
+	GT					reduce	37
 	MINUS					reduce	37
-	LE					reduce	37
+	TIMES					reduce	37
+	LT					reduce	37
+	NE					reduce	37
+	AND					reduce	37
+	RPAREN					reduce	37
 	CARET					reduce	37
+	AMP					reduce	37
+	DIVIDE					reduce	37
 	MOD					reduce	37
 
-State 115
+State 116
 	assignment -> ID ASSIGN expression . 
 	expression -> expression . OR exp6 
 
-	DIVIDE					reduce	27
-	SEMICOLON					reduce	27
-	AMP					reduce	27
-	TIMES					reduce	27
-	RPAREN					reduce	27
 	EQ					reduce	27
-	GT					reduce	27
-	AND					reduce	27
+	OR					shift	76
 	COMMA					reduce	27
 	PLUS					reduce	27
+	LE					reduce	27
+	SEMICOLON					reduce	27
 	GE					reduce	27
 	PIPE					reduce	27
-	NE					reduce	27
-	OR					shift	75
-	LT					reduce	27
+	GT					reduce	27
 	MINUS					reduce	27
-	LE					reduce	27
+	TIMES					reduce	27
+	LT					reduce	27
+	NE					reduce	27
+	AND					reduce	27
+	RPAREN					reduce	27
 	CARET					reduce	27
+	AMP					reduce	27
+	DIVIDE					reduce	27
 	MOD					reduce	27
 
-State 116
+State 117
 	if-statement -> IF LPAREN expression . RPAREN scope 
 	if-statement -> IF LPAREN expression . RPAREN scope ELSE scope 
 	if-statement -> IF LPAREN expression . RPAREN scope ELSE if-statement 
 	expression -> expression . OR exp6 
 
-	OR					shift	75
-	RPAREN					shift	133
+	RPAREN					shift	134
+	OR					shift	76
 
-State 117
+State 118
 	while-statement -> WHILE LPAREN expression . RPAREN scope 
 	expression -> expression . OR exp6 
 
-	OR					shift	75
-	RPAREN					shift	134
-
-State 118
-	var-type -> LIST LT var-type . GT 
-
-	GT					shift	135
+	RPAREN					shift	135
+	OR					shift	76
 
 State 119
 	predefined-statement -> PRINT LPAREN expression . RPAREN 
 	expression -> expression . OR exp6 
 
-	OR					shift	75
 	RPAREN					shift	136
+	OR					shift	76
 
 State 120
 	predefined-statement -> INPUT LPAREN ID . RPAREN 
@@ -2507,115 +2562,125 @@ State 124
 	RPAREN					shift	141
 
 State 125
+	predefined-statement -> TOCHARLIST LPAREN expression . RPAREN 
+	expression -> expression . OR exp6 
+
+	RPAREN					shift	142
+	OR					shift	76
+
+State 126
 	scope -> LBRACE statement-seq RBRACE . 
 
-	INT					reduce	9
 	POP					reduce	9
-	SEMICOLON					reduce	9
-	IF					reduce	9
-	SET					reduce	9
-	STRVAL					reduce	9
-	RBRACE					reduce	9
+	INT					reduce	9
+	TILDE					reduce	9
 	FLOATVAL					reduce	9
 	EOF					reduce	9
 	PRINT					reduce	9
 	ID					reduce	9
-	NOT					reduce	9
 	ELSE					reduce	9
 	BREAK					reduce	9
-	CONTINUE					reduce	9
-	RETURN					reduce	9
+	LBRACE					reduce	9
 	PUSH					reduce	9
 	STRING					reduce	9
-	CHARVAL					reduce	9
-	BOOL					reduce	9
-	LIST					reduce	9
+	CONTINUE					reduce	9
+	TOCHARLIST					reduce	9
+	RBRACE					reduce	9
 	WHILE					reduce	9
-	FLOAT					reduce	9
-	LPAREN					reduce	9
-	INTVAL					reduce	9
 	BOOLVAL					reduce	9
-	MINUS					reduce	9
-	LBRACE					reduce	9
-	TILDE					reduce	9
 	GET					reduce	9
+	SET					reduce	9
+	NOT					reduce	9
+	IF					reduce	9
+	STRVAL					reduce	9
+	SEMICOLON					reduce	9
+	MINUS					reduce	9
+	LPAREN					reduce	9
+	RETURN					reduce	9
+	BOOL					reduce	9
+	CHARVAL					reduce	9
+	LIST					reduce	9
+	FLOAT					reduce	9
+	INTVAL					reduce	9
 	INPUT					reduce	9
 	CHAR					reduce	9
 
-State 126
+State 127
 	exp0 -> LPAREN expression RPAREN . 
 
-	DIVIDE					reduce	48
-	SEMICOLON					reduce	48
-	AMP					reduce	48
-	TIMES					reduce	48
-	RPAREN					reduce	48
-	EQ					reduce	48
-	GT					reduce	48
-	AND					reduce	48
-	COMMA					reduce	48
-	PLUS					reduce	48
-	GE					reduce	48
-	PIPE					reduce	48
-	NE					reduce	48
-	OR					reduce	48
-	LT					reduce	48
-	MINUS					reduce	48
-	LE					reduce	48
-	CARET					reduce	48
-	MOD					reduce	48
+	EQ					reduce	49
+	OR					reduce	49
+	COMMA					reduce	49
+	PLUS					reduce	49
+	LE					reduce	49
+	SEMICOLON					reduce	49
+	GE					reduce	49
+	PIPE					reduce	49
+	GT					reduce	49
+	MINUS					reduce	49
+	TIMES					reduce	49
+	LT					reduce	49
+	NE					reduce	49
+	AND					reduce	49
+	RPAREN					reduce	49
+	CARET					reduce	49
+	AMP					reduce	49
+	DIVIDE					reduce	49
+	MOD					reduce	49
 
-State 127
+State 128
 	var-seq -> var-type-name . 
 
 	RPAREN					reduce	25
 	COMMA					reduce	25
 
-State 128
+State 129
 	function-declaration -> var-type ID LPAREN var-seq . RPAREN scope 
 	var-seq -> var-seq . COMMA var-type-name 
 
-	RPAREN					shift	142
-	COMMA					shift	143
-
-State 129
-	var-type-name -> var-type . ID 
-
-	ID					shift	144
+	RPAREN					shift	143
+	COMMA					shift	144
 
 State 130
-	function-declaration -> var-type ID LPAREN RPAREN . scope 
+	var-type-name -> var-type . ID 
 
-	LBRACE					shift	53
-	scope					goto	145
+	ID					shift	145
 
 State 131
-	function-call -> ID LPAREN expression-seq RPAREN . 
+	function-declaration -> var-type ID LPAREN RPAREN . scope 
 
-	DIVIDE					reduce	38
-	SEMICOLON					reduce	38
-	AMP					reduce	38
-	TIMES					reduce	38
-	RPAREN					reduce	38
-	EQ					reduce	38
-	GT					reduce	38
-	AND					reduce	38
-	COMMA					reduce	38
-	PLUS					reduce	38
-	GE					reduce	38
-	PIPE					reduce	38
-	NE					reduce	38
-	OR					reduce	38
-	LT					reduce	38
-	MINUS					reduce	38
-	LE					reduce	38
-	CARET					reduce	38
-	MOD					reduce	38
+	LBRACE					shift	54
+	scope					goto	146
 
 State 132
+	function-call -> ID LPAREN expression-seq RPAREN . 
+
+	EQ					reduce	38
+	OR					reduce	38
+	COMMA					reduce	38
+	PLUS					reduce	38
+	LE					reduce	38
+	SEMICOLON					reduce	38
+	GE					reduce	38
+	PIPE					reduce	38
+	GT					reduce	38
+	MINUS					reduce	38
+	TIMES					reduce	38
+	LT					reduce	38
+	NE					reduce	38
+	AND					reduce	38
+	RPAREN					reduce	38
+	CARET					reduce	38
+	AMP					reduce	38
+	DIVIDE					reduce	38
+	MOD					reduce	38
+
+State 133
 	expression-seq -> expression-seq COMMA . expression 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -2625,96 +2690,91 @@ State 132
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
-	expression					goto	146
+	expression					goto	147
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
 	exp5					goto	25
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
 	exp6					goto	26
-	MINUS					shift	55
 	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
-State 133
+State 134
 	if-statement -> IF LPAREN expression RPAREN . scope 
 	if-statement -> IF LPAREN expression RPAREN . scope ELSE scope 
 	if-statement -> IF LPAREN expression RPAREN . scope ELSE if-statement 
 
-	LBRACE					shift	53
-	scope					goto	147
-
-State 134
-	while-statement -> WHILE LPAREN expression RPAREN . scope 
-
-	LBRACE					shift	53
+	LBRACE					shift	54
 	scope					goto	148
 
 State 135
-	var-type -> LIST LT var-type GT . 
+	while-statement -> WHILE LPAREN expression RPAREN . scope 
 
-	ID					reduce	80
-	GT					reduce	80
+	LBRACE					shift	54
+	scope					goto	149
 
 State 136
 	predefined-statement -> PRINT LPAREN expression RPAREN . 
 
-	DIVIDE					reduce	41
-	SEMICOLON					reduce	41
-	AMP					reduce	41
-	TIMES					reduce	41
-	RPAREN					reduce	41
 	EQ					reduce	41
-	GT					reduce	41
-	AND					reduce	41
+	OR					reduce	41
 	COMMA					reduce	41
 	PLUS					reduce	41
+	LE					reduce	41
+	SEMICOLON					reduce	41
 	GE					reduce	41
 	PIPE					reduce	41
-	NE					reduce	41
-	OR					reduce	41
-	LT					reduce	41
+	GT					reduce	41
 	MINUS					reduce	41
-	LE					reduce	41
+	TIMES					reduce	41
+	LT					reduce	41
+	NE					reduce	41
+	AND					reduce	41
+	RPAREN					reduce	41
 	CARET					reduce	41
+	AMP					reduce	41
+	DIVIDE					reduce	41
 	MOD					reduce	41
 
 State 137
 	predefined-statement -> INPUT LPAREN ID RPAREN . 
 
-	DIVIDE					reduce	42
-	SEMICOLON					reduce	42
-	AMP					reduce	42
-	TIMES					reduce	42
-	RPAREN					reduce	42
 	EQ					reduce	42
-	GT					reduce	42
-	AND					reduce	42
+	OR					reduce	42
 	COMMA					reduce	42
 	PLUS					reduce	42
+	LE					reduce	42
+	SEMICOLON					reduce	42
 	GE					reduce	42
 	PIPE					reduce	42
-	NE					reduce	42
-	OR					reduce	42
-	LT					reduce	42
+	GT					reduce	42
 	MINUS					reduce	42
-	LE					reduce	42
+	TIMES					reduce	42
+	LT					reduce	42
+	NE					reduce	42
+	AND					reduce	42
+	RPAREN					reduce	42
 	CARET					reduce	42
+	AMP					reduce	42
+	DIVIDE					reduce	42
 	MOD					reduce	42
 
 State 138
 	predefined-statement -> GET LPAREN ID COMMA . expression RPAREN 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -2724,21 +2784,20 @@ State 138
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
-	expression					goto	149
+	expression					goto	150
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
 	exp5					goto	25
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
 	exp6					goto	26
-	MINUS					shift	55
 	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
@@ -2748,6 +2807,8 @@ State 139
 	predefined-statement -> SET LPAREN ID COMMA . expression COMMA expression RPAREN 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -2757,21 +2818,20 @@ State 139
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
-	expression					goto	150
+	expression					goto	151
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
 	exp5					goto	25
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
 	exp6					goto	26
-	MINUS					shift	55
 	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
@@ -2781,6 +2841,8 @@ State 140
 	predefined-statement -> PUSH LPAREN ID COMMA . expression RPAREN 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -2790,21 +2852,20 @@ State 140
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
-	expression					goto	151
+	expression					goto	152
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
 	exp5					goto	25
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
 	exp6					goto	26
-	MINUS					shift	55
 	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
@@ -2813,64 +2874,87 @@ State 140
 State 141
 	predefined-statement -> POP LPAREN ID RPAREN . 
 
-	DIVIDE					reduce	46
-	SEMICOLON					reduce	46
-	AMP					reduce	46
-	TIMES					reduce	46
-	RPAREN					reduce	46
 	EQ					reduce	46
-	GT					reduce	46
-	AND					reduce	46
+	OR					reduce	46
 	COMMA					reduce	46
 	PLUS					reduce	46
+	LE					reduce	46
+	SEMICOLON					reduce	46
 	GE					reduce	46
 	PIPE					reduce	46
-	NE					reduce	46
-	OR					reduce	46
-	LT					reduce	46
+	GT					reduce	46
 	MINUS					reduce	46
-	LE					reduce	46
+	TIMES					reduce	46
+	LT					reduce	46
+	NE					reduce	46
+	AND					reduce	46
+	RPAREN					reduce	46
 	CARET					reduce	46
+	AMP					reduce	46
+	DIVIDE					reduce	46
 	MOD					reduce	46
 
 State 142
-	function-declaration -> var-type ID LPAREN var-seq RPAREN . scope 
+	predefined-statement -> TOCHARLIST LPAREN expression RPAREN . 
 
-	LBRACE					shift	53
-	scope					goto	152
+	EQ					reduce	47
+	OR					reduce	47
+	COMMA					reduce	47
+	PLUS					reduce	47
+	LE					reduce	47
+	SEMICOLON					reduce	47
+	GE					reduce	47
+	PIPE					reduce	47
+	GT					reduce	47
+	MINUS					reduce	47
+	TIMES					reduce	47
+	LT					reduce	47
+	NE					reduce	47
+	AND					reduce	47
+	RPAREN					reduce	47
+	CARET					reduce	47
+	AMP					reduce	47
+	DIVIDE					reduce	47
+	MOD					reduce	47
 
 State 143
+	function-declaration -> var-type ID LPAREN var-seq RPAREN . scope 
+
+	LBRACE					shift	54
+	scope					goto	153
+
+State 144
 	var-seq -> var-seq COMMA . var-type-name 
 
 	INT					shift	42
-	var-type-name					goto	153
+	var-type-name					goto	154
 	STRING					shift	44
 	BOOL					shift	46
 	CHAR					shift	45
 	LIST					shift	41
-	var-type					goto	129
+	var-type					goto	130
 	FLOAT					shift	43
 
-State 144
+State 145
 	var-type-name -> var-type ID . 
 
 	RPAREN					reduce	22
 	COMMA					reduce	22
 
-State 145
+State 146
 	function-declaration -> var-type ID LPAREN RPAREN scope . 
 
 	SEMICOLON					reduce	23
 
-State 146
+State 147
 	expression-seq -> expression-seq COMMA expression . 
 	expression -> expression . OR exp6 
 
-	OR					shift	75
 	RPAREN					reduce	40
+	OR					shift	76
 	COMMA					reduce	40
 
-State 147
+State 148
 	if-statement -> IF LPAREN expression RPAREN scope . 
 	if-statement -> IF LPAREN expression RPAREN scope . ELSE scope 
 	if-statement -> IF LPAREN expression RPAREN scope . ELSE if-statement 
@@ -2878,137 +2962,141 @@ State 147
 	INT					reduce	16
 	POP					reduce	16
 	IF					reduce	16
+	NOT					reduce	16
+	TILDE					reduce	16
 	SET					reduce	16
 	STRVAL					reduce	16
-	RBRACE					reduce	16
 	FLOATVAL					reduce	16
 	EOF					reduce	16
 	PRINT					reduce	16
 	ID					reduce	16
-	NOT					reduce	16
-	ELSE					shift	154
+	ELSE					shift	155
 	BREAK					reduce	16
+	LBRACE					reduce	16
+	MINUS					reduce	16
 	CONTINUE					reduce	16
 	RETURN					reduce	16
+	LPAREN					reduce	16
 	PUSH					reduce	16
 	STRING					reduce	16
+	TOCHARLIST					reduce	16
 	CHARVAL					reduce	16
 	BOOL					reduce	16
 	LIST					reduce	16
+	RBRACE					reduce	16
 	WHILE					reduce	16
 	FLOAT					reduce	16
-	LPAREN					reduce	16
 	INTVAL					reduce	16
 	BOOLVAL					reduce	16
-	MINUS					reduce	16
-	LBRACE					reduce	16
-	TILDE					reduce	16
 	GET					reduce	16
 	INPUT					reduce	16
 	CHAR					reduce	16
 
-State 148
+State 149
 	while-statement -> WHILE LPAREN expression RPAREN scope . 
 
 	INT					reduce	19
 	POP					reduce	19
 	IF					reduce	19
+	NOT					reduce	19
+	TILDE					reduce	19
 	SET					reduce	19
 	STRVAL					reduce	19
-	RBRACE					reduce	19
 	FLOATVAL					reduce	19
 	EOF					reduce	19
 	PRINT					reduce	19
 	ID					reduce	19
-	NOT					reduce	19
 	BREAK					reduce	19
+	LBRACE					reduce	19
+	MINUS					reduce	19
 	CONTINUE					reduce	19
 	RETURN					reduce	19
+	LPAREN					reduce	19
 	PUSH					reduce	19
 	STRING					reduce	19
+	TOCHARLIST					reduce	19
 	CHARVAL					reduce	19
 	BOOL					reduce	19
 	LIST					reduce	19
+	RBRACE					reduce	19
 	WHILE					reduce	19
 	FLOAT					reduce	19
-	LPAREN					reduce	19
 	INTVAL					reduce	19
 	BOOLVAL					reduce	19
-	MINUS					reduce	19
-	LBRACE					reduce	19
-	TILDE					reduce	19
 	GET					reduce	19
 	INPUT					reduce	19
 	CHAR					reduce	19
 
-State 149
+State 150
 	predefined-statement -> GET LPAREN ID COMMA expression . RPAREN 
 	expression -> expression . OR exp6 
 
-	OR					shift	75
-	RPAREN					shift	155
+	RPAREN					shift	156
+	OR					shift	76
 
-State 150
+State 151
 	predefined-statement -> SET LPAREN ID COMMA expression . COMMA expression RPAREN 
 	expression -> expression . OR exp6 
 
-	OR					shift	75
-	COMMA					shift	156
+	OR					shift	76
+	COMMA					shift	157
 
-State 151
+State 152
 	predefined-statement -> PUSH LPAREN ID COMMA expression . RPAREN 
 	expression -> expression . OR exp6 
 
-	OR					shift	75
-	RPAREN					shift	157
+	RPAREN					shift	158
+	OR					shift	76
 
-State 152
+State 153
 	function-declaration -> var-type ID LPAREN var-seq RPAREN scope . 
 
 	SEMICOLON					reduce	24
 
-State 153
+State 154
 	var-seq -> var-seq COMMA var-type-name . 
 
 	RPAREN					reduce	26
 	COMMA					reduce	26
 
-State 154
+State 155
 	if-statement -> IF LPAREN expression RPAREN scope ELSE . scope 
 	if-statement -> IF LPAREN expression RPAREN scope ELSE . if-statement 
 
+	LBRACE					shift	54
 	IF					shift	36
-	if-statement					goto	159
-	LBRACE					shift	53
-	scope					goto	158
-
-State 155
-	predefined-statement -> GET LPAREN ID COMMA expression RPAREN . 
-
-	DIVIDE					reduce	43
-	SEMICOLON					reduce	43
-	AMP					reduce	43
-	TIMES					reduce	43
-	RPAREN					reduce	43
-	EQ					reduce	43
-	GT					reduce	43
-	AND					reduce	43
-	COMMA					reduce	43
-	PLUS					reduce	43
-	GE					reduce	43
-	PIPE					reduce	43
-	NE					reduce	43
-	OR					reduce	43
-	LT					reduce	43
-	MINUS					reduce	43
-	LE					reduce	43
-	CARET					reduce	43
-	MOD					reduce	43
+	if-statement					goto	160
+	scope					goto	159
 
 State 156
+	predefined-statement -> GET LPAREN ID COMMA expression RPAREN . 
+
+	EQ					reduce	43
+	OR					reduce	43
+	COMMA					reduce	43
+	PLUS					reduce	43
+	LE					reduce	43
+	SEMICOLON					reduce	43
+	GE					reduce	43
+	PIPE					reduce	43
+	GT					reduce	43
+	MINUS					reduce	43
+	TIMES					reduce	43
+	LT					reduce	43
+	NE					reduce	43
+	AND					reduce	43
+	RPAREN					reduce	43
+	CARET					reduce	43
+	AMP					reduce	43
+	DIVIDE					reduce	43
+	MOD					reduce	43
+
+State 157
 	predefined-statement -> SET LPAREN ID COMMA expression COMMA . expression RPAREN 
 
 	POP					shift	52
+	TILDE					shift	58
+	NOT					shift	57
 	SET					shift	50
 	STRVAL					shift	33
 	FLOATVAL					shift	32
@@ -3018,144 +3106,145 @@ State 156
 	atom					goto	17
 	value					goto	29
 	ID					shift	30
-	NOT					shift	56
+	MINUS					shift	56
+	LPAREN					shift	55
 	PUSH					shift	51
-	expression					goto	160
+	expression					goto	161
 	exp3					goto	23
+	TOCHARLIST					shift	53
 	CHARVAL					shift	34
 	function-call					goto	18
 	exp5					goto	25
-	LPAREN					shift	54
 	exp1					goto	21
 	exp0					goto	20
 	exp6					goto	26
-	MINUS					shift	55
 	BOOLVAL					shift	35
 	INTVAL					shift	31
-	TILDE					shift	57
 	GET					shift	49
 	INPUT					shift	48
 	exp2					goto	22
 	predefined-statement					goto	19
 
-State 157
+State 158
 	predefined-statement -> PUSH LPAREN ID COMMA expression RPAREN . 
 
-	DIVIDE					reduce	45
-	SEMICOLON					reduce	45
-	AMP					reduce	45
-	TIMES					reduce	45
-	RPAREN					reduce	45
 	EQ					reduce	45
-	GT					reduce	45
-	AND					reduce	45
+	OR					reduce	45
 	COMMA					reduce	45
 	PLUS					reduce	45
+	LE					reduce	45
+	SEMICOLON					reduce	45
 	GE					reduce	45
 	PIPE					reduce	45
-	NE					reduce	45
-	OR					reduce	45
-	LT					reduce	45
+	GT					reduce	45
 	MINUS					reduce	45
-	LE					reduce	45
+	TIMES					reduce	45
+	LT					reduce	45
+	NE					reduce	45
+	AND					reduce	45
+	RPAREN					reduce	45
 	CARET					reduce	45
+	AMP					reduce	45
+	DIVIDE					reduce	45
 	MOD					reduce	45
 
-State 158
+State 159
 	if-statement -> IF LPAREN expression RPAREN scope ELSE scope . 
 
 	INT					reduce	17
 	POP					reduce	17
 	IF					reduce	17
+	NOT					reduce	17
+	TILDE					reduce	17
 	SET					reduce	17
 	STRVAL					reduce	17
-	RBRACE					reduce	17
 	FLOATVAL					reduce	17
 	EOF					reduce	17
 	PRINT					reduce	17
 	ID					reduce	17
-	NOT					reduce	17
 	BREAK					reduce	17
+	LBRACE					reduce	17
+	MINUS					reduce	17
 	CONTINUE					reduce	17
 	RETURN					reduce	17
+	LPAREN					reduce	17
 	PUSH					reduce	17
 	STRING					reduce	17
+	TOCHARLIST					reduce	17
 	CHARVAL					reduce	17
 	BOOL					reduce	17
 	LIST					reduce	17
+	RBRACE					reduce	17
 	WHILE					reduce	17
 	FLOAT					reduce	17
-	LPAREN					reduce	17
 	INTVAL					reduce	17
 	BOOLVAL					reduce	17
-	MINUS					reduce	17
-	LBRACE					reduce	17
-	TILDE					reduce	17
 	GET					reduce	17
 	INPUT					reduce	17
 	CHAR					reduce	17
 
-State 159
+State 160
 	if-statement -> IF LPAREN expression RPAREN scope ELSE if-statement . 
 
 	INT					reduce	18
 	POP					reduce	18
 	IF					reduce	18
+	NOT					reduce	18
+	TILDE					reduce	18
 	SET					reduce	18
 	STRVAL					reduce	18
-	RBRACE					reduce	18
 	FLOATVAL					reduce	18
 	EOF					reduce	18
 	PRINT					reduce	18
 	ID					reduce	18
-	NOT					reduce	18
 	BREAK					reduce	18
+	LBRACE					reduce	18
+	MINUS					reduce	18
 	CONTINUE					reduce	18
 	RETURN					reduce	18
+	LPAREN					reduce	18
 	PUSH					reduce	18
 	STRING					reduce	18
+	TOCHARLIST					reduce	18
 	CHARVAL					reduce	18
 	BOOL					reduce	18
 	LIST					reduce	18
+	RBRACE					reduce	18
 	WHILE					reduce	18
 	FLOAT					reduce	18
-	LPAREN					reduce	18
 	INTVAL					reduce	18
 	BOOLVAL					reduce	18
-	MINUS					reduce	18
-	LBRACE					reduce	18
-	TILDE					reduce	18
 	GET					reduce	18
 	INPUT					reduce	18
 	CHAR					reduce	18
 
-State 160
+State 161
 	predefined-statement -> SET LPAREN ID COMMA expression COMMA expression . RPAREN 
 	expression -> expression . OR exp6 
 
-	OR					shift	75
-	RPAREN					shift	161
+	RPAREN					shift	162
+	OR					shift	76
 
-State 161
+State 162
 	predefined-statement -> SET LPAREN ID COMMA expression COMMA expression RPAREN . 
 
-	DIVIDE					reduce	44
-	SEMICOLON					reduce	44
-	AMP					reduce	44
-	TIMES					reduce	44
-	RPAREN					reduce	44
 	EQ					reduce	44
-	GT					reduce	44
-	AND					reduce	44
+	OR					reduce	44
 	COMMA					reduce	44
 	PLUS					reduce	44
+	LE					reduce	44
+	SEMICOLON					reduce	44
 	GE					reduce	44
 	PIPE					reduce	44
-	NE					reduce	44
-	OR					reduce	44
-	LT					reduce	44
+	GT					reduce	44
 	MINUS					reduce	44
-	LE					reduce	44
+	TIMES					reduce	44
+	LT					reduce	44
+	NE					reduce	44
+	AND					reduce	44
+	RPAREN					reduce	44
 	CARET					reduce	44
+	AMP					reduce	44
+	DIVIDE					reduce	44
 	MOD					reduce	44
 

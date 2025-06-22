@@ -424,6 +424,54 @@
     (displayln "=== Control Flow Combination Tests Completed ===")
     (displayln "")))
 
+; Test $tocharlist statement
+(define run-tocharlist-tests
+  (lambda ()
+    (displayln "=== Testing $tocharlist Statement ===")
+    
+    ; Test converting simple string to char list
+    (test-parse-and-interpret "string s = \"abc\"; list<char> chars = $tocharlist(s); $print(chars);")
+    (displayln "")
+    
+    ; Test with empty string
+    (test-parse-and-interpret "string empty = \"\"; list<char> emptyChars = $tocharlist(empty); $print(emptyChars);")
+    (displayln "")
+    
+    ; Test with single character string
+    (test-parse-and-interpret "string single = \"x\"; list<char> singleChar = $tocharlist(single); $print(singleChar);")
+    (displayln "")
+    
+    ; Test with longer string
+    (test-parse-and-interpret "string message = \"Hello World\"; list<char> messageChars = $tocharlist(message); $print(messageChars);")
+    (displayln "")
+    
+    ; Test with special characters
+    (test-parse-and-interpret "string special = \"123!@#\"; list<char> specialChars = $tocharlist(special); $print(specialChars);")
+    (displayln "")
+    
+    ; Test direct usage in expression
+    (test-parse-and-interpret "$print($tocharlist(\"test\"));")
+    (displayln "")
+    
+    ; Test with string variable
+    (test-parse-and-interpret "string text = \"racket\"; $print($tocharlist(text));")
+    (displayln "")
+    
+    ; Test accessing individual characters from the list
+    (test-parse-and-interpret "string word = \"hi\"; list<char> letters = $tocharlist(word); $print($get(letters, 0)); $print($get(letters, 1));")
+    (displayln "")
+    
+    ; Test modifying the char list
+    (test-parse-and-interpret "string original = \"abc\"; list<char> chars = $tocharlist(original); $set(chars, 1, 'X'); $print(chars);")
+    (displayln "")
+    
+    ; Test adding chars to the list
+    (test-parse-and-interpret "string base = \"ab\"; list<char> chars = $tocharlist(base); $push(chars, 'c'); $print(chars);")
+    (displayln "")
+    
+    (displayln "=== $tocharlist Tests Completed ===")
+    (displayln "")))
+
 ; Updated run-all-tests function
 (define run-all-tests
   (lambda ()
@@ -437,13 +485,14 @@
     (run-edge-case-tests)
     (run-variable-tests)
     (run-print-tests)
-    (run-if-tests)         ; Add if statement tests
-    (run-while-tests)      ; Add while statement tests
-    (run-control-flow-tests) ; Add control flow combination tests
+    (run-if-tests)         
+    (run-while-tests)      
+    (run-control-flow-tests) 
+    (run-tocharlist-tests)  ; Add tocharlist tests
     (displayln "All tests completed!")))
 
 (run-all-tests)
 (provide run-all-tests run-basic-tests run-unary-tests run-comparison-tests 
          run-bitwise-tests run-logical-tests run-complex-tests 
          run-edge-case-tests run-variable-tests run-print-tests 
-         run-if-tests run-while-tests run-control-flow-tests test-parse-and-interpret)
+         run-if-tests run-while-tests run-control-flow-tests run-tocharlist-tests test-parse-and-interpret)

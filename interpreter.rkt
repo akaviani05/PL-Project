@@ -625,6 +625,16 @@
        (value-of-push-statement-unified (cadr predefined-stmt) (caddr predefined-stmt) env)]
       [(and (pair? predefined-stmt) (eq? (car predefined-stmt) 'pop-statement))
        (value-of-pop-statement-unified (cadr predefined-stmt) env)]
+      [(and (pair? predefined-stmt) (eq? (car predefined-stmt) 'tocharlist-statement))
+       (let ((val (value-of-expression (cadr predefined-stmt) env)))
+         (cases expval val
+           (string-val (str)
+             (let* ((char-list (map (lambda (i)
+                                      (char-val (string (string-ref str i))))
+                                    (range (string-length str))))
+                    (result (list-val char-list)))
+               (cons result env)))
+           (else (eopl:error 'type-error "$tocharlist expects a string, got ~s" val))))]
       [else (cons (report-invalid-expression! predefined-stmt) env)])))
 
 ; Predefined statement evaluation (backward compatibility)
@@ -779,7 +789,13 @@
       [(and (pair? val) (eq? (car val) 'bool-val)) 
        (bool-val (if (string=? (cadr val) "true") #t #f))]
       [(and (pair? val) (eq? (car val) 'str-val)) (string-val (cadr val))]
-      [(and (pair? val) (eq? (car val) 'char-val)) (char-val (cadr val))]
+      [(and (pair? val) (eq? (car val) 'char-val)) 
+       (let ((char-str (cadr val)))
+         (if (and (> (string-length char-str) 2)
+                  (char=? (string-ref char-str 0) #\')
+                  (char=? (string-ref char-str (- (string-length char-str) 1)) #\'))
+             (char-val (substring char-str 1 (- (string-length char-str) 1)))
+             (char-val char-str)))]
       [(and (pair? val) (eq? (car val) 'lst-val)) (value-of-list-literal (cadr val))]
       [else (report-invalid-expression! val)])))
 

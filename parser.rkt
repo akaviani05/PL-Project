@@ -157,7 +157,9 @@
        ((GET LPAREN ID COMMA expression RPAREN)                  (node 'get-statement $3 $5))
        ((SET LPAREN ID COMMA expression COMMA expression RPAREN) (node 'set-statement $3 $5 $7))
        ((PUSH LPAREN ID COMMA expression RPAREN)                 (node 'push-statement $3 $5))
-       ((POP LPAREN ID RPAREN)                                   (node 'pop-statement $3)))
+       ((POP LPAREN ID RPAREN)                                   (node 'pop-statement $3))
+       ((TOCHARLIST LPAREN expression RPAREN)                    (node 'tocharlist-statement $3))
+      )
 
       (exp0 ((atom) (node 'atom $1))
             ((LPAREN expression RPAREN) (node 'paren $2)))
@@ -201,7 +203,7 @@
                  ((STRING)                (node 'string-t))
                  ((CHAR)                  (node 'char-t))
                  ((BOOL)                  (node 'bool-t))
-                 ((LIST LT var-type GT)   (node 'list-t $3)))
+                 ((LIST)   (node 'list-t)))
 
       (value   ((INTVAL)     (node 'int-val $1))
                ((FLOATVAL)   (node 'float-val $1))
