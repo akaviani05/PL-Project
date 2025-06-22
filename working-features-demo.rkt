@@ -238,8 +238,8 @@
 
     (run-demo "Sample input:"
               "int x; $input(x); x;")
-;;;     (run-demo "Sum of Digits" 
-;;;               "int sumOfDigits(int n) { if (n < 0) { n = -n; } int sum = 0; while (n > 0) { sum = sum + (n % 10); n = n / 10; } return sum; }; sumOfDigits(12345);")
+    (run-demo "Sum of Digits" 
+              "int sumOfDigits(int n) { if (n < 0) { n = -n; } int sum = 0; while (n > 0) { sum = sum + (n % 10); n = n / 10; } return sum; }; sumOfDigits(-(12345));")
 
     (displayln "")
     (displayln "🔍 Algorithm showcase complete!")
