@@ -788,7 +788,13 @@
       [(and (pair? val) (eq? (car val) 'float-val)) (float-val (cadr val))]
       [(and (pair? val) (eq? (car val) 'bool-val)) 
        (bool-val (if (string=? (cadr val) "true") #t #f))]
-      [(and (pair? val) (eq? (car val) 'str-val)) (string-val (cadr val))]
+      [(and (pair? val) (eq? (car val) 'str-val)) 
+       (let ((str (cadr val)))
+         (if (and (> (string-length str) 1)
+                  (char=? (string-ref str 0) #\")
+                  (char=? (string-ref str (- (string-length str) 1)) #\"))
+             (string-val (substring str 1 (- (string-length str) 1)))
+             (string-val str)))]
       [(and (pair? val) (eq? (car val) 'char-val)) 
        (let ((char-str (cadr val)))
          (if (and (> (string-length char-str) 2)

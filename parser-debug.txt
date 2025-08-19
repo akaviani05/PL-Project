@@ -110,12 +110,12 @@ State 0
 	IF					reduce	3
 	statement-seq					goto	3
 	STRVAL					reduce	3
+	g4252					goto	1
 	MINUS					reduce	3
 	LPAREN					reduce	3
 	RETURN					reduce	3
 	BOOL					reduce	3
 	CHARVAL					reduce	3
-	g4252					goto	1
 	LIST					reduce	3
 	FLOAT					reduce	3
 	INTVAL					reduce	3
