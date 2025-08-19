@@ -158,6 +158,7 @@
        ((SET LPAREN ID COMMA expression COMMA expression RPAREN) (node 'set-statement $3 $5 $7))
        ((PUSH LPAREN ID COMMA expression RPAREN)                 (node 'push-statement $3 $5))
        ((POP LPAREN ID RPAREN)                                   (node 'pop-statement $3))
+       ((SIZE LPAREN ID RPAREN)                                  (node 'size-statement $3))
        ((TOCHARLIST LPAREN expression RPAREN)                    (node 'tocharlist-statement $3))
       )
 

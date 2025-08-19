@@ -77,6 +77,7 @@ predefined-statement: 'PRINT' 'LPAREN' expression 'RPAREN'
 | 'SET' 'LPAREN' ID 'COMMA' expression 'COMMA' expression 'RPAREN' 
 | 'PUSH' 'LPAREN' ID 'COMMA' expression 'RPAREN' 
 | 'POP' 'LPAREN' ID 'RPAREN' 
+| 'SIZE' 'LPAREN' ID 'RPAREN' 
 | 'TOCHARLIST' 'LPAREN' expression 'RPAREN' 
 ;
 exp0: atom 

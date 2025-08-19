@@ -625,6 +625,13 @@
        (value-of-push-statement-unified (cadr predefined-stmt) (caddr predefined-stmt) env)]
       [(and (pair? predefined-stmt) (eq? (car predefined-stmt) 'pop-statement))
        (value-of-pop-statement-unified (cadr predefined-stmt) env)]
+      [(and (pair? predefined-stmt) (eq? (car predefined-stmt) 'size-statement))
+       (let ((list-expval (apply-env (cadr predefined-stmt) env)))
+         (cases expval list-expval
+           (list-val (lst)
+             (let ((size-val (num-val (length lst))))
+               (cons size-val env)))
+           (else (eopl:error 'type-error "$size expects a list, got ~s" list-expval))))]
       [(and (pair? predefined-stmt) (eq? (car predefined-stmt) 'tocharlist-statement))
        (let ((val (value-of-expression (cadr predefined-stmt) env)))
          (cases expval val

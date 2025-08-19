@@ -424,6 +424,23 @@
     (displayln "=== Control Flow Combination Tests Completed ===")
     (displayln "")))
 
+; Test $size statement
+(define run-size-tests
+  (lambda ()
+    (displayln "=== Testing $size Statement ===")
+    
+    ; Test size of empty list
+    (test-parse-and-interpret "list empty; $print($size(empty));")
+    (displayln "")
+    
+    ; Test size of list with integers
+    (test-parse-and-interpret "list numbers; $push(numbers, 1); $push(numbers, 2); $print($size(numbers));")
+    (displayln "")
+    
+    
+    (displayln "=== $size Tests Completed ===")
+    (displayln "")))
+
 ; Test $tocharlist statement
 (define run-tocharlist-tests
   (lambda ()
@@ -488,6 +505,7 @@
     (run-if-tests)         
     (run-while-tests)      
     (run-control-flow-tests) 
+    (run-size-tests)        ; Add size tests
     (run-tocharlist-tests)  ; Add tocharlist tests
     (displayln "All tests completed!")))
 
@@ -495,4 +513,4 @@
 (provide run-all-tests run-basic-tests run-unary-tests run-comparison-tests 
          run-bitwise-tests run-logical-tests run-complex-tests 
          run-edge-case-tests run-variable-tests run-print-tests 
-         run-if-tests run-while-tests run-control-flow-tests run-tocharlist-tests test-parse-and-interpret)
+         run-if-tests run-while-tests run-control-flow-tests run-size-tests run-tocharlist-tests test-parse-and-interpret)
