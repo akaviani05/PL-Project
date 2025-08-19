@@ -17,101 +17,101 @@
         (displayln (format "Final Result: ~s" result))
         result))))
 
-; Complex program demonstrating all features
-(define comprehensive-program "
-  // Variable declarations and basic arithmetic
-  int x = 10;
-  int y = 5;
-  float pi = 3.14;
-  bool isValid = true;
-  string message = \"Hello World\";
+;;; ; Complex program demonstrating all features
+;;; (define comprehensive-program "
+;;;   // Variable declarations and basic arithmetic
+;;;   int x = 10;
+;;;   int y = 5;
+;;;   float pi = 3.14;
+;;;   bool isValid = true;
+;;;   string message = \"Hello World\";
   
-  // Function to calculate factorial
-  int factorial(int n) {
-    if (n <= 1) {
-      return 1;
-    } else {
-      return n * factorial(n - 1);
-    };
-  };
+;;;   // Function to calculate factorial
+;;;   int factorial(int n) {
+;;;     if (n <= 1) {
+;;;       return 1;
+;;;     } else {
+;;;       return n * factorial(n - 1);
+;;;     };
+;;;   };
   
-  // Function to check if number is even
-  bool isEven(int num) {
-    return (num % 2) == 0;
-  };
+;;;   // Function to check if number is even
+;;;   bool isEven(int num) {
+;;;     return (num % 2) == 0;
+;;;   };
   
-  // Function to find maximum of two numbers
-  int max(int a, int b) {
-    if (a > b) {
-      return a;
-    } else {
-      return b;
-    };
-  };
+;;;   // Function to find maximum of two numbers
+;;;   int max(int a, int b) {
+;;;     if (a > b) {
+;;;       return a;
+;;;     } else {
+;;;       return b;
+;;;     };
+;;;   };
   
-  // Function to calculate sum of numbers from 1 to n
-  int sumToN(int n) {
-    int sum = 0;
-    int i = 1;
-    while (i <= n) {
-      sum = sum + i;
-      i = i + 1;
-    }
-    return sum;
-  };
+;;;   // Function to calculate sum of numbers from 1 to n
+;;;   int sumToN(int n) {
+;;;     int sum = 0;
+;;;     int i = 1;
+;;;     while (i <= n) {
+;;;       sum = sum + i;
+;;;       i = i + 1;
+;;;     }
+;;;     return sum;
+;;;   };
   
-  // Function to calculate power (base^exp)
-  int power(int base, int exp) {
-    if (exp == 0) {
-      return 1;
-    }
-    int result = 1;
-    int counter = 0;
-    while (counter < exp) {
-      result = result * base;
-      counter = counter + 1;
-    }
-    return result;
-  };
+;;;   // Function to calculate power (base^exp)
+;;;   int power(int base, int exp) {
+;;;     if (exp == 0) {
+;;;       return 1;
+;;;     }
+;;;     int result = 1;
+;;;     int counter = 0;
+;;;     while (counter < exp) {
+;;;       result = result * base;
+;;;       counter = counter + 1;
+;;;     }
+;;;     return result;
+;;;   };
   
-  // Function to calculate fibonacci number
-  int fibonacci(int n) {
-    if (n <= 1) {
-      return n;
-    } else {
-      return fibonacci(n - 1) + fibonacci(n - 2);
-    };
-  };
+;;;   // Function to calculate fibonacci number
+;;;   int fibonacci(int n) {
+;;;     if (n <= 1) {
+;;;       return n;
+;;;     } else {
+;;;       return fibonacci(n - 1) + fibonacci(n - 2);
+;;;     };
+;;;   };
   
-  // Function with complex logic
-  int complexCalculation(int a, int b, int c) {
-    int temp1 = a + b;
-    int temp2 = b * c;
-    int temp3 = max(temp1, temp2);
+;;;   // Function with complex logic
+;;;   int complexCalculation(int a, int b, int c) {
+;;;     int temp1 = a + b;
+;;;     int temp2 = b * c;
+;;;     int temp3 = max(temp1, temp2);
     
-    if (isEven(temp3)) {
-      temp3 = temp3 + 10;
-    } else {
-      temp3 = temp3 - 5;
-    }
+;;;     if (isEven(temp3)) {
+;;;       temp3 = temp3 + 10;
+;;;     } else {
+;;;       temp3 = temp3 - 5;
+;;;     }
     
-    return temp3;
-  };
+;;;     return temp3;
+;;;   };
   
-  // Main computation
-  int fact5 = factorial(5);
-  int sum10 = sumToN(10);
-  int pow23 = power(2, 3);
-  int fib7 = fibonacci(7);
-  bool evenCheck = isEven(fact5);
-  int maxResult = max(fact5, sum10);
-  int complexResult = complexCalculation(10, 20, 3);
+;;;   // Main computation
+;;;   int fact5 = factorial(5);
+;;;   int sum10 = sumToN(10);
+;;;   int pow23 = power(2, 3);
+;;;   int fib7 = fibonacci(7);
+;;;   bool evenCheck = isEven(fact5);
+;;;   int maxResult = max(fact5, sum10);
+;;;   int complexResult = complexCalculation(10, 20, 3);
   
-  // Final calculation combining everything
-  int finalResult = (fact5 + sum10 + pow23 + fib7 + maxResult + complexResult) / 6;
+;;;   // Final calculation combining everything
+;;;   int finalResult = (fact5 + sum10 + pow23 + fib7 + maxResult + complexResult) / 6;
   
-  finalResult;
-")
+;;;   finalResult;
+;;; ")
 
 ; Run the comprehensive demo
 (define run-comprehensive-demo

@@ -430,23 +430,23 @@
     (displayln "=== Testing $tocharlist Statement ===")
     
     ; Test converting simple string to char list
-    (test-parse-and-interpret "string s = \"abc\"; list<char> chars = $tocharlist(s); $print(chars);")
+    (test-parse-and-interpret "string s = \"abc\"; list chars = $tocharlist(s); $print(chars);")
     (displayln "")
     
     ; Test with empty string
-    (test-parse-and-interpret "string empty = \"\"; list<char> emptyChars = $tocharlist(empty); $print(emptyChars);")
+    (test-parse-and-interpret "string empty = \"\"; list emptyChars = $tocharlist(empty); $print(emptyChars);")
     (displayln "")
     
     ; Test with single character string
-    (test-parse-and-interpret "string single = \"x\"; list<char> singleChar = $tocharlist(single); $print(singleChar);")
+    (test-parse-and-interpret "string single = \"x\"; list singleChar = $tocharlist(single); $print(singleChar);")
     (displayln "")
     
     ; Test with longer string
-    (test-parse-and-interpret "string message = \"Hello World\"; list<char> messageChars = $tocharlist(message); $print(messageChars);")
+    (test-parse-and-interpret "string message = \"Hello World\"; list messageChars = $tocharlist(message); $print(messageChars);")
     (displayln "")
     
     ; Test with special characters
-    (test-parse-and-interpret "string special = \"123!@#\"; list<char> specialChars = $tocharlist(special); $print(specialChars);")
+    (test-parse-and-interpret "string special = \"123!@#\"; list specialChars = $tocharlist(special); $print(specialChars);")
     (displayln "")
     
     ; Test direct usage in expression
@@ -458,15 +458,15 @@
     (displayln "")
     
     ; Test accessing individual characters from the list
-    (test-parse-and-interpret "string word = \"hi\"; list<char> letters = $tocharlist(word); $print($get(letters, 0)); $print($get(letters, 1));")
+    (test-parse-and-interpret "string word = \"hi\"; list letters = $tocharlist(word); $print($get(letters, 0)); $print($get(letters, 1));")
     (displayln "")
     
     ; Test modifying the char list
-    (test-parse-and-interpret "string original = \"abc\"; list<char> chars = $tocharlist(original); $set(chars, 1, 'X'); $print(chars);")
+    (test-parse-and-interpret "string original = \"abc\"; list chars = $tocharlist(original); $set(chars, 1, 'X'); $print(chars);")
     (displayln "")
     
     ; Test adding chars to the list
-    (test-parse-and-interpret "string base = \"ab\"; list<char> chars = $tocharlist(base); $push(chars, 'c'); $print(chars);")
+    (test-parse-and-interpret "string base = \"ab\"; list chars = $tocharlist(base); $push(chars, 'c'); $print(chars);")
     (displayln "")
     
     (displayln "=== $tocharlist Tests Completed ===")

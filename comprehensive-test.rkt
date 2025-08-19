@@ -246,8 +246,8 @@
   (run-test "Char declaration default" "char ch;" "should declare ch with default empty char")
   
   ; List variable tests
-  (run-test "List declaration with init" "list<int> nums = [1, 2, 3];" "should declare and initialize nums")
-  (run-test "List declaration default" "list<int> empty;" "should declare empty with default empty list")
+  (run-test "List declaration with init" "list nums = [1, 2, 3];" "should declare and initialize nums")
+  (run-test "List declaration default" "list empty;" "should declare empty with default empty list")
   
   ; Mixed type operations
   (run-test "Mixed int and float" "int x = 5; float y = 2.5; x + y;" "should return 7.5")
