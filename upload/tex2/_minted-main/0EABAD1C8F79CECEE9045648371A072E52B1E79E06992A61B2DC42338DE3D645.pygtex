@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{define}\PYG{+w}{ }\PYG{n}{empty\PYGZhy{}type\PYGZhy{}env}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{())}
+
+\PYG{p}{(}\PYG{k}{define}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{env\PYGZhy{}lookup}\PYG{+w}{ }\PYG{n}{name}\PYG{+w}{ }\PYG{n}{env}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{(}\PYG{k}{let}\PYG{+w}{ }\PYG{n}{loop}\PYG{+w}{ }\PYG{p}{(}\PYG{p}{(}\PYG{n}{lst}\PYG{+w}{ }\PYG{n}{env}\PYG{p}{))}
+\PYG{+w}{    }\PYG{p}{(}\PYG{k}{cond}
+\PYG{+w}{      }\PYG{p}{[}\PYG{p}{(}\PYG{n+nb}{null?}\PYG{+w}{ }\PYG{n}{lst}\PYG{p}{)}\PYG{+w}{ }\PYG{n+no}{\PYGZsh{}f}\PYG{p}{]}
+\PYG{+w}{      }\PYG{p}{[}\PYG{p}{(}\PYG{n+nb}{equal?}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{caar}\PYG{+w}{ }\PYG{n}{lst}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{name}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{cdar}\PYG{+w}{ }\PYG{n}{lst}\PYG{p}{)]}
+\PYG{+w}{      }\PYG{p}{[}\PYG{k}{else}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{loop}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{cdr}\PYG{+w}{ }\PYG{n}{lst}\PYG{p}{))])))}
+
+\PYG{p}{(}\PYG{k}{define}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{env\PYGZhy{}extend}\PYG{+w}{ }\PYG{n}{name}\PYG{+w}{ }\PYG{n}{typ}\PYG{+w}{ }\PYG{n}{env}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{cons}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{cons}\PYG{+w}{ }\PYG{n}{name}\PYG{+w}{ }\PYG{n}{typ}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{env}\PYG{p}{))}
+\end{Verbatim}

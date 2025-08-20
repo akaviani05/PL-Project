@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{define}\PYG{+w}{ }\PYG{n}{exec\PYGZhy{}while\PYGZhy{}loop\PYGZhy{}tof}
+\PYG{+w}{  }\PYG{p}{(}\PYG{k}{lambda}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{condition}\PYG{+w}{ }\PYG{n}{body\PYGZhy{}scope}\PYG{+w}{ }\PYG{n}{env}\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{(}\PYG{k}{let}\PYG{+w}{ }\PYG{p}{(}\PYG{p}{(}\PYG{n}{condition\PYGZhy{}val}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{expval\PYGZhy{}\PYGZgt{}bool}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{value\PYGZhy{}of\PYGZhy{}expression}\PYG{+w}{ }\PYG{n}{condition}\PYG{+w}{ }\PYG{n}{env}\PYG{p}{))))}
+\PYG{+w}{      }\PYG{p}{(}\PYG{k}{if}\PYG{+w}{ }\PYG{n}{condition\PYGZhy{}val}
+\PYG{+w}{          }\PYG{c+c1}{; قسمت مربوط}
+\PYG{+w}{          }\PYG{p}{(}\PYG{n+nb}{cons}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{num\PYGZhy{}val}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{env}\PYG{p}{)))))}
+\end{Verbatim}

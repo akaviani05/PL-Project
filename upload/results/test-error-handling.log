@@ -1,0 +1,20 @@
+* Testing Undefined Variables *
+Testing: "int x = 10; $print(y);"
+Error: binding-dismatch: 
+	identifier "y" is used before its declaration!
+* Testing Type errors *
+Testing: "int x = 10; string a = \"Hello, World!\"; $print(x + a);"
+Error: type-error: Expected numeric value, got #(struct:string-val "Hello, World!")
+
+* Testing Division by Zero *
+Testing: "int b = 10 / 0;"
+Error: division-by-zero: division by zero
+
+* Testing Function Arity Dismatch *
+Testing: "int add(int x, int y) { return x + y; }; $print(add(5));"
+Error: bind-parameters: parameter/argument count mismatch
+
+Index out of range
+Testing: "list a; $push(a, 0); $push(a, 1); $print($get(a, 0)); $print($get(a, 2));"
+0
+Error: list-index-error: list index out of range: 2

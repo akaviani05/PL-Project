@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{            }\PYG{p}{(}\PYG{k}{let}\PYG{+w}{ }\PYG{p}{(}\PYG{p}{(}\PYG{n}{list\PYGZhy{}expval}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{apply\PYGZhy{}env}\PYG{+w}{ }\PYG{n}{var\PYGZhy{}name}\PYG{+w}{ }\PYG{n}{env}\PYG{p}{))}
+\PYG{+w}{          }\PYG{p}{(}\PYG{n}{index\PYGZhy{}val}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{value\PYGZhy{}of\PYGZhy{}expression}\PYG{+w}{ }\PYG{n}{index\PYGZhy{}expr}\PYG{+w}{ }\PYG{n}{env}\PYG{p}{)))}
+\end{Verbatim}

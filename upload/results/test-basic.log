@@ -1,0 +1,459 @@
+Starting comprehensive tests...
+************ -> basic tests
+Testing: "5 + 3;"
+Result: #(struct:num-val 8)
+
+Testing: "10 - 4;"
+Result: #(struct:num-val 6)
+
+Testing: "6 * 7;"
+Result: #(struct:num-val 42)
+
+Testing: "20 / 4;"
+Result: #(struct:num-val 5)
+
+Testing: "17 % 5;"
+Result: #(struct:num-val 2)
+
+Testing: "2 + 3 * 4;"
+Result: #(struct:num-val 14)
+
+Testing: "(2 + 3) * 4;"
+Result: #(struct:num-val 20)
+
+Testing: "15 + 7 - 3 * 2;"
+Result: #(struct:num-val 16)
+
+************ -> unary ops
+Testing: "~5;"
+Result: #(struct:num-val -6)
+
+Testing: "!true;"
+Result: #(struct:bool-val #f)
+
+Testing: "!false;"
+Result: #(struct:bool-val #t)
+
+************ -> comparison tests
+Testing: "5 < 10;"
+Result: #(struct:bool-val #t)
+
+Testing: "10 < 5;"
+Result: #(struct:bool-val #f)
+
+Testing: "10 > 5;"
+Result: #(struct:bool-val #t)
+
+Testing: "5 > 10;"
+Result: #(struct:bool-val #f)
+
+Testing: "5 <= 10;"
+Result: #(struct:bool-val #t)
+
+Testing: "10 <= 10;"
+Result: #(struct:bool-val #t)
+
+Testing: "15 <= 10;"
+Result: #(struct:bool-val #f)
+
+Testing: "10 >= 5;"
+Result: #(struct:bool-val #t)
+
+Testing: "10 >= 10;"
+Result: #(struct:bool-val #t)
+
+Testing: "5 >= 10;"
+Result: #(struct:bool-val #f)
+
+Testing: "5 == 5;"
+Result: #(struct:bool-val #t)
+
+Testing: "5 == 10;"
+Result: #(struct:bool-val #f)
+
+Testing: "true == true;"
+Result: #(struct:bool-val #t)
+
+Testing: "true == false;"
+Result: #(struct:bool-val #f)
+
+Testing: "5 != 10;"
+Result: #(struct:bool-val #t)
+
+Testing: "5 != 5;"
+Result: #(struct:bool-val #f)
+
+************ -> bitwise ops tests
+Testing: "5 & 3;"
+Result: #(struct:num-val 1)
+
+Testing: "12 & 10;"
+Result: #(struct:num-val 8)
+
+Testing: "5 ^ 3;"
+Result: #(struct:num-val 6)
+
+Testing: "12 ^ 10;"
+Result: #(struct:num-val 6)
+
+Testing: "5 | 3;"
+Result: #(struct:num-val 7)
+
+Testing: "12 | 10;"
+Result: #(struct:num-val 14)
+
+************ -> logical ops tests
+Testing: "true && true;"
+Result: #(struct:bool-val #t)
+
+Testing: "true && false;"
+Result: #(struct:bool-val #f)
+
+Testing: "false && true;"
+Result: #(struct:bool-val #f)
+
+Testing: "false && false;"
+Result: #(struct:bool-val #f)
+
+Testing: "true || true;"
+Result: #(struct:bool-val #t)
+
+Testing: "true || false;"
+Result: #(struct:bool-val #t)
+
+Testing: "false || true;"
+Result: #(struct:bool-val #t)
+
+Testing: "false || false;"
+Result: #(struct:bool-val #f)
+
+************ -> multiops tests
+Testing: "5 + 3 > 7;"
+Result: #(struct:bool-val #t)
+
+Testing: "10 - 5 == 5;"
+Result: #(struct:bool-val #t)
+
+Testing: "5 > 3 && 10 < 15;"
+Result: #(struct:bool-val #t)
+
+Testing: "5 > 10 || 3 < 7;"
+Result: #(struct:bool-val #t)
+
+Testing: "(5 + 3) * 2 > 15 && true;"
+Result: #(struct:bool-val #t)
+
+Testing: "(8 + 4) & (10 - 2);"
+Result: #(struct:num-val 8)
+
+************ -> edgecase tests
+Testing: "0 + 5;"
+Result: #(struct:num-val 5)
+
+Testing: "5 * 0;"
+Result: #(struct:num-val 0)
+
+Testing: "10 - 15;"
+Result: #(struct:num-val -5)
+
+Testing: "((10 + 5) * 2) / 3;"
+Result: #(struct:num-val 10)
+
+Testing: "false && true;"
+Result: #(struct:bool-val #f)
+
+Testing: "true || false;"
+Result: #(struct:bool-val #t)
+
+************ -> var decleration tests
+Testing: "int x = 5;"
+Result: #(struct:num-val 5)
+
+Testing: "int y;"
+Result: #(struct:num-val 0)
+
+Testing: "bool b = false;"
+Result: #(struct:bool-val #f)
+
+Testing: "string s = \"salam\";"
+Result: #(struct:string-val "salam")
+
+Testing: "char c = 'a';"
+Result: #(struct:char-val "a")
+
+Testing: "list emp;"
+Result: #(struct:list-val ())
+
+Testing: "int getVal(){return 42;};"
+Result: #(struct:function-val () (scope ((simple-stament (return-statement (return-statement (exp6 (exp5 (exp4 (exp3 (exp2 (exp1 (exp0 (atom (value-atom (int-val 42))))))))))))))) #(struct:extend-environment "getVal" #(struct:num-val 0) #(struct:empty-environment)))
+
+************ -> $print tests
+Testing: "$print(42);"
+42
+Result: #(struct:num-val 42)
+
+Testing: "$print(3.14);"
+3.14
+Result: #(struct:float-val 3.14)
+
+Testing: "$print(true);"
+true
+Result: #(struct:bool-val #t)
+
+Testing: "$print(false);"
+false
+Result: #(struct:bool-val #f)
+
+Testing: "$print(\"hello world\");"
+hello world
+Result: #(struct:string-val "hello world")
+
+Testing: "$print('c');"
+c
+Result: #(struct:char-val "c")
+
+Testing: "$print(5 + 3);"
+8
+Result: #(struct:num-val 8)
+
+Testing: "$print(10 * 2 - 5);"
+15
+Result: #(struct:num-val 15)
+
+Testing: "$print(20 / 4);"
+5
+Result: #(struct:num-val 5)
+
+Testing: "$print(17 % 5);"
+2
+Result: #(struct:num-val 2)
+
+Testing: "$print(5 > 3);"
+true
+Result: #(struct:bool-val #t)
+
+Testing: "$print(2 == 2);"
+true
+Result: #(struct:bool-val #t)
+
+Testing: "$print(7 <= 5);"
+false
+Result: #(struct:bool-val #f)
+
+Testing: "int x = 100; $print(x);"
+100
+Result: #(struct:num-val 100)
+
+Testing: "bool flag = true; $print(flag);"
+true
+Result: #(struct:bool-val #t)
+
+Testing: "string msg = \"test\"; $print(msg);"
+test
+Result: #(struct:string-val "test")
+
+Testing: "$print(1); $print(2); $print(3);"
+1
+2
+3
+Result: #(struct:num-val 3)
+
+
+************ -> if tests
+Testing: "if (5 > 3) { $print(\"condition is true\"); }"
+condition is true
+Result: #(struct:string-val "condition is true")
+
+Testing: "if (3 > 5) { $print(\"this should not print\"); }"
+Result: #(struct:num-val 0)
+
+Testing: "if (10 == 10) { $print(\"equal\"); } else { $print(\"not equal\"); }"
+equal
+Result: #(struct:string-val "equal")
+
+Testing: "if (10 == 5) { $print(\"equal\"); } else { $print(\"not equal\"); }"
+not equal
+Result: #(struct:string-val "not equal")
+
+Testing: "if (true) { if (5 < 10) { $print(\"nested condition true\"); } }"
+nested condition true
+Result: #(struct:string-val "nested condition true")
+
+Testing: "int x = 15; if (x > 10) { $print(\"x is greater than 10\"); }"
+x is greater than 10
+Result: #(struct:string-val "x is greater than 10")
+
+Testing: "int a = 8; int b = 12; if (a + b > 15) { $print(\"sum is large\"); } else { $print(\"sum is small\"); }"
+sum is large
+Result: #(struct:string-val "sum is large")
+
+Testing: "int score = 85; if (score >= 90) { $print(\"A grade\"); } else if (score >= 80) { $print(\"B grade\"); } else { $print(\"C grade\"); }"
+B grade
+Result: #(struct:string-val "B grade")
+
+Testing: "int num = 0; if (num > 0) { $print(\"positive\"); } else if (num < 0) { $print(\"negative\"); } else { $print(\"zero\"); }"
+zero
+Result: #(struct:string-val "zero")
+
+Testing: "bool flag = true; if (flag) { $print(\"flag is true\"); } else { $print(\"flag is false\"); }"
+flag is true
+Result: #(struct:string-val "flag is true")
+
+
+************ -> while tests
+Testing: "int i = 0; while (i < 3) { $print(i); i = i + 1; }"
+0
+1
+2
+Result: #(struct:num-val 0)
+
+Testing: "int count = 5; while (count > 0) { $print(count); count = count - 1; }"
+5
+4
+3
+2
+1
+Result: #(struct:num-val 0)
+
+Testing: "int x = 10; while (x < 5) { $print(\"this should not print\"); }"
+Result: #(struct:num-val 0)
+
+Testing: "bool running = true; int counter = 0; while (running) { $print(counter); counter = counter + 1; if (counter >= 3) { running = false; } }"
+0
+1
+2
+Result: #(struct:num-val 0)
+
+Testing: "int outer = 0; while (outer < 2) { int inner = 0; while (inner < 2) { $print(outer * 10 + inner); inner = inner + 1; } outer = outer + 1; }"
+0
+1
+10
+11
+Result: #(struct:num-val 0)
+
+Testing: "int a = 1; int b = 10; while (a < b && a < 5) { $print(a); a = a + 1; }"
+1
+2
+3
+4
+Result: #(struct:num-val 0)
+
+Testing: "int sum = 0; int n = 1; while (n <= 4) { sum = sum + n; n = n + 1; } $print(sum);"
+10
+Result: #(struct:num-val 10)
+
+
+************ -> control flow tests
+Testing: "int i = 0; while (i < 5) { if (i % 2 == 0) { $print(\"even: \"); $print(i); } i = i + 1; }"
+even: 
+0
+even: 
+2
+even: 
+4
+Result: #(struct:num-val 0)
+
+Testing: "bool condition = true; if (condition) { int j = 0; while (j < 3) { $print(j); j = j + 1; } }"
+0
+1
+2
+Result: #(struct:num-val 0)
+
+Testing: "int x = 8; if (x > 5) { int k = 0; while (k < x - 5) { $print(k); k = k + 1; } } else { $print(\"x is too small\"); }"
+0
+1
+2
+Result: #(struct:num-val 0)
+
+Testing: "int limit = 3; int i = 0; while (i < limit) { if (i == 1) { $print(\"middle\"); } else if (i == 0) { $print(\"start\"); } else { $print(\"end\"); } i = i + 1; }"
+start
+middle
+end
+Result: #(struct:num-val 0)
+
+
+************ -> function tests
+Testing: "int getValue() {return 42;}; getValue();"
+Result: #(struct:num-val 42)
+
+Testing: "int add(int a, int b) {return a + b;}; add(10, 22);"
+Result: #(struct:num-val 32)
+
+Testing: "int getValue() { return 10; }; int double(int x) { return x * 2; }; double(getValue());"
+Result: #(struct:num-val 20)
+
+Testing: "int fact(int n) {if (n == 0) {return 1;} else {return fact(n - 1) * n;}}; fact(6);"
+Result: #(struct:num-val 720)
+
+
+************ -> list tests
+Testing: "list emptylist;"
+Result: #(struct:list-val ())
+
+Testing: "list list123; $push(list123, 1); $push(list123, 2); $push(list123, 3); list123;"
+Result: #(struct:list-val (#(struct:num-val 1) #(struct:num-val 2) #(struct:num-val 3)))
+
+Testing: "list listpop; $push(listpop, 1); $push(listpop, 2); $push(listpop, 3); $pop(listpop); listpop;"
+Result: #(struct:list-val (#(struct:num-val 1) #(struct:num-val 2)))
+
+Testing: "list list123; $push(list123, 1); $push(list123, 2); $push(list123, 3); $get(list123, 1);"
+Result: #(struct:num-val 2)
+
+Testing: "list list173; $push(list173, 1); $push(list173, 2); $push(list173, 3); $set(list173, 1, 7); list173;"
+Result: #(struct:list-val (#(struct:num-val 1) #(struct:num-val 7) #(struct:num-val 3)))
+
+
+************ -> $size tests
+Testing: "list empty; $print($size(empty));"
+0
+Result: #(struct:num-val 0)
+
+Testing: "list numbers; $push(numbers, 1); $push(numbers, 2); $print($size(numbers));"
+2
+Result: #(struct:num-val 2)
+
+
+************ -> $tochars tests
+Testing: "string s = \"abc\"; list chars = $tocharlist(s); $print(chars);"
+[a, b, c]
+Result: #(struct:list-val (#(struct:char-val "a") #(struct:char-val "b") #(struct:char-val "c")))
+
+Testing: "string empty = \"\"; list emptyChars = $tocharlist(empty); $print(emptyChars);"
+[]
+Result: #(struct:list-val ())
+
+Testing: "string single = \"x\"; list singleChar = $tocharlist(single); $print(singleChar);"
+[x]
+Result: #(struct:list-val (#(struct:char-val "x")))
+
+Testing: "string message = \"Hello World\"; list messageChars = $tocharlist(message); $print(messageChars);"
+[H, e, l, l, o,  , W, o, r, l, d]
+Result: #(struct:list-val (#(struct:char-val "H") #(struct:char-val "e") #(struct:char-val "l") #(struct:char-val "l") #(struct:char-val "o") #(struct:char-val " ") #(struct:char-val "W") #(struct:char-val "o") #(struct:char-val "r") #(struct:char-val "l") #(struct:char-val "d")))
+
+Testing: "string special = \"123!@#\"; list specialChars = $tocharlist(special); $print(specialChars);"
+[1, 2, 3, !, @, #]
+Result: #(struct:list-val (#(struct:char-val "1") #(struct:char-val "2") #(struct:char-val "3") #(struct:char-val "!") #(struct:char-val "@") #(struct:char-val "#")))
+
+Testing: "$print($tocharlist(\"test\"));"
+[t, e, s, t]
+Result: #(struct:list-val (#(struct:char-val "t") #(struct:char-val "e") #(struct:char-val "s") #(struct:char-val "t")))
+
+Testing: "string text = \"racket\"; $print($tocharlist(text));"
+[r, a, c, k, e, t]
+Result: #(struct:list-val (#(struct:char-val "r") #(struct:char-val "a") #(struct:char-val "c") #(struct:char-val "k") #(struct:char-val "e") #(struct:char-val "t")))
+
+Testing: "string word = \"hi\"; list letters = $tocharlist(word); $print($get(letters, 0)); $print($get(letters, 1));"
+h
+i
+Result: #(struct:char-val "i")
+
+Testing: "string original = \"abc\"; list chars = $tocharlist(original); $set(chars, 1, 'X'); $print(chars);"
+[a, X, c]
+Result: #(struct:list-val (#(struct:char-val "a") #(struct:char-val "X") #(struct:char-val "c")))
+
+Testing: "string base = \"ab\"; list chars = $tocharlist(base); $push(chars, 'c'); $print(chars);"
+[a, b, c]
+Result: #(struct:list-val (#(struct:char-val "a") #(struct:char-val "b") #(struct:char-val "c")))
+
+
+Yayyyyyy

@@ -1,0 +1,75 @@
+* Test: int x = 10; string s = "hi"; int y = x + 5;
+Typecheck result: #t
+* Test: float f = 1.5; int i = 2; float r = f + i;
+Typecheck result: #t
+* Test: int a; float b; bool c; string t; char ch; list L;
+Typecheck result: #t
+* Test: string s = 5;
+Error: type-error: type mismatch in declaration of s: declared string but initializer has int
+* Test: bool b = 1;
+Error: type-error: type mismatch in declaration of b: declared bool but initializer has int
+* Test: $print(u);
+Error: type-error: unbound identifier u
+* Test: int x = 1; $print(y + x);
+Error: type-error: unbound identifier y
+* Test: int x = 5; x = x + 1;
+Typecheck result: #t
+* Test: int x = 5; x = "hello";
+Error: type-error: assignment type mismatch for x: expected int got string
+* Test: int a = 5; int b = 2; int c = a % b;
+Typecheck result: #t
+* Test: int a = 5; float b = 2.0; float c = a / b;
+Typecheck result: #t
+* Test: int a = 5; string s = "s"; int z = a + s;
+Error: type-error: invalid '+' operands: int and string
+* Test: int x = 1; bool t = x < 3;
+Typecheck result: #t
+* Test: string s = "a"; bool t = s == "b";
+Typecheck result: #t
+* Test: int x = 1; bool bad = x && true;
+Error: type-error: && requires bools, got int and bool
+* Test: int a = 3; int b = 4; int d = a & b;
+Typecheck result: #t
+* Test: float f = 1.0; int x = f & 1;
+Error: type-error: bitwise operations require ints, got float and int
+* Test: if (true) { int x = 1; }
+Typecheck result: #t
+* Test: if (1) { int x = 1; }
+Error: type-error: if condition must be bool, got int
+* Test: while (false) { int x = 0; }
+Typecheck result: #t
+* Test: while (0) { int x = 0; }
+Error: type-error: while condition must be bool, got int
+* Test: int id(int x) { return x; }; int r = id(5);
+Typecheck result: #t
+* Test: int id(int x) { return x; }; int r = id(true);
+Error: type-error: argument type mismatch in call to id: expected int got bool
+* Test: int add(int a, int b) { return a + b; }; int r = add(1);
+Error: type-error: argument count mismatch in call to add: expected 2 got 1
+* Test: int add(int a, int b) { return a + b; }; int r = add(1, 2, 3);
+Error: type-error: argument count mismatch in call to add: expected 2 got 3
+* Test: int fact(int n) { if (n == 0) { return 1; } else { return n * fact(n - 1); } };
+Typecheck result: #t
+* Test: int add(int a, int b) { return a + b; }; int twice(int x){ return add(x,x); }; int r = twice(3);
+Typecheck result: #t
+* Test: int wrong() { return true; };
+Typecheck result: #t
+* Test: list a; $push(a, 1); $push(a, 2); $print($get(a, 0));
+Typecheck result: #t
+* Test: $push(b, 1);
+Typecheck result: #t
+* Test: list x; $print($get(x, 0));
+Typecheck result: #t
+* Test: list L; $push(L, 1); $set(L, 0, 5); $pop(L); $size(L);
+Typecheck result: #t
+* Test: string s = "hello"; list cs = $tocharlist(s);
+Typecheck result: #t
+* Test: char c = 'a'; int bad = c + 1;
+Error: type-error: invalid '+' operands: char and int
+* Test: int x = -5 + 10;
+Typecheck result: #t
+* Test: float x = -5.5 + 1.2;
+Typecheck result: #t
+* Test: bool b = !true;
+Typecheck result: #t
+#t

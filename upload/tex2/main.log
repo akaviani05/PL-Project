@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.8.25)  20 AUG 2025 18:56
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.8.25)  21 AUG 2025 01:26
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -224,99 +224,191 @@ File: xetex.def 2022/09/22 v5.0n Graphics/color driver for xetex
 ))
 \Gin@req@height=\dimen154
 \Gin@req@width=\dimen155
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/tocloft/tocloft.sty
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has section divisions on input line 51.
+\cftparskip=\skip54
+\cftbeforetoctitleskip=\skip55
+\cftaftertoctitleskip=\skip56
+\cftbeforepartskip=\skip57
+\cftpartnumwidth=\skip58
+\cftpartindent=\skip59
+\cftbeforesecskip=\skip60
+\cftsecindent=\skip61
+\cftsecnumwidth=\skip62
+\cftbeforesubsecskip=\skip63
+\cftsubsecindent=\skip64
+\cftsubsecnumwidth=\skip65
+\cftbeforesubsubsecskip=\skip66
+\cftsubsubsecindent=\skip67
+\cftsubsubsecnumwidth=\skip68
+\cftbeforeparaskip=\skip69
+\cftparaindent=\skip70
+\cftparanumwidth=\skip71
+\cftbeforesubparaskip=\skip72
+\cftsubparaindent=\skip73
+\cftsubparanumwidth=\skip74
+\cftbeforeloftitleskip=\skip75
+\cftafterloftitleskip=\skip76
+\cftbeforefigskip=\skip77
+\cftfigindent=\skip78
+\cftfignumwidth=\skip79
+\c@lofdepth=\count284
+\c@lotdepth=\count285
+\cftbeforelottitleskip=\skip80
+\cftafterlottitleskip=\skip81
+\cftbeforetabskip=\skip82
+\cfttabindent=\skip83
+\cfttabnumwidth=\skip84
 ) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/ptext/ptext.sty
 Package: ptext 2013/04/28 v1.1 A package similar to the lipsum package for the Persian language with 100 paragraphs of the Shahnameh
  (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/biditools.sty
 Package: biditools 2022/06/15 v2.3 Programming tools for bidi package
 \@bidi@envbody=\toks23
 \@bidi@emptytoks=\toks24
-\bidi@poscount=\count284
-\bidi@tempcountb=\count285
+\bidi@poscount=\count286
+\bidi@tempcountb=\count287
 \bidi@temptoksa=\toks25
 \bidi@temptoksb=\toks26
-\bidi@dummies=\count286
+\bidi@dummies=\count288
 \bidi@are@these@correct=\toks27
 \bidi@toks@lista=\toks28
 \bidi@toks@listb=\toks29
-\bidi@stack@length=\count287
+\bidi@stack@length=\count289
 \bidi@empty@stack=\toks30
-\bidi@looprepeat@depth=\count288
+\bidi@looprepeat@depth=\count290
 )
-\c@pte@count=\count289
+\c@pte@count=\count291
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/placeins/placeins.sty
 Package: placeins 2005/04/18  v 2.2
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: xetex.def on input line 274.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
+Package xcolor Info: Model `RGB' extended on input line 1366.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1368.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count292
+\float@exts=\toks31
+\float@box=\box54
+\@float@everytoks=\toks32
+\@floatcapt=\box55
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip85
+\fb@frw=\dimen156
+\fb@frh=\dimen157
+\FrameRule=\dimen158
+\FrameSep=\dimen159
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/lineno/lineno.sty
+Package: lineno 2023/05/20 line numbers on paragraphs v5.3
+Invalid UTF-8 byte or sequence at line 292 replaced by U+FFFD.
+\linenopenalty=\count293
+\output=\toks33
+\linenoprevgraf=\count294
+\linenumbersep=\dimen160
+\linenumberwidth=\dimen161
+\c@linenumber=\count295
+\c@pagewiselinenumber=\count296
+\c@LN@truepage=\count297
+\c@internallinenumber=\count298
+\c@internallinenumbers=\count299
+\quotelinenumbersep=\dimen162
+\bframerule=\dimen163
+\bframesep=\dimen164
+\bframebox=\box56
+\linenoamsmath@ams@eqpen=\count300
+LaTeX Info: Redefining \\ on input line 3180.
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2024/01/20 4.5c verbatim text (tvz,hv)
+\FV@CodeLineNo=\count301
+\FV@InFile=\read2
+\FV@TabBox=\box57
+\c@FancyVerbLine=\count302
+\FV@StepNumber=\count303
+\FV@OutFile=\write3
 ) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/xepersian/xepersian.sty
 Package: xepersian 2023/08/30 v25.0 (Release Women, Life, and Freedom) Persian typesetting in XeLaTeX
  (/usr/local/texlive/2024/texmf-dist/tex/latex/fontspec/fontspec.sty (/usr/local/texlive/2024/texmf-dist/tex/latex/l3packages/xparse/xparse.sty (/usr/local/texlive/2024/texmf-dist/tex/latex/l3kernel/expl3.sty
 Package: expl3 2024-02-20 L3 programming layer (loader) 
  (/usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
 File: l3backend-xetex.def 2024-02-20 L3 backend support: XeTeX
-\g__graphics_track_int=\count290
-\l__pdf_internal_box=\box54
-\g__pdf_backend_object_int=\count291
-\g__pdf_backend_annotation_int=\count292
-\g__pdf_backend_link_int=\count293
+\g__graphics_track_int=\count304
+\l__pdf_internal_box=\box58
+\g__pdf_backend_object_int=\count305
+\g__pdf_backend_annotation_int=\count306
+\g__pdf_backend_link_int=\count307
 ))
 Package: xparse 2024-02-18 L3 Experimental document command parser
 )
 Package: fontspec 2024/02/13 v2.9a Font selection for XeLaTeX and LuaLaTeX
  (/usr/local/texlive/2024/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
 Package: fontspec-xetex 2024/02/13 v2.9a Font selection for XeLaTeX and LuaLaTeX
-\l__fontspec_script_int=\count294
-\l__fontspec_language_int=\count295
-\l__fontspec_strnum_int=\count296
-\l__fontspec_tmp_int=\count297
-\l__fontspec_tmpa_int=\count298
-\l__fontspec_tmpb_int=\count299
-\l__fontspec_tmpc_int=\count300
-\l__fontspec_em_int=\count301
-\l__fontspec_emdef_int=\count302
-\l__fontspec_strong_int=\count303
-\l__fontspec_strongdef_int=\count304
-\l__fontspec_tmpa_dim=\dimen156
-\l__fontspec_tmpb_dim=\dimen157
-\l__fontspec_tmpc_dim=\dimen158
+\l__fontspec_script_int=\count308
+\l__fontspec_language_int=\count309
+\l__fontspec_strnum_int=\count310
+\l__fontspec_tmp_int=\count311
+\l__fontspec_tmpa_int=\count312
+\l__fontspec_tmpb_int=\count313
+\l__fontspec_tmpc_int=\count314
+\l__fontspec_em_int=\count315
+\l__fontspec_emdef_int=\count316
+\l__fontspec_strong_int=\count317
+\l__fontspec_strongdef_int=\count318
+\l__fontspec_tmpa_dim=\dimen165
+\l__fontspec_tmpb_dim=\dimen166
+\l__fontspec_tmpc_dim=\dimen167
  (/usr/local/texlive/2024/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/fontspec/fontspec.cfg))) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/xepersian/xepersian-persiancal.sty
 Package: xepersian-persiancal 2012/07/25 v0.2 provides Persian calendar
-\XePersian@i=\count305
-\XePersian@y=\count306
-\XePersian@m=\count307
-\XePersian@d=\count308
-\XePersian@latini=\count309
-\XePersian@persiani=\count310
-\XePersian@latinii=\count311
-\XePersian@persianii=\count312
-\XePersian@latiniii=\count313
-\XePersian@persianiii=\count314
-\XePersian@latiniv=\count315
-\XePersian@persianiv=\count316
-\XePersian@latinv=\count317
-\XePersian@persianv=\count318
-\XePersian@latinvi=\count319
-\XePersian@persianvi=\count320
-\XePersian@latinvii=\count321
-\XePersian@persianvii=\count322
-\XePersian@latinviii=\count323
-\XePersian@persianviii=\count324
-\XePersian@latinix=\count325
-\XePersian@persianix=\count326
-\XePersian@latinx=\count327
-\XePersian@persianx=\count328
-\XePersian@latinxi=\count329
-\XePersian@persianxi=\count330
-\XePersian@latinxii=\count331
-\XePersian@persianxii=\count332
-\XePersian@persianxiii=\count333
-\XePersian@temp=\count334
-\XePersian@temptwo=\count335
-\XePersian@tempthree=\count336
-\XePersian@yModHundred=\count337
-\XePersian@thirtytwo=\count338
-\XePersian@dn=\count339
-\XePersian@sn=\count340
-\XePersian@mminusone=\count341
+\XePersian@i=\count319
+\XePersian@y=\count320
+\XePersian@m=\count321
+\XePersian@d=\count322
+\XePersian@latini=\count323
+\XePersian@persiani=\count324
+\XePersian@latinii=\count325
+\XePersian@persianii=\count326
+\XePersian@latiniii=\count327
+\XePersian@persianiii=\count328
+\XePersian@latiniv=\count329
+\XePersian@persianiv=\count330
+\XePersian@latinv=\count331
+\XePersian@persianv=\count332
+\XePersian@latinvi=\count333
+\XePersian@persianvi=\count334
+\XePersian@latinvii=\count335
+\XePersian@persianvii=\count336
+\XePersian@latinviii=\count337
+\XePersian@persianviii=\count338
+\XePersian@latinix=\count339
+\XePersian@persianix=\count340
+\XePersian@latinx=\count341
+\XePersian@persianx=\count342
+\XePersian@latinxi=\count343
+\XePersian@persianxi=\count344
+\XePersian@latinxii=\count345
+\XePersian@persianxii=\count346
+\XePersian@persianxiii=\count347
+\XePersian@temp=\count348
+\XePersian@temptwo=\count349
+\XePersian@tempthree=\count350
+\XePersian@yModHundred=\count351
+\XePersian@thirtytwo=\count352
+\XePersian@dn=\count353
+\XePersian@sn=\count354
+\XePersian@mminusone=\count355
 ) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/xepersian/xepersian-mathdigitspec.sty
 Package: xepersian-mathdigitspec 2022/05/20 v1.2.0 Unicode Persian math digits in XeLaTeX
 ) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/bidi.sty
@@ -360,40 +452,55 @@ Package zref Info: New property list: main on input line 767.
 Package zref Info: New property: default on input line 768.
 Package zref Info: New property: page on input line 769.
 )
-\c@abspage=\count342
+\c@abspage=\count356
 Package zref Info: New property: abspage on input line 67.
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
  (/usr/local/texlive/2024/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/usr/local/texlive/2024/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks31
-\XKV@tempa@toks=\toks32
+\XKV@toks=\toks34
+\XKV@tempa@toks=\toks35
 )
-\XKV@depth=\count343
+\XKV@depth=\count357
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 \@bidi@copyins@=\insert252
  (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/latex-xetex-bidi.def
 File: latex-xetex-bidi.def 2022/07/04 v1.4.9 bidi adaptations for `latex.ltx' for XeTeX engine
-\bidi@n@everypar=\toks33
-\bidi@column@check@number=\count344
+\bidi@n@everypar=\toks36
+\bidi@column@check@number=\count358
  (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/footnote-xetex-bidi.def
 File: footnote-xetex-bidi.def 2023/01/18 v1.2 bidi footnote macros for XeTeX engine
-\c@footdir@label=\count345
-\footdir@toks=\toks34
+\c@footdir@label=\count359
+\footdir@toks=\toks37
 ) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/article-xetex-bidi.def
 File: article-xetex-bidi.def 2017/06/09 v0.6 bidi adaptations for standard article class for XeTeX engine
 ) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/amsmath-xetex-bidi.def
 File: amsmath-xetex-bidi.def 2020/05/16 v1.2 bidi adaptations for amsmath package for XeTeX engine
 ) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/amstext-xetex-bidi.def
 File: amstext-xetex-bidi.def 2016/09/12 v0.2 bidi adaptations for amstext package for XeTeX engine
+) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/color-xetex-bidi.def
+File: color-xetex-bidi.def 2013/04/08 v0.2 bidi adaptations for color package for XeTeX engine
+LaTeX Info: Redefining \color on input line 49.
+) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/xcolor-xetex-bidi.def
+File: xcolor-xetex-bidi.def 2022/06/13 v0.3 bidi adaptations for xcolor package for XeTeX engine
+LaTeX Info: Redefining \color on input line 48.
+LaTeX Info: Redefining \bidicolor on input line 91.
+) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/float-xetex-bidi.def
+File: float-xetex-bidi.def 2013/04/04 v0.2 bidi adaptations for float package for XeTeX engine
 ) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/graphicx-xetex-bidi.def
 File: graphicx-xetex-bidi.def 2017/06/17 v0.5 bidi adaptations for graphicx package for XeTeX engine
 ) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/hyperref-xetex-bidi.def
 File: hyperref-xetex-bidi.def 2018/11/11 v1.1 bidi adaptations for hyperref package for XeTeX engine
+) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/framed-xetex-bidi.def
+File: framed-xetex-bidi.def 2012/06/05 v0.3 bidi adaptations for framed package for XeTeX engine
+) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/lineno-xetex-bidi.def
+File: lineno-xetex-bidi.def 2018/01/28 v0.2 bidi adaptations for lineno package for XeTeX engine
+) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/tocloft-xetex-bidi.def
+File: tocloft-xetex-bidi.def 2023/08/02 v0.3 bidi adaptations for tocloft package for XeTeX engine
 )) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/bidi/loadingorder-xetex-bidi.def
 File: loadingorder-xetex-bidi.def 2017/12/29 v0.97 making sure that bidi is the last package loaded
 )
-\bidi@digits=\count346
+\bidi@digits=\count360
 \bidi@digits@charclass=\XeTeXcharclass1
 \bidi@sepmark@charclass=\XeTeXcharclass2
 )
@@ -422,15 +529,19 @@ File: loadingorder-xetex-bidi.def 2017/12/29 v0.97 making sure that bidi is the 
 * Primary author of xepersian package: Vafa Khalighi.
 * 
 ****************************************************
-\xepersian@tcl=\count347
-\xepersian@ilg=\dimen159
-\xepersian@strutilg=\dimen160
+\xepersian@tcl=\count361
+\xepersian@ilg=\dimen168
+\xepersian@strutilg=\dimen169
 (/usr/local/texlive/2024/texmf-dist/tex/xelatex/xepersian/loadingorder-xepersian.def
 File: loadingorder-xepersian.def 2018/09/29 v0.5 making sure that xepersian is the last package loaded
 ) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/xepersian/footnote-xepersian.def
 File: footnote-xepersian.def 2017/08/09 v0.6 footnote macros for xepersian package
+) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/xepersian/framed-xepersian.def
+File: framed-xepersian.def 2012/06/05 v0.1 xepersian adaptations for framed package for XeTeX engine
 ) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/xepersian/hyperref-xepersian.def
 File: hyperref-xepersian.def 2022/10/30 v0.8 xepersian adaptations for hyperref package
+) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/xepersian/tocloft-xepersian.def
+File: tocloft-xepersian.def 2010/07/25 v0.1 bilingual captions for tocloft package
 ) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/xepersian/url-xepersian.def
 File: url-xepersian.def 2022/02/18 v0.1 adaptations for url package
 ) (/usr/local/texlive/2024/texmf-dist/tex/xelatex/xepersian/article-xepersian.def
@@ -469,7 +580,76 @@ Package fontspec Info: Font family 'lmroman10-regular(0)' created for font
 (fontspec)             - 'bold slanted small caps'  (b/scsl) with NFSS spec.:
 (fontspec)             <->"[lmromancaps10-regular]/OT:script=latn;language=dflt;mapping=tex-text;"
 
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/minted/minted.sty
+Package: minted 2023/12/18 v2.9 Yet another Pygments shim for LaTeX
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/fvextra/fvextra.sty
+Package: fvextra 2023/11/28 v1.6.1 fvextra - extensions and patches for fancyvrb
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/upquote/upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+))
+\c@FancyVerbWriteLine=\count362
+\c@FancyVerbBufferIndex=\count363
+\c@FancyVerbBufferLength=\count364
+\c@FancyVerbBufferLine=\count365
+\c@FV@oldbufferlength=\count366
+\c@FV@TrueTabGroupLevel=\count367
+\c@FV@TrueTabCounter=\count368
+\FV@TabBox@Group=\box59
+\FV@TmpLength=\skip86
+\c@FV@HighlightLinesStart=\count369
+\c@FV@HighlightLinesStop=\count370
+\FV@LoopCount=\count371
+\FV@NCharsBox=\box60
+\FV@BreakIndent=\dimen170
+\FV@BreakIndentNChars=\count372
+\FV@BreakSymbolSepLeft=\dimen171
+\FV@BreakSymbolSepLeftNChars=\count373
+\FV@BreakSymbolSepRight=\dimen172
+\FV@BreakSymbolSepRightNChars=\count374
+\FV@BreakSymbolIndentLeft=\dimen173
+\FV@BreakSymbolIndentLeftNChars=\count375
+\FV@BreakSymbolIndentRight=\dimen174
+\FV@BreakSymbolIndentRightNChars=\count376
+\c@FancyVerbLineBreakLast=\count377
+\FV@LineBox=\box61
+\FV@LineIndentBox=\box62
+\c@FV@BreakBufferDepth=\count378
+\FV@LineWidth=\dimen175
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/tools/shellesc.sty
+Package: shellesc 2023/07/08 v1.0d unified shell escape interface for LaTeX
+Package shellesc Info: Unrestricted shell escape enabled on input line 75.
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/ifplatform/ifplatform.sty
+Package: ifplatform 2017/10/13 v0.4a Testing for the operating system
+ (/usr/local/texlive/2024/texmf-dist/tex/generic/catchfile/catchfile.sty
+Package: catchfile 2019/12/09 v1.8 Catch the contents of a file (HO)
+) (/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/ifluatex.sty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 )
+runsystem(uname -s > "main.w18")...executed.
+
+ (./main.w18)
+runsystem(rm -- "main.w18")...executed.
+
+) (/usr/local/texlive/2024/texmf-dist/tex/generic/xstring/xstring.sty (/usr/local/texlive/2024/texmf-dist/tex/generic/xstring/xstring.tex
+\xs_counta=\count379
+\xs_countb=\count380
+)
+Package: xstring 2023/08/22 v1.86 String manipulations (CT)
+)
+\minted@appexistsfile=\read3
+\minted@bgbox=\box63
+\minted@code=\write4
+\c@minted@FancyVerbLineTemp=\count381
+\c@minted@pygmentizecounter=\count382
+\@float@every@listing=\toks38
+\c@listing=\count383
+)
+runsystem(mkdir -p _minted-main)...executed.
+
 
 Package fontspec Info: Font family 'Yas(0)' created for font 'Yas' with
 (fontspec)             options
@@ -511,75 +691,70 @@ Package fontspec Info: Font family 'Yas(1)' created for font 'Yas' with
 (fontspec)             <->"Yas/BI/OT:script=latn;language=dflt;mapping=persian-tex-text;"
 (fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
 
-Package xepersian-mathdigitspec Info: DefiningthedefaultPersianmathdigitsfontas'Yas' on input line 9.
+Package xepersian-mathdigitspec Info: DefiningthedefaultPersianmathdigitsfontas'Yas' on input line 17.
 \symOPERATORS=\mathgroup6
 \symnew@mathbf@font@digits=\mathgroup7
 \symnew@mathit@font@digits=\mathgroup8
 \symnew@mathrm@font@digits=\mathgroup9
-Package hyperref Info: Option `colorlinks' set `true' on input line 15.
+Package hyperref Info: Option `colorlinks' set `true' on input line 23.
+runsystem(command -v pygmentize && touch main.aex)...executed.
+
+runsystem(rm main.aex)...executed.
+
  (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
-LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 24.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 31.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 31.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
- (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package color Info: Driver file: xetex.def on input line 149.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/graphics/mathcolor.ltx))
-Package hyperref Info: Link coloring ON on input line 24.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+Package hyperref Info: Link coloring ON on input line 31.
  (./main.out) (./main.out)
-\@outlinefile=\write3
-\openout3 = `main.out'.
+\@outlinefile=\write5
+\openout5 = `main.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 33.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 33.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `TU/Yas(1)/bx/n' in size <12> not available
-(Font)              Font shape `TU/Yas(1)/b/n' tried instead on input line 26.
+(Font)              Font shape `TU/Yas(1)/b/n' tried instead on input line 33.
 LaTeX Font Info:    Font shape `TU/Yas(1)/bx/n' in size <8> not available
-(Font)              Font shape `TU/Yas(1)/b/n' tried instead on input line 26.
+(Font)              Font shape `TU/Yas(1)/b/n' tried instead on input line 33.
 LaTeX Font Info:    Font shape `TU/Yas(1)/bx/n' in size <6> not available
-(Font)              Font shape `TU/Yas(1)/b/n' tried instead on input line 26.
+(Font)              Font shape `TU/Yas(1)/b/n' tried instead on input line 33.
  (./main.toc
-LaTeX Font Info:    Font shape `TU/Yas(1)/bx/n' in size <10> not available
-(Font)              Font shape `TU/Yas(1)/b/n' tried instead on input line 3.
-LaTeX Font Info:    Font shape `TU/Yas(1)/bx/n' in size <7> not available
-(Font)              Font shape `TU/Yas(1)/b/n' tried instead on input line 3.
+LaTeX Font Info:    Font shape `TU/Yas(1)/bx/n' in size <9> not available
+(Font)              Font shape `TU/Yas(1)/b/n' tried instead on input line 1.
 LaTeX Font Info:    Font shape `TU/Yas(1)/bx/n' in size <5> not available
-(Font)              Font shape `TU/Yas(1)/b/n' tried instead on input line 3.
+(Font)              Font shape `TU/Yas(1)/b/n' tried instead on input line 1.
 )
-\tf@toc=\write4
-\openout4 = `main.toc'.
+\tf@toc=\write6
+\openout6 = `main.toc'.
 
  [1
 
@@ -593,34 +768,105 @@ File: pics/func1.png Graphic file (type bmp)
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [5]
-File: pics/eopl.png Graphic file (type bmp)
-<pics/eopl.png>
+LaTeX Font Info:    Font shape `TU/Yas(1)/bx/n' in size <10> not available
+(Font)              Font shape `TU/Yas(1)/b/n' tried instead on input line 216.
+LaTeX Font Info:    Font shape `TU/Yas(1)/bx/n' in size <7> not available
+(Font)              Font shape `TU/Yas(1)/b/n' tried instead on input line 216.
+ [6]
+Overfull \hbox (4.43881pt too wide) in paragraph at lines 224--228
+[]\TU/Yas(0)/m/n/10 همچنین جدای از پیاده‌سازی برای []\TU/lmroman10-regular(0)/m/n/10 valud-of-x[] \TU/Yas(0)/m/n/10 برای گرامر‌هایی که ساپورت کرده‌ایم، برای پریدیفایند استیتمنت‌ها[]
+ []
+
+File: pics/t1.png Graphic file (type bmp)
+<pics/t1.png>
+File: pics/t2.png Graphic file (type bmp)
+<pics/t2.png>
+\openout3 = `main.pyg'.
+
+(./_minted-main/default.pygstyle) (./_minted-main/26D5ACBB5255DC7709D7231A6C83DA7352B1E79E06992A61B2DC42338DE3D645.pygtex
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 2.
+ [7])
+File: pics/tif.png Graphic file (type bmp)
+<pics/tif.png>
+\openout3 = `main.pyg'.
+
+ (./_minted-main/401C68234DA770A1D08B922C58C2A10452B1E79E06992A61B2DC42338DE3D645.pygtex)
+File: pics/twhile.png Graphic file (type bmp)
+<pics/twhile.png>
+ [8]
+\openout3 = `main.pyg'.
+
+ (./_minted-main/AA827BDA2E59C3BF1774B072EA8B8D5C52B1E79E06992A61B2DC42338DE3D645.pygtex)
+File: pics/list.png Graphic file (type bmp)
+<pics/list.png>
+File: pics/tch.png Graphic file (type bmp)
+<pics/tch.png>
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+[9]
+File: pics/eopl.png Graphic file (type bmp)
+<pics/eopl.png>
 File: pics/error-tb.png Graphic file (type bmp)
 <pics/error-tb.png>
 
+
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[6] [7] [8
+[10]
+\openout3 = `main.pyg'.
 
-] (./main.aux)
+ (./_minted-main/0EABAD1C8F79CECEE9045648371A072E52B1E79E06992A61B2DC42338DE3D645.pygtex [11])
+File: pics/tbtc.png Graphic file (type bmp)
+<pics/tbtc.png>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+File: pics/basic.png Graphic file (type bmp)
+<pics/basic.png>
+File: pics/fibdp.png Graphic file (type bmp)
+<pics/fibdp.png>
+File: pics/fibdp.png Graphic file (type bmp)
+<pics/fibdp.png>
+File: pics/toupper.png Graphic file (type bmp)
+<pics/toupper.png>
+File: pics/test-check.png Graphic file (type bmp)
+<pics/test-check.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[12] [13] [14] [15] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 55D6AA38D060FBC7C4F6AB412B404290;3125.
+(rerunfilecheck)             Checksum: EA357791F29481E9A761BC024C653D6A;4991.
+runsystem(rm main.pyg)...executed.
+
  ) 
 Here is how much of TeX's memory you used:
- 14445 strings out of 474773
- 287232 string characters out of 5757724
- 1931839 words of memory out of 5000000
- 36314 multiletter control sequences out of 15000+600000
- 565173 words of font info for 113 fonts, out of 8000000 for 9000
+ 18475 strings out of 474773
+ 373520 string characters out of 5757724
+ 1939839 words of memory out of 5000000
+ 40214 multiletter control sequences out of 15000+600000
+ 566790 words of font info for 128 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 89i,8n,112p,1109b,359s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,8n,112p,1129b,832s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.xdv (8 pages, 104212 bytes).
+Output written on main.xdv (15 pages, 211328 bytes).
