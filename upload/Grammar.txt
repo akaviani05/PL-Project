@@ -1,0 +1,75 @@
+Spc -> Space | Tab | NewLine
+
+
+Program -> StatementSeq
+SimpleStatement -> VarDec | FunDec | Assignment | Expression | BreakStatement | ContinueStatement | ReturnStatemnt | PreDefinedStatement
+Statement -> SimpleStatement; | IfStatement | WhileStatement
+StatementSeq -> StatementSeq Statement | StatementSeq Scope | empty
+Scope -> { StatementSeq }
+Expression
+
+IfStatement -> if ( Expression ) Scope | if ( Expression ) Scope else Scope | if ( Expression ) Scope else IfStatement
+WhileStatement -> whExpSeqile ( Expression ) Scope
+
+Word -> "(a-z,A-Z,_)(a-z,A-Z,_,0-9)*"
+VarName -> Word
+FunName -> Word
+VarType -> int | float | string | char | bool | list
+
+VarTypeName -> VarType Spc VarName
+
+VarDec -> VarTypeName | VarTypeName = Expression
+
+VarSeq -> VarTypeName , VarSeq | VarTypeName
+
+FunDec -> VarType Spc FunName ( ) Scope | VarType Spc FunName ( VarSeq ) Scope
+
+ExpSeq -> Expression | Expression , ExpSeq
+
+FunCal -> FunName ( ExpSeq ) | FunName ( )
+
+BreakStatement -> break
+ContinueStatement -> continue
+ReturnStatemnt -> return | return Spc Expression
+
+Assignment -> VarName = Expression
+
+Op1 -> ! | ~
+Op2 -> * | / | %
+Op3 -> + | -
+Op4 -> <= | >= | < | > | == | !=
+Op5 -> & | ^ | |
+Op6 -> &&
+Op7 -> ||
+
+Exp0 -> Atom | ( EXP7 )
+Exp1 -> Op1 Exp0 | Exp0
+Exp2 -> Exp2 Op2 Exp1 | Exp1
+Exp3 -> Exp3 Op3 Exp2 | Exp2
+Exp4 -> Exp4 Op4 Exp3 | Exp3
+Exp5 -> Exp5 Op4 Exp4 | Exp4
+Exp6 -> Exp6 Op4 Exp5 | Exp5
+Exp7 -> Exp7 Op4 Exp6 | Exp6
+
+Expression -> Exp7
+
+Atom -> PreDefinedStatement | FunCal | VarName | Value
+
+Value -> BoolVal | IntVal | FloatVal | CharVal | StrVal | LstVal
+
+BoolVal -> false | true
+IntVal -> (+-)?(0-9)+
+FloatVal -> IntVal | (+-)?(0-9)*\.(0-9)+
+CharVal -> '.' | '\\.'
+StrVal -> "" | ".*(non \)"
+LstVal -> [ ValueSeq ]
+ValueSeq -> Value | Value , ValueSeq
+
+PreDefinedStatement = PrintStatement | InputStatement | GetStatement | SetStatement | PushStatement | PopStatement
+
+PrintStatement -> $print ( Expression )
+InputStatement -> $input ( VarName )
+GetStatement -> $get ( VarName , Expression )
+SetStatement -> $set ( VarName , Expression , Expression)
+PushStatement -> $push ( VarName , Expression)
+PopStatement -> $pop ( VarName )
