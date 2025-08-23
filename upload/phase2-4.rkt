@@ -34,7 +34,7 @@
         result))))
 
 ;;; READ: baraye in soal, fahmidim ye bug riz to $input darim(yekam sar type ha ahmagh bazi daravorde boodim) sare hamin majboor shodim voroodi ro predefined bezarim
-(run-demo "Date Formatter and Validator:"
+(run-demo "Dates"
           "
           
           list dates;
@@ -46,6 +46,9 @@
           $push(dates, \"20001231\");
           $push(dates, \"20250618\");
           
+          $push(dates, \"20250632\");
+         $push(dates, \"19701101\");
+          
           
 
           string concat(string a, string b) {
@@ -53,6 +56,7 @@
                 int sz = $size(cb);
                 int ind = 0;
                 string result = a;
+
                 while (ind < sz) {
                         result = result + $get(cb, ind);
                         ind = ind + 1;
