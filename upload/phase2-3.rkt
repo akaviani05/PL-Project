@@ -57,7 +57,6 @@
           bool still_empty = false;
           
           
-          // Check for 4 consecutive in rows
           i = 0;
           while (i < N) {
              int j = 0;
@@ -82,7 +81,6 @@
           char XX = 'X';
           char OO = 'O';
 
-          // Check for 4 consecutive in columns
           j = 0;
           while (j < N) {
              i = 0;
@@ -114,7 +112,6 @@
              j = j + 1;
           }
           
-          // Check main diagonals (top-left to bottom-right)
           i = 0;
           while (i < N - 3) {
              j = 0;
@@ -140,7 +137,6 @@
              i = i + 1;
           }
           
-          // Check anti-diagonals (top-right to bottom-left)
           i = 0;
           while (i < N - 3) {
              j = 3;
@@ -166,7 +162,6 @@
              i = i + 1;
           }
           
-          // Check for empty spaces
           i = 0;
           while (i < N) {
              j = 0;
@@ -186,7 +181,6 @@
           $print(o_win);
           $print(still_empty);
           
-          // Determine and print the result
           if (x_win && o_win) {
              $print(\"Somebody cheated!\");
           } else if (x_win) {
