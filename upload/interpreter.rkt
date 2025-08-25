@@ -530,24 +530,32 @@
       
       
       [(and (pair? expr) (eq? (car expr) '<=))
-       (let ((val1 (expval->num (value-of-expression (cadr expr) env)))
-             (val2 (expval->num (value-of-expression (caddr expr) env))))
-         (bool-val (<= val1 val2)))]
+       (let ((expval1 (value-of-expression (cadr expr) env))
+             (expval2 (value-of-expression (caddr expr) env)))
+         (let ((val1 (extract-numeric-value expval1))
+               (val2 (extract-numeric-value expval2)))
+           (bool-val (<= val1 val2))))]
       
       [(and (pair? expr) (eq? (car expr) '>=))
-       (let ((val1 (expval->num (value-of-expression (cadr expr) env)))
-             (val2 (expval->num (value-of-expression (caddr expr) env))))
-         (bool-val (>= val1 val2)))]
+       (let ((expval1 (value-of-expression (cadr expr) env))
+             (expval2 (value-of-expression (caddr expr) env)))
+         (let ((val1 (extract-numeric-value expval1))
+               (val2 (extract-numeric-value expval2)))
+           (bool-val (>= val1 val2))))]
       
       [(and (pair? expr) (eq? (car expr) '<))
-       (let ((val1 (expval->num (value-of-expression (cadr expr) env)))
-             (val2 (expval->num (value-of-expression (caddr expr) env))))
-         (bool-val (< val1 val2)))]
+       (let ((expval1 (value-of-expression (cadr expr) env))
+             (expval2 (value-of-expression (caddr expr) env)))
+         (let ((val1 (extract-numeric-value expval1))
+               (val2 (extract-numeric-value expval2)))
+           (bool-val (< val1 val2))))]
       
       [(and (pair? expr) (eq? (car expr) '>))
-       (let ((val1 (expval->num (value-of-expression (cadr expr) env)))
-             (val2 (expval->num (value-of-expression (caddr expr) env))))
-         (bool-val (> val1 val2)))]
+       (let ((expval1 (value-of-expression (cadr expr) env))
+             (expval2 (value-of-expression (caddr expr) env)))
+         (let ((val1 (extract-numeric-value expval1))
+               (val2 (extract-numeric-value expval2)))
+           (bool-val (> val1 val2))))]
       
       [(and (pair? expr) (eq? (car expr) '==))
        (let ((val1 (value-of-expression (cadr expr) env))
