@@ -5,39 +5,26 @@
 (require "parser.rkt")
 (require "datatypes.rkt")
 
-(define run-demo
-  (lambda (description source-code)
+(define run
+  (lambda (des source)
     (displayln "")
-    (displayln (format "=== ~a ===" description))
-    (displayln (format "Code: ~a" source-code))
+    (displayln (format "*** ~a" des))
+    (displayln (format "code: ~a" source))
     (displayln "Output:")
-    (let* ((input-port (open-input-string source-code))
+    (let* ((input-port (open-input-string source))
            (ast (full-parser (lambda () (full-lexer input-port)))))
       (let ((result (value-of-program ast)))
-        (displayln (format "Final Result: ~s" result))
+        (displayln (format "Final result: ~s" result))
         (with-handlers 
-          ([exn:fail? (lambda (e) (displayln (format "→ Raw: ~s" result)))])
-          (cond
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((num (expval->num result))) 
-                 (displayln (format "→ Integer: ~a" num)) #t)) #t]
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((bool (expval->bool result))) 
-                 (displayln (format "→ Boolean: ~a" bool)) #t)) #t]
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((str (expval->string result))) 
-                 (displayln (format "→ String: ~a" str)) #t)) #t]
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((fl (expval->float result))) 
-                 (displayln (format "→ Float: ~a" fl)) #t)) #t]
-            [else (displayln (format "→ Value: ~s" result))]))
+          ([exn:fail? (lambda (e) (displayln (format "wtf: ~s" result)))])
+          (displayln (format "result: ~s" result)))
         result))))
 
-(run-demo "Mentors"
+
+; READ: fahmidim roye bazi os ha ye moshkeli darim sar input, sare hamin input ro dasti bedid :) (beyin begin va end)
+
+(run "Mentors"
           "
-
-
-
             list create(int stuid, string first, string last, float avg, int parid) {
                 list stu;
                 $push(stu, stuid);
@@ -49,8 +36,7 @@
                 return stu;
             };
           
-            int n;
-            n = 7;
+          // BEGIN: inputs 
             list students;
             $push(students, create(402111111, \"person4\", \"test4\", 18.05, -1));
             $push(students, create(402222222, \"person5\", \"test5\", 18.29, -1));
@@ -59,7 +45,9 @@
             $push(students, create(99111111, \"person0\", \"test0\", 18.98, 403111111));
             $push(students, create(400111111, \"person1\", \"test1\", 18.12, 401111111));
             $push(students, create(400222222, \"person2\", \"test2\", 19, 402222222));
+        // END: inputs
 
+        int n = $size(students);
             int i = 1;
             while (i < n) {
                 int j = i - 1;

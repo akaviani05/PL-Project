@@ -113,8 +113,8 @@ State 0
 	STRVAL					reduce	3
 	TOCHARLIST					reduce	3
 	TILDE					reduce	3
-	g4257					goto	1
 	RETURN					reduce	3
+	g4257					goto	1
 	BOOL					reduce	3
 	CHARVAL					reduce	3
 	LIST					reduce	3
