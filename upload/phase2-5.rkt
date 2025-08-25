@@ -52,29 +52,30 @@
             int n;
             n = 7;
             list students;
+            $push(students, create(402111111, \"person4\", \"test4\", 18.05, -1));
+            $push(students, create(402222222, \"person5\", \"test5\", 18.29, -1));
+            $push(students, create(403111111, \"person6\", \"test6\", 14.84, -1));
+            $push(students, create(401111111, \"person3\", \"test3\", 19.72, 402111111));
             $push(students, create(99111111, \"person0\", \"test0\", 18.98, 403111111));
             $push(students, create(400111111, \"person1\", \"test1\", 18.12, 401111111));
             $push(students, create(400222222, \"person2\", \"test2\", 19, 402222222));
-            $push(students, create(401111111, \"person3\", \"test3\", 16.55, 402111111));
-            $push(students, create(402111111, \"person4\", \"test4\", 19.72, -1));
-            $push(students, create(402222222, \"person5\", \"test5\", 17.29, -1));
-            $push(students, create(403111111, \"person6\", \"test6\", 14.84, -1));
 
             int i = 1;
-//            while (i < n) {
-//                int j = i - 1;
-//                while (j >= 0) {
-//                    if ($get($get(students, j), 0) > $get($get(students, j + 1), 0)) {
-//                        list temp = $get(students, j);
-//                        $set(students, j, $get(students, j + 1));
-//                        $set(students, j + 1, temp);
-//                    } else {
-//                        j = -1;
-//                    }
-//                    j = j - 1;
-//                }
-//                i = i + 1;
-//            }
+            while (i < n) {
+                int j = i - 1;
+                while (j >= 0) {
+                    list prv = $get(students, j);
+                    list nxt = $get(students, j + 1);
+                    if ($get(prv, 0) > $get(nxt, 0)) {
+                        $set(students, j, nxt);
+                        $set(students, j + 1, prv);
+                    } else {
+                        j = 0;
+                    }
+                    j = j - 1;
+                }
+                i = i + 1;
+            }
 
             list get_student(list students, int id) {
                 int i = 0;
@@ -129,6 +130,7 @@
 
             list top_student = get_student(students, max_gpa_id);
             $print(concat(concat($get(top_student, 1), \" \"), $get(top_student, 2)));
+            $print(max_gpa);
 
 
                        
