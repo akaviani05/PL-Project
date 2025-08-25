@@ -5,68 +5,66 @@
 (require "parser.rkt")
 (require "datatypes.rkt")
 
-(define run-demo
-  (lambda (description source-code)
+(define run
+  (lambda (des source)
     (displayln "")
-    (displayln (format "=== ~a ===" description))
-    (displayln (format "Code: ~a" source-code))
+    (displayln (format "*** ~a" des))
+    (displayln (format "code: ~a" source))
     (displayln "Output:")
-    (let* ((input-port (open-input-string source-code))
+    (let* ((input-port (open-input-string source))
            (ast (full-parser (lambda () (full-lexer input-port)))))
       (let ((result (value-of-program ast)))
-        (displayln (format "Final Result: ~s" result))
+        (displayln (format "Final result: ~s" result))
         (with-handlers 
-          ([exn:fail? (lambda (e) (displayln (format "→ Raw: ~s" result)))])
-          (cond
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((num (expval->num result))) 
-                 (displayln (format "→ Integer: ~a" num)) #t)) #t]
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((bool (expval->bool result))) 
-                 (displayln (format "→ Boolean: ~a" bool)) #t)) #t]
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((str (expval->string result))) 
-                 (displayln (format "→ String: ~a" str)) #t)) #t]
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((fl (expval->float result))) 
-                 (displayln (format "→ Float: ~a" fl)) #t)) #t]
-            [else (displayln (format "→ Value: ~s" result))]))
+          ([exn:fail? (lambda (e) (displayln (format "wtf: ~s" result)))])
+          (displayln (format "result: ~s" result)))
         result))))
 
-(run-demo "odd even:"
-          "
-          $print(\"input n\");
-          int n;
-          $input(n);
 
+; READ: fahmidim roye bazi os ha ye moshkeli darim sar input, sare hamin input ro dasti bedid :) (beyin begin va end)
+
+(run "odd even:"
+          "
+          // BEGIN INPUTS
           list A;
           list B;
-          int ind = 0;
-          while (ind < n) {
-              int x;
-              $print(\"input one of the base10 numbers\");
-              $input(x);
-              $push(A, x);
-              ind = ind + 1;
-          }
+          $push(A, 7);
+          $push(A, 11);
+          $push(A, 20);
+          $push(A, 16);
+          $push(A, 14);
+          $push(A, 1);
 
-          $print(\"input m\");
-          int m;
-          $input(m);
+          $push(B, \"111\");
+          $push(B, \"10000\");
+          $push(B, \"10001001\");
+          $push(B, \"1011\");
+          $push(B, \"1100\");
+          $push(B, \"0\");
+
+          // END INPUTS
           
+          int m = $size(B);
+          int n = $size(A);
           int odds = 1;
           int evens = 1;
           ind = 0;
           while (ind < m) {
-              int x;
-              $print(\"input one of the base2 numbers\");
-              $input(x);
-
+              
+             //  $print(\"input one of the base2 numbers\");
+             // $input(x);
+              string x = $get(B, ind);
+              list lst = $tocharlist(x);
               int ans = 0;
               int base = 1;
-              while (x > 0) {
-                  ans = ans + (x % 10) * base;
-                  x = x / 10;
+              int sz = $size(lst);
+              int ind2 = 0;
+              while (ind2 < sz) {
+                  char c = $get(lst, sz - 1 - ind2);
+                  int val = 0;
+                  if (c == '1') {val = 1;}
+                  ans = ans + val * base;
+                  ind2 = ind2 + 1;
                   base = base * 2;
               }
 

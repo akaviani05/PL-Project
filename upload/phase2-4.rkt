@@ -5,38 +5,27 @@
 (require "parser.rkt")
 (require "datatypes.rkt")
 
-(define run-demo
-  (lambda (description source-code)
+(define run
+  (lambda (des source)
     (displayln "")
-    (displayln (format "=== ~a ===" description))
-    (displayln (format "Code: ~a" source-code))
+    (displayln (format "*** ~a" des))
+    (displayln (format "code: ~a" source))
     (displayln "Output:")
-    (let* ((input-port (open-input-string source-code))
+    (let* ((input-port (open-input-string source))
            (ast (full-parser (lambda () (full-lexer input-port)))))
       (let ((result (value-of-program ast)))
-        (displayln (format "Final Result: ~s" result))
+        (displayln (format "Final result: ~s" result))
         (with-handlers 
-          ([exn:fail? (lambda (e) (displayln (format "→ Raw: ~s" result)))])
-          (cond
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((num (expval->num result))) 
-                 (displayln (format "→ Integer: ~a" num)) #t)) #t]
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((bool (expval->bool result))) 
-                 (displayln (format "→ Boolean: ~a" bool)) #t)) #t]
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((str (expval->string result))) 
-                 (displayln (format "→ String: ~a" str)) #t)) #t]
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((fl (expval->float result))) 
-                 (displayln (format "→ Float: ~a" fl)) #t)) #t]
-            [else (displayln (format "→ Value: ~s" result))]))
+          ([exn:fail? (lambda (e) (displayln (format "wtf: ~s" result)))])
+          (displayln (format "result: ~s" result)))
         result))))
 
-;;; READ: baraye in soal, fahmidim ye bug riz to $input darim(yekam sar type ha ahmagh bazi daravorde boodim) sare hamin majboor shodim voroodi ro predefined bezarim
-(run-demo "Dates"
+
+; READ: fahmidim roye bazi os ha ye moshkeli darim sar input, sare hamin input ro dasti bedid :) (beyin begin va end)
+
+(run "dates:"
           "
-          
+          // BEGIN input 
           list dates;
           $push(dates, \"020250112\");
           $push(dates, \"20190418\");
@@ -46,8 +35,11 @@
           $push(dates, \"20001231\");
           $push(dates, \"20250618\");
           
+          // extra, remove if you want to run on doc's sample
           $push(dates, \"20250632\");
-         $push(dates, \"19701101\");
+          $push(dates, \"19701101\");
+
+         // END input
           
           
 

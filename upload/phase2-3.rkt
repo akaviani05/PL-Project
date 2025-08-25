@@ -5,47 +5,52 @@
 (require "parser.rkt")
 (require "datatypes.rkt")
 
-(define run-demo
-  (lambda (description source-code)
+(define run
+  (lambda (des source)
     (displayln "")
-    (displayln (format "=== ~a ===" description))
-    (displayln (format "Code: ~a" source-code))
+    (displayln (format "*** ~a" des))
+    (displayln (format "code: ~a" source))
     (displayln "Output:")
-    (let* ((input-port (open-input-string source-code))
+    (let* ((input-port (open-input-string source))
            (ast (full-parser (lambda () (full-lexer input-port)))))
       (let ((result (value-of-program ast)))
-        (displayln (format "Final Result: ~s" result))
+        (displayln (format "Final result: ~s" result))
         (with-handlers 
-          ([exn:fail? (lambda (e) (displayln (format "→ Raw: ~s" result)))])
-          (cond
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((num (expval->num result))) 
-                 (displayln (format "→ Integer: ~a" num)) #t)) #t]
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((bool (expval->bool result))) 
-                 (displayln (format "→ Boolean: ~a" bool)) #t)) #t]
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((str (expval->string result))) 
-                 (displayln (format "→ String: ~a" str)) #t)) #t]
-            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
-               (let ((fl (expval->float result))) 
-                 (displayln (format "→ Float: ~a" fl)) #t)) #t]
-            [else (displayln (format "→ Value: ~s" result))]))
+          ([exn:fail? (lambda (e) (displayln (format "wtf: ~s" result)))])
+          (displayln (format "result: ~s" result)))
         result))))
 
 
-(run-demo "XO Game:"
+; READ: fahmidim roye bazi os ha ye moshkeli darim sar input, sare hamin input ro dasti bedid :) (beyin begin va end)
+
+(run "XO:"
           "
-          $print(\"Input format for every row: CCCCCC (6 chars: -, X, or O)\");
+          // Input format for every row: CCCCCC (6 chars: -, X, or O)
+          // BEGIN INPUT
+          string row1 = \"-X--XO\";
+          string row2 = \"OOX--O\";
+          string row3 = \"--XX-O\";
+          string row4 = \"-XXOXO\";
+          string row5 = \"OO--X-\";
+          string row6 = \"------\";
+         // END INPUT
           list G;
-          int i = 0;
-          int N = 6;
-          while (i < N) {
-             string row;
-             $input(row);
-             $push(G, $tocharlist(row));
-             i = i + 1;
-          }
+          $push(G, $tocharlist(row1));
+          $push(G, $tocharlist(row2));
+          $push(G, $tocharlist(row3));
+          $push(G, $tocharlist(row4));
+          $push(G, $tocharlist(row5));
+          $push(G, $tocharlist(row6));
+          
+
+          // int i = 0;
+         int N = 6;
+         // while (i < N) {
+          //   string row;
+          //   $input(row);
+          //   $push(G, $tocharlist(row));
+          //   i = i + 1;
+         //  }
 
           bool x_win = false;
           bool o_win = false;
