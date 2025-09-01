@@ -37,6 +37,7 @@
             };
           
           // BEGIN: inputs 
+            int n = 400;
             list students;
             $push(students, create(402111111, \"person4\", \"test4\", 18.05, -1));
             $push(students, create(402222222, \"person5\", \"test5\", 18.29, -1));
@@ -47,9 +48,29 @@
             $push(students, create(400222222, \"person2\", \"test2\", 19, 402222222));
         // END: inputs
 
-        int n = $size(students);
+        int len(int x) {
+            int ans = 0;
+            int y = x;
+            while (y > 0) {
+                y = y / 10;
+                ans = ans + 1;
+            }
+
+            return ans;
+        };
+
+        int reduce(int tx, int mx) {
+            int x = tx;
+            while (len(x) > mx) {
+                x = x / 10;
+            }
+
+            return x;
+        };
+
+        int tn = $size(students);
             int i = 1;
-            while (i < n) {
+            while (i < tn) {
                 int j = i - 1;
                 while (j >= 0) {
                     list prv = $get(students, j);
@@ -79,11 +100,14 @@
             };
             int max_gpa_id = -1;
             float max_gpa = -1.0;
-            i = n - 1;
+            i = tn - 1;
+            int wtf = len(n);
+
             while (i >= 0) {
                 list student = $get(students, i);
                 float cnt = 0;
                 float gpa_sum = 0;
+                
                 if ($get(student, 4) != -1) {
                     list mentored = get_student(students, $get(student, 4));
                     cnt = 1 + $get(mentored, 5);
@@ -116,13 +140,10 @@
                 return result;
             };
 
+
             list top_student = get_student(students, max_gpa_id);
             $print(concat(concat($get(top_student, 1), \" \"), $get(top_student, 2)));
             $print(max_gpa);
-
-
-                       
-
           ")
 
 (displayln "\n=== Test completed ===")

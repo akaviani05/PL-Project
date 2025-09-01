@@ -1,4 +1,5 @@
 #lang racket
+;;; MAXIMA
 
 (require "interpreter.rkt")
 (require "lexer.rkt")
