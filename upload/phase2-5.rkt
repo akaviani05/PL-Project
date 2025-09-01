@@ -5,26 +5,39 @@
 (require "parser.rkt")
 (require "datatypes.rkt")
 
-(define run
-  (lambda (des source)
+(define run-demo
+  (lambda (description source-code)
     (displayln "")
-    (displayln (format "*** ~a" des))
-    (displayln (format "code: ~a" source))
+    (displayln (format "=== ~a ===" description))
+    (displayln (format "Code: ~a" source-code))
     (displayln "Output:")
-    (let* ((input-port (open-input-string source))
+    (let* ((input-port (open-input-string source-code))
            (ast (full-parser (lambda () (full-lexer input-port)))))
       (let ((result (value-of-program ast)))
-        (displayln (format "Final result: ~s" result))
+        (displayln (format "Final Result: ~s" result))
         (with-handlers 
-          ([exn:fail? (lambda (e) (displayln (format "wtf: ~s" result)))])
-          (displayln (format "result: ~s" result)))
+          ([exn:fail? (lambda (e) (displayln (format "→ Raw: ~s" result)))])
+          (cond
+            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
+               (let ((num (expval->num result))) 
+                 (displayln (format "→ Integer: ~a" num)) #t)) #t]
+            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
+               (let ((bool (expval->bool result))) 
+                 (displayln (format "→ Boolean: ~a" bool)) #t)) #t]
+            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
+               (let ((str (expval->string result))) 
+                 (displayln (format "→ String: ~a" str)) #t)) #t]
+            [(with-handlers ([exn:fail? (lambda (e) #f)]) 
+               (let ((fl (expval->float result))) 
+                 (displayln (format "→ Float: ~a" fl)) #t)) #t]
+            [else (displayln (format "→ Value: ~s" result))]))
         result))))
 
-
-; READ: fahmidim roye bazi os ha ye moshkeli darim sar input, sare hamin input ro dasti bedid :) (beyin begin va end)
-
-(run "Mentors"
+(run-demo "Mentors"
           "
+
+
+
             list create(int stuid, string first, string last, float avg, int parid) {
                 list stu;
                 $push(stu, stuid);
@@ -36,8 +49,8 @@
                 return stu;
             };
           
-          // BEGIN: inputs 
-            int n = 400;
+            int n;
+            n = 400;
             list students;
             $push(students, create(402111111, \"person4\", \"test4\", 18.05, -1));
             $push(students, create(402222222, \"person5\", \"test5\", 18.29, -1));
@@ -46,29 +59,8 @@
             $push(students, create(99111111, \"person0\", \"test0\", 18.98, 403111111));
             $push(students, create(400111111, \"person1\", \"test1\", 18.12, 401111111));
             $push(students, create(400222222, \"person2\", \"test2\", 19, 402222222));
-        // END: inputs
 
-        int len(int x) {
-            int ans = 0;
-            int y = x;
-            while (y > 0) {
-                y = y / 10;
-                ans = ans + 1;
-            }
-
-            return ans;
-        };
-
-        int reduce(int tx, int mx) {
-            int x = tx;
-            while (len(x) > mx) {
-                x = x / 10;
-            }
-
-            return x;
-        };
-
-        int tn = $size(students);
+            int tn = $size(students);
             int i = 1;
             while (i < tn) {
                 int j = i - 1;
@@ -101,23 +93,23 @@
             int max_gpa_id = -1;
             float max_gpa = -1.0;
             i = tn - 1;
-            int wtf = len(n);
-
             while (i >= 0) {
                 list student = $get(students, i);
                 float cnt = 0;
                 float gpa_sum = 0;
-                
                 if ($get(student, 4) != -1) {
                     list mentored = get_student(students, $get(student, 4));
                     cnt = 1 + $get(mentored, 5);
                     gpa_sum = $get(mentored, 3) + $get(mentored, 6);
                 }
-                if (cnt > 0) {
-                    float avg = gpa_sum / cnt;
-                    if (avg > max_gpa) {
-                        max_gpa = avg;
-                        max_gpa_id = $get(student, 0);
+                int year = $get(student, 0) / 1000000;
+                if (year == n) {
+                    if (cnt > 0) {
+                        float avg = gpa_sum / cnt;
+                        if (avg > max_gpa) {
+                            max_gpa = avg;
+                            max_gpa_id = $get(student, 0);
+                        }
                     }
                 }
                 $push(student, cnt);
@@ -140,10 +132,13 @@
                 return result;
             };
 
-
             list top_student = get_student(students, max_gpa_id);
             $print(concat(concat($get(top_student, 1), \" \"), $get(top_student, 2)));
             $print(max_gpa);
+
+
+                       
+
           ")
 
 (displayln "\n=== Test completed ===")
